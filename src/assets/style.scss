@@ -7,6 +7,9 @@
     --color-1-rgb: 17 17 17;
     --color-2: #ffffff;
     --color-2-rgb: 255 255 255;
+    @media (max-width: 767px){
+        --h-height: 60px;
+    }
 }
 
 @mixin no-appearance {
@@ -89,6 +92,24 @@ button {
     cursor: pointer;
 }
 
+h1 {
+    font-size: 2em;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 1em;
+}
+h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 1em;
+}
+h3 {
+    font-size: 1.25em;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 1em;
+}
 .fs {
     &-08 {font-size: 0.8em;}
     &-09 {font-size: 0.9em;}
@@ -134,7 +155,10 @@ body {
     font-weight: 400;
     color: var(--color-1);
     background-color: var(--color-2);
-    @media (max-width: 991px){
+    @media (max-width: 1399px){
+        font-size: 16px;
+    }
+    @media (max-width: 767px){
         font-size: 14px;
     }
 }
@@ -163,24 +187,32 @@ header {
                 }
             }
         }
-        .cart {
+        .btn-cart {
             display: block;
             position: relative;
             svg {
                 position: relative;
                 z-index: 2;
                 font-size: 1.75em;
+                @media (max-width: 767px){
+                    font-size: 2.5em;
+                }
             }
             span {
                 position: absolute;
                 z-index: 1;
-                // bottom: 8%;
                 bottom: 0%;
                 left: 0%;
                 width: 100%;
                 font-size: .6em;
                 font-weight: 500;
+                @media (max-width: 767px){
+                    font-size: .85em;
+                }
             }
+        }
+        .btn-menu {
+            font-size: 2.5em;
         }
     }
 }
@@ -189,6 +221,17 @@ header {
         border: none;
         width: 900px;
         z-index: 1200;
+    }
+    &-body {
+        padding: 2em 3em;
+    }
+}
+
+.cart {
+    &-item {
+        display: grid;
+        grid-template-columns: auto 100px 100px 100px 50px;
+        grid-template-rows: 1fr;
     }
 }
 
@@ -199,7 +242,12 @@ main {
 .logo {
     width: 110px;
     height: 80px;
+    @media (max-width: 767px){
+        width: 80px;
+        height: 60px;
+    }
 }
+
 figure.full {
     position: relative;
     height: 100vh;
@@ -218,6 +266,9 @@ figure.full {
         width: 100%;
         height: 40%;
         z-index: 2;
+        @media (max-width: 767px){
+            height: 25%;
+        }
         .container {
             height: 100%;
             display: flex;
@@ -229,46 +280,61 @@ figure.full {
 
 
 footer {
-    padding: 2em 0;
-    height: var(--f-height);
-    background-color: var(--color-1);
-    color: var(--color-2);
-    font-size: .9em;
-    .container {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
-    }
-    nav {
-        ul {
+    &.desktop {
+        padding: 2em 0;
+        height: var(--f-height);
+        background-color: var(--color-1);
+        color: var(--color-2);
+        font-size: .9em;
+        .container {
+            height: 100%;
             display: flex;
-            align-items: center;
-            li {
-                &:not(:first-child){margin-left: 1.5em;}
-                a {
-                    @include link();
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+        nav {
+            ul {
+                display: flex;
+                align-items: center;
+                li {
+                    &:not(:first-child){margin-left: 1.5em;}
+                    a {
+                        @include link();
+                    }
+                }
+            }
+        }
+        form {
+            position: relative;
+            input {
+                position: relative;
+                z-index: 1;
+            }
+            button {
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                height: 100%;
+                z-index: 2;
+                svg {transition: var(--transition);}
+                &:hover, &:focus {
+                    svg {stroke-width: 1px;}
                 }
             }
         }
     }
-    form {
-        position: relative;
-        input {
-            position: relative;
-            z-index: 1;
-        }
-        button {
-            position: absolute;
-            right: 0px;
-            top: 0px;
-            height: 100%;
-            z-index: 2;
-            svg {transition: var(--transition);}
-            &:hover, &:focus {
-                svg {stroke-width: 1px;}
+    &.mobile {
+        display: block;
+        &>div {
+            border-top: 1px solid #dedede;
+            padding: 1.5em 10%;
+            @media (max-width: 575px){
+                padding: 1em 5%;
             }
+        }
+        ul {
+            li:not(:first-child) {margin-top: .5em;}
         }
     }
 }

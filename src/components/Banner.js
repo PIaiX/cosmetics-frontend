@@ -12,7 +12,7 @@ const Banner = (props) => {
                         <Container>
                             {
                                 (props.main === true) &&
-                                <Logo className='logo'/>
+                                <Logo className='logo d-none d-md-block'/>
                             }
                             <h2 className='mt-5'>{props.title}</h2>
                         </Container>

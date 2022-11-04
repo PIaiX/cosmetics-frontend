@@ -8,6 +8,11 @@
   --color-2: #ffffff;
   --color-2-rgb: 255 255 255;
 }
+@media (max-width: 767px) {
+  :root {
+    --h-height: 60px;
+  }
+}
 
 a, a:hover, a:focus, a:active {
   color: inherit;
@@ -69,6 +74,27 @@ button {
   outline: none;
   color: inherit;
   cursor: pointer;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 1em;
 }
 
 .fs-08 {
@@ -160,7 +186,12 @@ body {
   color: var(--color-1);
   background-color: var(--color-2);
 }
-@media (max-width: 991px) {
+@media (max-width: 1399px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media (max-width: 767px) {
   body {
     font-size: 14px;
   }
@@ -204,16 +235,21 @@ header .container nav ul li button::before {
 header .container nav ul li button:hover::before, header .container nav ul li button:focus::before, header .container nav ul li button:active::before {
   width: 100%;
 }
-header .container .cart {
+header .container .btn-cart {
   display: block;
   position: relative;
 }
-header .container .cart svg {
+header .container .btn-cart svg {
   position: relative;
   z-index: 2;
   font-size: 1.75em;
 }
-header .container .cart span {
+@media (max-width: 767px) {
+  header .container .btn-cart svg {
+    font-size: 2.5em;
+  }
+}
+header .container .btn-cart span {
   position: absolute;
   z-index: 1;
   bottom: 0%;
@@ -222,11 +258,28 @@ header .container .cart span {
   font-size: 0.6em;
   font-weight: 500;
 }
+@media (max-width: 767px) {
+  header .container .btn-cart span {
+    font-size: 0.85em;
+  }
+}
+header .container .btn-menu {
+  font-size: 2.5em;
+}
 
 .offcanvas.offcanvas-end {
   border: none;
   width: 900px;
   z-index: 1200;
+}
+.offcanvas-body {
+  padding: 2em 3em;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: auto 100px 100px 100px 50px;
+  grid-template-rows: 1fr;
 }
 
 main {
@@ -236,6 +289,12 @@ main {
 .logo {
   width: 110px;
   height: 80px;
+}
+@media (max-width: 767px) {
+  .logo {
+    width: 80px;
+    height: 60px;
+  }
 }
 
 figure.full {
@@ -259,6 +318,11 @@ figure.full figcaption {
   height: 40%;
   z-index: 2;
 }
+@media (max-width: 767px) {
+  figure.full figcaption {
+    height: 25%;
+  }
+}
 figure.full figcaption .container {
   height: 100%;
   display: flex;
@@ -266,32 +330,32 @@ figure.full figcaption .container {
   justify-content: center;
 }
 
-footer {
+footer.desktop {
   padding: 2em 0;
   height: var(--f-height);
   background-color: var(--color-1);
   color: var(--color-2);
   font-size: 0.9em;
 }
-footer .container {
+footer.desktop .container {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
 }
-footer nav ul {
+footer.desktop nav ul {
   display: flex;
   align-items: center;
 }
-footer nav ul li:not(:first-child) {
+footer.desktop nav ul li:not(:first-child) {
   margin-left: 1.5em;
 }
-footer nav ul li a {
+footer.desktop nav ul li a {
   position: relative;
   cursor: pointer;
 }
-footer nav ul li a::before {
+footer.desktop nav ul li a::before {
   content: "";
   position: absolute;
   bottom: 0px;
@@ -301,26 +365,41 @@ footer nav ul li a::before {
   width: 0px;
   transition: var(--transition);
 }
-footer nav ul li a:hover::before, footer nav ul li a:focus::before, footer nav ul li a:active::before {
+footer.desktop nav ul li a:hover::before, footer.desktop nav ul li a:focus::before, footer.desktop nav ul li a:active::before {
   width: 100%;
 }
-footer form {
+footer.desktop form {
   position: relative;
 }
-footer form input {
+footer.desktop form input {
   position: relative;
   z-index: 1;
 }
-footer form button {
+footer.desktop form button {
   position: absolute;
   right: 0px;
   top: 0px;
   height: 100%;
   z-index: 2;
 }
-footer form button svg {
+footer.desktop form button svg {
   transition: var(--transition);
 }
-footer form button:hover svg, footer form button:focus svg {
+footer.desktop form button:hover svg, footer.desktop form button:focus svg {
   stroke-width: 1px;
+}
+footer.mobile {
+  display: block;
+}
+footer.mobile > div {
+  border-top: 1px solid #dedede;
+  padding: 1.5em 10%;
+}
+@media (max-width: 575px) {
+  footer.mobile > div {
+    padding: 1em 5%;
+  }
+}
+footer.mobile ul li:not(:first-child) {
+  margin-top: 0.5em;
 }/*# sourceMappingURL=style.css.map */
