@@ -50,7 +50,7 @@ const Footer = () => {
                 <div className='d-flex justify-content-between'>
                     <div>
                         <div className='d-block mb-3'>Подписаться на рассылку:</div>
-                        <form>
+                        <form className='search'>
                             <input type='email' placeholder='email адрес' className='inverse'/>
                             <button type='submit'><TfiArrowRight/></button>
                         </form>

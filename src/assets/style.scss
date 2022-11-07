@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
     --h-height: 90px;
     --f-height: 250px;
@@ -11,6 +11,7 @@
         --h-height: 60px;
     }
 }
+// "homepage": "https://ngf93.github.io/cosmetics",
 
 @mixin no-appearance {
     appearance: none;
@@ -18,6 +19,11 @@
     -moz-appearance: none;
     -ms-appearance: none;
     outline: none;
+}
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @mixin link {
     position: relative;
@@ -80,6 +86,14 @@ input, textarea, select {
         }
     }
 }
+input[type='number']{
+    border: 1px solid var(--color-1);
+    padding: .5em;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    @include no-appearance();
+}
 
 button {
     background: none;
@@ -90,6 +104,47 @@ button {
     outline: none;
     color: inherit;
     cursor: pointer;
+}
+.btn {
+    @include flex-center;
+    padding: 1em 1.5em;
+    text-align: center;
+    transition: var(--transition);
+    width: fit-content;
+    font-size: 1em;
+    line-height: 120%;
+    font-weight: 400;
+    &-1 {
+        @extend .btn;
+        background: rgb(var(--color-1-rgb) / 100%);
+        color: var(--color-2);
+        &:hover, &:focus, &:active, &.active {
+            color: var(--color-2);
+            background: rgb(var(--color-1-rgb) / 75%);
+        }
+        &:disabled {
+            opacity: .5;
+        }
+    }
+}
+
+form.search {
+    position: relative;
+    input {
+        position: relative;
+        z-index: 1;
+    }
+    button {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 100%;
+        z-index: 2;
+        svg {transition: var(--transition);}
+        &:hover, &:focus {
+            svg {stroke-width: 1px;}
+        }
+    }
 }
 
 h1 {
@@ -144,19 +199,41 @@ h3 {
 }
 .full-h {height: 100vh;}
 
+.accordion {
+    --bs-accordion-color: var(--color-1);
+    --bs-accordion-border-color: none;
+    --bs-accordion-border-width: none;
+    --bs-accordion-btn-color: var(--color-1);
+    --bs-accordion-btn-icon: unset;
+    --bs-accordion-btn-active-icon: unset;
+    --bs-accordion-btn-focus-border-color: unset;
+    --bs-accordion-btn-padding-x: 0px;
+    --bs-accordion-btn-padding-y: .5em;
+    --bs-accordion-btn-focus-box-shadow: unset;
+    --bs-accordion-active-color: var(--color-1);
+    --bs-accordion-active-bg: var(--color-2);
+    h2 {font-size: 1em;}
+    &-button {
+        font-size: 1.4em;
+        @media (max-width: 767px){
+            font-weight: 700;
+            font-size: 1.75em;
+        }
+    }
+}
 
 
 body {
     margin: 0;
-    font-family: 'Jost';
+    font-family: 'Roboto', Arial;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--color-1);
     background-color: var(--color-2);
     @media (max-width: 1399px){
-        font-size: 16px;
+        font-size: 15px;
     }
     @media (max-width: 767px){
         font-size: 14px;
@@ -170,7 +247,7 @@ header {
     width: 100%;
     z-index: 1200;
     height: var(--h-height);
-    background-color: rgb(var(--color-2-rgb) / 75%);
+    background-color: rgb(var(--color-2-rgb) / 85%);
     .container {
         height: 100%;
         display: flex;
@@ -193,7 +270,7 @@ header {
             svg {
                 position: relative;
                 z-index: 2;
-                font-size: 1.75em;
+                font-size: 2em;
                 @media (max-width: 767px){
                     font-size: 2.5em;
                 }
@@ -204,7 +281,7 @@ header {
                 bottom: 0%;
                 left: 0%;
                 width: 100%;
-                font-size: .6em;
+                font-size: .7em;
                 font-weight: 500;
                 @media (max-width: 767px){
                     font-size: .85em;
@@ -216,22 +293,160 @@ header {
         }
     }
 }
+
 .offcanvas {
     &.offcanvas-end {
         border: none;
         width: 900px;
         z-index: 1200;
+        @media (max-width: 991px){
+            width: 750px;
+        }
+    }
+    &.offcanvas-start {
+        @media (max-width: 767px){
+            width: 100%;
+        }
+        .offcanvas-body {
+            padding: calc(var(--h-height) + 2em) 3em 2em;
+        }
     }
     &-body {
         padding: 2em 3em;
+        position: relative;
+        @media (max-width: 575px){
+            padding: 1em 1.5em;
+        }
+        .close {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            font-size: 1.5em;
+            opacity: .5;
+            transition: var(--transition);
+            &:hover, &:focus, &:active {
+                opacity: 1;
+            }
+        }
     }
 }
+.shop-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    .flags {
+        list-style: none;
+        padding-left: 0px;
+        display: flex;
+        align-items: center;
+        margin-top: 1.5em;
+        @media (max-width: 767px){
+            display: none;
+        }
+        li{
+            &:not(:first-child) {margin-left: 1.5em;}
+            button {
+                width: 2.5em;
+                img {width: 100%;}
+            }
+        }
+    }
+}
+
 
 .cart {
     &-item {
         display: grid;
-        grid-template-columns: auto 100px 100px 100px 50px;
+        grid-template-columns: auto 60px 100px 80px 50px;
         grid-template-rows: 1fr;
+        gap: 0px 20px;
+        padding: 1em 0px;
+        @media (max-width: 767px){
+            grid-template-columns: auto 60px 60px;
+            grid-template-rows: auto;
+            gap: 10px 20px;
+        }
+        @media (max-width: 575px){
+            gap: 10px 10px;
+        }
+        &:not(:last-child){
+            border-bottom: 1px solid var(--color-1);
+        }
+        &:first-child {
+            padding: 1.5em 0px;
+            @media (max-width: 767px){
+                padding: 1em 0px;
+                .title {
+                    grid-column: 1/4;
+                    font-weight: 700;
+                    font-size: 1.3em;
+                }
+                .img, .count, .price, .btns {display: none;}
+            }
+        }
+        &:last-child {
+            padding: 1.5em 0px;
+            @media (max-width: 767px){
+                padding: 1em 0px;
+                .title {
+                    grid-column: 1/4;
+                    padding-bottom: 1em;
+                    border-bottom: 1px solid var(--color-1);
+                }
+                .img, .btns {display: none;}
+                .count {
+                    grid-column: 1/3;
+                    font-weight: 700;
+                }
+                .price {font-weight: 700;}
+            }
+        }
+        .title {
+            grid-column: 1/2;
+            grid-row: 1/2;
+            display: flex;
+            align-items: center;
+        }
+        .img {
+            grid-column: 2/3;
+            grid-row: 1/2;
+            @include flex-center();
+            img {
+                width: 100%;
+                height: 60px;
+                object-fit: cover;
+            }
+        }
+        .count {
+            grid-column: 3/4;
+            grid-row: 1/2;
+            display: flex;
+            align-items: center;
+            @media (max-width: 767px){
+                grid-column: 2/3;
+                grid-row: 2/3;
+            }
+        }
+        .price {
+            grid-column: 4/5;
+            grid-row: 1/2;
+            display: flex;
+            align-items: center;
+            @media (max-width: 767px){
+                grid-column: 3/4;
+                grid-row: 2/3;
+            }
+        }
+        .btns {
+            grid-column: 5/6;
+            grid-row: 1/2;
+            @include flex-center();
+            font-size: 1.2em;
+            @media (max-width: 767px){
+                grid-column: 3/4;
+            }
+        }
     }
 }
 
@@ -302,24 +517,6 @@ footer {
                     a {
                         @include link();
                     }
-                }
-            }
-        }
-        form {
-            position: relative;
-            input {
-                position: relative;
-                z-index: 1;
-            }
-            button {
-                position: absolute;
-                right: 0px;
-                top: 0px;
-                height: 100%;
-                z-index: 2;
-                svg {transition: var(--transition);}
-                &:hover, &:focus {
-                    svg {stroke-width: 1px;}
                 }
             }
         }

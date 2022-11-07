@@ -1,7 +1,5 @@
 import React from 'react'
-import Container from 'react-bootstrap/Container'
-import {ReactComponent as Logo} from '../assets/imgs/logo.svg'
-import Banner from '../components/Banner';
+import Banner from '../components/Banner'
 
 const Home = () => {
     return (
