@@ -158,6 +158,22 @@ h3 {
   margin-bottom: 1em;
 }
 
+h4 {
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: 500;
+  font-style: italic;
+  text-align: left;
+  margin-bottom: 0.25em;
+}
+
 .fs-08 {
   font-size: 0.8em;
 }
@@ -235,6 +251,20 @@ h3 {
 
 .full-h {
   height: 100vh;
+}
+
+.mb-8 {
+  margin-bottom: 8em;
+}
+@media (max-width: 991px) {
+  .mb-8 {
+    margin-bottom: 6em;
+  }
+}
+@media (max-width: 767px) {
+  .mb-8 {
+    margin-bottom: 4em;
+  }
 }
 
 .accordion {
@@ -543,6 +573,9 @@ header .container .btn-menu {
 main {
   min-height: calc(100vh - var(--f-height));
 }
+main.inner {
+  padding-top: calc(var(--h-height) + 1em);
+}
 
 .logo {
   width: 110px;
@@ -586,6 +619,37 @@ figure.full figcaption .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.product-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.product-card figure {
+  width: 100%;
+  opacity: 1;
+  transition: var(--transition);
+}
+.product-card figure:hover {
+  opacity: 0.75;
+}
+.product-card figure img {
+  width: 100%;
+  height: 20vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 1em;
+}
+.product-card figure figcaption {
+  text-align: center;
+}
+
+.about-page p {
+  margin-top: 2em;
 }
 
 footer.desktop {

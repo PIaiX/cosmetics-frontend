@@ -1,0 +1,59 @@
+import React, {useState} from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Collapse from 'react-bootstrap/Collapse'
+import ToHome from '../components/ToHome'
+import Recommendations from '../components/Recommendations'
+
+const Product = () => {
+    const [open, setOpen] = useState(false)
+    const [open2, setOpen2] = useState(false)
+
+    return (
+        <main className='inner'>
+            <Container>
+                <ToHome />
+                <section className='mb-8'>
+                    <Row>
+                        <Col md={1}>
+                            <h2>Лицо</h2>
+                        </Col>
+                        <Col md={5}>
+                            <img src='imgs/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg' alt='EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС' className='img-fluid'/>
+                        </Col>
+                        <Col md={5}>
+                            <h1>EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС</h1>
+                            <h6 className='mb-5'>вес нетто 0.52 унция объем 15 мл</h6>
+                            <p>Специально разработанный крем для области вокруг глаз делает ее эластичной и упругой, заметно уменьшает темные круги и отечность под глазами, укрепляет стенки капилляров и борется с мелкими морщинами.Экстракт гингко обладает сильным антиоксидантным действием, снимает отечность, способствует сокращению морщин, осветлению пигментных пятен, укреплению стенок капилляров и помогает избавиться от темных кругов под глазами. Масло томану обладает заживляющими и антибактериальными свойствами, богато жирными кислотами, увлажняет кожу и придает ей эластичность и упругость.</p>
+
+                            <ul className='list-unstyled mt-5'>
+                                <li>
+                                    <button type='button' onClick={() => setOpen(!open)} aria-expanded={open}>Показания к применению</button>
+                                    <Collapse in={open}>
+                                        <p>Небольшое количество крема нанести на кончики пальцев и легкими похлопывающими движениями нанести на область вокруг глаз.</p>
+                                    </Collapse>
+                                </li>
+                                <li>
+                                    <button type='button' onClick={() => setOpen2(!open2)} aria-expanded={open2}>Активные компоненты</button>
+                                    <Collapse in={open2}>
+                                        <p>Ginkgo biloba leaf extract,coffeaarabica(coffee) seed extract ,iris pallida(dalmation iris)root oil, centella asiatica extract.</p>
+                                    </Collapse>
+                                </li>
+                            </ul>
+
+                            <div className='d-flex justify-content-between align-items-center mt-5'>
+                                <button type='button' className='btn-1'>В корзину - 3300 </button>
+                            </div>
+                        </Col>
+                    </Row>
+                    
+                </section>
+
+                <Recommendations />
+            </Container>
+        </main>
+    );
+};
+
+export default Product;

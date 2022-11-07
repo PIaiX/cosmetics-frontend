@@ -4,6 +4,7 @@ import { TfiArrowRight } from "react-icons/tfi"
 import { SlSocialInstagram } from "react-icons/sl"
 import useIsMobile from '../hooks/isMobile'
 import Collapse from 'react-bootstrap/Collapse'
+import {Link} from 'react-router-dom'
 
 const Footer = () => {
     const {mobile} = useIsMobile()
@@ -27,12 +28,12 @@ const Footer = () => {
                 <button type='button' onClick={() => setOpen2(!open2)} aria-expanded={open2}>Информация:</button>
                 <Collapse in={open2}>
                     <ul className='list-unstyled mt-3'>
-                        <li><a href='/'>О Компании</a></li>
-                        <li><a href='/'>Точки продаж</a></li>
-                        <li><a href='/'>Оплата</a></li>
-                        <li><a href='/'>Доставка</a></li>
-                        <li><a href='/'>Публичная оферта</a></li>
-                        <li><a href='/'>Контакты</a></li>
+                        <li><Link to='/about'>О Компании</Link></li>
+                        <li><Link to='/sales'>Точки продаж</Link></li>
+                        <li><Link to='/payment'>Оплата</Link></li>
+                        <li><Link to='/delivery'>Доставка</Link></li>
+                        <li><Link to='/public-offer'>Публичная оферта</Link></li>
+                        <li><Link to='/contacts'>Контакты</Link></li>
                     </ul>
                 </Collapse>
             </div>
@@ -57,12 +58,12 @@ const Footer = () => {
                     </div>
                     <nav>
                         <ul className='list-unstyled'>
-                            <li><a href='/'>О Компании</a></li>
-                            <li><a href='/'>Точки продаж</a></li>
-                            <li><a href='/'>Оплата</a></li>
-                            <li><a href='/'>Доставка</a></li>
-                            <li><a href='/'>Публичная оферта</a></li>
-                            <li><a href='/'>Контакты</a></li>
+                            <li><Link to='/about'>О Компании</Link></li>
+                            <li><Link to='/sales'>Точки продаж</Link></li>
+                            <li><Link to='/payment'>Оплата</Link></li>
+                            <li><Link to='/delivery'>Доставка</Link></li>
+                            <li><Link to='/public-offer'>Публичная оферта</Link></li>
+                            <li><Link to='/contacts'>Контакты</Link></li>
                         </ul>
                     </nav>
                 </div>

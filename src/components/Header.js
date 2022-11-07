@@ -38,7 +38,7 @@ function Header() {
         <>
         <header>
             <Container>
-                <Logo className='logo d-md-none'/>
+                <Link to='/' className='d-md-none'><Logo className='logo'/></Link>
                 <nav className='d-none d-md-block'>
                     <ul className='list-unstyled'>
                         <li>
@@ -106,7 +106,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
@@ -119,7 +119,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
@@ -132,7 +132,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
@@ -145,7 +145,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
@@ -158,7 +158,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
@@ -171,7 +171,7 @@ function Header() {
                             <Accordion.Body>
                                 <ul className='list-unstyled'>
                                     <li className='mb-2'>
-                                        <Link to='/'>Вся продукция</Link>
+                                        <Link to='/category'>Вся продукция</Link>
                                     </li>
                                     <li className='mb-2'>
                                         <Link to='/'>Товар</Link>
