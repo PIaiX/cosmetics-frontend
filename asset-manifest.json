@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/cosmetics/static/css/main.8dada5cb.css",
+    "main.css": "/cosmetics/static/css/main.5fdd22de.css",
     "main.js": "/cosmetics/static/js/main.009eb256.js",
     "static/media/HelveticaNeueBoldCondensed.eot": "/cosmetics/static/media/HelveticaNeueBoldCondensed.5fb81c36cc15b45f058e.eot",
     "static/media/HelveticaNeueBoldCondensed.ttf": "/cosmetics/static/media/HelveticaNeueBoldCondensed.7ff1b25d7041efe11b45.ttf",
@@ -76,11 +76,11 @@
     "static/media/HelveticaNeueCyr-Heavy.woff2": "/cosmetics/static/media/HelveticaNeueCyr-Heavy.31abf4828115acce8d4e.woff2",
     "static/media/logo.svg": "/cosmetics/static/media/logo.b13dc6ddd28a07080863abb032246b17.svg",
     "index.html": "/cosmetics/index.html",
-    "main.8dada5cb.css.map": "/cosmetics/static/css/main.8dada5cb.css.map",
+    "main.5fdd22de.css.map": "/cosmetics/static/css/main.5fdd22de.css.map",
     "main.009eb256.js.map": "/cosmetics/static/js/main.009eb256.js.map"
   },
   "entrypoints": [
-    "static/css/main.8dada5cb.css",
+    "static/css/main.5fdd22de.css",
     "static/js/main.009eb256.js"
   ]
 }
