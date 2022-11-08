@@ -4,7 +4,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import Accordion from 'react-bootstrap/Accordion'
 
 import { TfiClose, TfiArrowRight } from "react-icons/tfi"
-import { SlHandbag, SlClose, SlMenu } from "react-icons/sl"
+import { SlClose, SlMenu } from "react-icons/sl"
 import {ReactComponent as Logo} from '../assets/imgs/logo.svg'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
