@@ -1,12 +1,13 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import {ReactComponent as Logo} from '../assets/imgs/logo.svg'
+import {Link} from 'react-router-dom'
 
 const Banner = (props) => {
     return (
         <section className='full-h'>
             <figure className='full'>
-                <a href='/'>
+                <Link to={props.link}>
                     <img src={props.imgUrl} alt={props.title} className='main'/>
                     <figcaption>
                         <Container>
@@ -17,7 +18,7 @@ const Banner = (props) => {
                             <h2 className='mt-5'>{props.title}</h2>
                         </Container>
                     </figcaption>
-                </a>
+                </Link>
             </figure>
         </section>
     );

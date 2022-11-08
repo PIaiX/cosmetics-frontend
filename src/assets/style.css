@@ -138,15 +138,15 @@ form.search button:hover svg, form.search button:focus svg {
 }
 
 h1 {
-  font-size: 2em;
-  font-weight: 700;
+  font-size: 1.8em;
+  font-weight: 500;
   text-align: left;
   margin-bottom: 1em;
 }
 
 h2 {
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   margin-bottom: 1em;
 }
@@ -170,6 +170,13 @@ h5 {
   font-size: 1em;
   font-weight: 500;
   font-style: italic;
+  text-align: left;
+  margin-bottom: 0.25em;
+}
+
+h6 {
+  font-size: 1.1em;
+  font-weight: 400;
   text-align: left;
   margin-bottom: 0.25em;
 }
@@ -296,7 +303,7 @@ h5 {
 
 body {
   margin: 0;
-  font-family: "Roboto", Arial;
+  font-family: "Helvetica Neue", "Roboto", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
@@ -646,6 +653,22 @@ figure.full figcaption .container {
 }
 .product-card figure figcaption {
   text-align: center;
+}
+
+.product-page .info-list {
+  list-style: none;
+  padding-left: 0px;
+}
+.product-page .info-list li {
+  margin-bottom: 0.5em;
+}
+.product-page .info-list li button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-1);
+  padding: 0.5em 0;
 }
 
 .about-page p {
