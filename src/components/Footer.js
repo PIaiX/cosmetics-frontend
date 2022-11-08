@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import { TfiArrowRight } from "react-icons/tfi"
 import { SlSocialInstagram } from "react-icons/sl"
+import { IoAddOutline, IoRemoveOutline } from "react-icons/io5"
 import useIsMobile from '../hooks/isMobile'
 import Collapse from 'react-bootstrap/Collapse'
 import {Link} from 'react-router-dom'
@@ -14,8 +15,15 @@ const Footer = () => {
     return (
         (mobile)
         ? <footer className='mobile'>
-            <div>
-                <button type='button' onClick={() => setOpen(!open)} aria-expanded={open}>Выбор языка:</button>
+            <div className='d-flex flex-column justify-content-center align-items-stretch'>
+                <button type='button' onClick={() => setOpen(!open)} aria-expanded={open} className='w-100 d-flex justify-content-between align-items-center'>
+                    <span>Выбор языка:</span>
+                    {
+                        (open)
+                        ? <IoRemoveOutline/>
+                        : <IoAddOutline/>
+                    }
+                </button>
                 <Collapse in={open}>
                     <ul className='list-unstyled mt-3'>
                         <li>Русский</li>
@@ -24,8 +32,15 @@ const Footer = () => {
                     </ul>
                 </Collapse>
             </div>
-            <div>
-                <button type='button' onClick={() => setOpen2(!open2)} aria-expanded={open2}>Информация:</button>
+            <div className='d-flex flex-column justify-content-center align-items-stretch'>
+                <button type='button' onClick={() => setOpen2(!open2)} aria-expanded={open2} className='w-100 d-flex justify-content-between align-items-center'>
+                    <span>Информация:</span>
+                    {
+                        (open2)
+                        ? <IoRemoveOutline/>
+                        : <IoAddOutline/>
+                    }
+                </button>
                 <Collapse in={open2}>
                     <ul className='list-unstyled mt-3'>
                         <li><Link to='/about'>О Компании</Link></li>
@@ -37,8 +52,8 @@ const Footer = () => {
                     </ul>
                 </Collapse>
             </div>
-            <div className='d-flex justify-content-between'>
-                <div>© 22|11 Cosmetics</div>
+            <div className='d-flex justify-content-between align-items-center'>
+                <div>© 22|11 Cosmetics х <a href='https://asmpromo.ru/' target='_blank' rel="noreferrer">Created by AsmPromo</a></div>
                 <div>
                     <a href='https://www.instagram.com/2211cosmetics/' target='_blank' rel="noreferrer">
                         <SlSocialInstagram className='fs-15'/>
@@ -68,7 +83,7 @@ const Footer = () => {
                     </nav>
                 </div>
                 <div className='d-flex justify-content-between'>
-                    <div>© 22|11 Cosmetics</div>
+                    <div>© 22|11 Cosmetics х <a href='https://asmpromo.ru/' target='_blank' rel="noreferrer">Created by AsmPromo</a></div>
                     <div>
                         <a href='https://www.instagram.com/2211cosmetics/' target='_blank' rel="noreferrer">
                             <SlSocialInstagram className='fs-20'/>

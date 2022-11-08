@@ -7,8 +7,15 @@
     --color-1-rgb: 17 17 17;
     --color-2: #ffffff;
     --color-2-rgb: 255 255 255;
+    @media (max-width: 991px){
+        --f-height: 200px;
+    }
     @media (max-width: 767px){
         --h-height: 60px;
+        --f-height: 180px;
+    }
+    @media (max-width: 575px){
+        --f-height: 150px;
     }
 }
 // "homepage": "https://ngf93.github.io/cosmetics",
@@ -296,24 +303,32 @@ header {
         .btn-cart {
             display: block;
             position: relative;
-            svg {
-                position: relative;
-                z-index: 2;
-                font-size: 2em;
-                @media (max-width: 767px){
-                    font-size: 2.5em;
-                }
+            width: 2em;
+            height: 2em;
+            background: url(imgs/bag-icon.png) no-repeat center;
+            background-size: contain;
+            @media (max-width: 767px){
+                width: 2.5em;
+                height: 2.5em;
             }
+            // svg {
+            //     position: relative;
+            //     z-index: 2;
+            //     font-size: 2em;
+            //     @media (max-width: 767px){
+            //         font-size: 2.5em;
+            //     }
+            // }
             span {
                 position: absolute;
                 z-index: 1;
-                bottom: 0%;
+                bottom: 5%;
                 left: 0%;
                 width: 100%;
-                font-size: .7em;
+                font-size: .75em;
                 font-weight: 500;
                 @media (max-width: 767px){
-                    font-size: .85em;
+                    font-size: .9em;
                 }
             }
         }
@@ -484,6 +499,7 @@ main {
     &.inner {
         padding-top: calc(var(--h-height) + 1em);
     }
+    @media (max-width: 767px){}
 }
 
 .logo {
@@ -600,10 +616,14 @@ footer {
         }
     }
     &.mobile {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        min-height: var(--f-height);
+        font-size: .9em;
         &>div {
             border-top: 1px solid #dedede;
-            padding: 1.5em 10%;
+            padding: 1.25em 10%;
+            flex-grow: 1;
             @media (max-width: 575px){
                 padding: 1em 5%;
             }

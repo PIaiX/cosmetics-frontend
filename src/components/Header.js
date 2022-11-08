@@ -49,9 +49,8 @@ function Header() {
                         </li>
                     </ul>
                 </nav>
-                <div className='d-flex aligh-items-center'>
+                <div className='d-flex align-items-center'>
                     <button type='button' onClick={handleShowCart} className='btn-cart'>
-                        <SlHandbag/>
                         <span>25</span>
                     </button>
                     <button type='button' onClick={(shop) ? handleCloseShop : handleShowShop} className='btn-menu d-md-none ms-4'>

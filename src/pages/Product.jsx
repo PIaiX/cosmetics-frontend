@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Collapse from 'react-bootstrap/Collapse'
 import ToHome from '../components/ToHome'
 import Recommendations from '../components/Recommendations'
-import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
+import { IoAddOutline, IoRemoveOutline } from "react-icons/io5"
 
 const Product = () => {
     const [open, setOpen] = useState(false)
