@@ -2,13 +2,13 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import ToHome from '../components/ToHome'
+import Logo from '../components/Logo'
 
 const PublicOffer = () => {
     return (
         <main className='inner'>
             <Container>
-                <ToHome />
+                <Logo />
                 <section className='about-page mb-8'>
                     <h1>Публичная оферта</h1>
                     <Row className='justify-content-center'>
