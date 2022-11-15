@@ -1,38 +1,36 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Accordion from 'react-bootstrap/Accordion'
-
-import {TfiClose, TfiArrowRight} from 'react-icons/tfi'
+import {TfiArrowRight, TfiClose} from 'react-icons/tfi'
 import {SlClose, SlMenu} from 'react-icons/sl'
 import {ReactComponent as Logo} from '../assets/images/logo.svg'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
+import {getCategories} from '../services/category'
 
 const Header = () => {
-    const [cart, setCart] = useState(false)
-    const handleCloseCart = () => setCart(false)
-    const handleShowCart = () => {
-        setShop(false)
-        setSearch(false)
-        setCart(true)
+    const initialOffcanvas = {
+        shop: false,
+        search: false,
+        cart: false,
     }
+    const [isShowOffcanvas, setIsShowOffcanvas] = useState(initialOffcanvas)
+    const [categories, setCategories] = useState({
+        isLoaded: false,
+        error: null,
+        items: [],
+    })
 
-    const [shop, setShop] = useState(false)
-    const handleCloseShop = () => setShop(false)
-    const handleShowShop = () => {
-        setSearch(false)
-        setCart(false)
-        setShop(true)
-    }
+    useEffect(() => {
+        getCategories()
+            .then((res) => res && setCategories((prev) => ({...prev, isLoaded: true, items: res?.categories})))
+            .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
+    }, [])
 
-    const [search, setSearch] = useState(false)
-    const handleCloseSearch = () => setSearch(false)
-    const handleShowSearch = () => {
-        setCart(false)
-        setShop(false)
-        setSearch(true)
-    }
+    useEffect(() => {
+        console.log(categories)
+    }, [categories])
 
     return (
         <>
@@ -44,34 +42,52 @@ const Header = () => {
                     <nav className="d-none d-md-block">
                         <ul className="list-unstyled">
                             <li>
-                                <button type="button" onClick={handleShowShop}>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsShowOffcanvas({...initialOffcanvas, shop: true})}
+                                >
                                     Магазин
                                 </button>
                             </li>
                             <li>
-                                <button type="button" onClick={handleShowSearch}>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsShowOffcanvas({...initialOffcanvas, search: true})}
+                                >
                                     Поиск
                                 </button>
                             </li>
                         </ul>
                     </nav>
                     <div className="d-flex align-items-center">
-                        <button type="button" onClick={handleShowCart} className="btn-cart">
+                        <button
+                            type="button"
+                            className="btn-cart"
+                            onClick={() => setIsShowOffcanvas({...initialOffcanvas, cart: true})}
+                        >
                             <span>25</span>
                         </button>
                         <button
                             type="button"
-                            onClick={shop ? handleCloseShop : handleShowShop}
+                            // onClick={shop ? handleCloseShop : handleShowShop}
                             className="btn-menu d-md-none ms-4"
                         >
-                            {shop ? <TfiClose /> : <SlMenu />}
+                            {isShowOffcanvas.shop ? <TfiClose /> : <SlMenu />}
                         </button>
                     </div>
                 </Container>
             </header>
-            <Offcanvas show={cart} onHide={handleCloseCart} placement={'end'}>
+            <Offcanvas
+                show={isShowOffcanvas.cart}
+                onHide={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
+                placement={'end'}
+            >
                 <Offcanvas.Body>
-                    <button type="button" className="close" onClick={handleCloseCart}>
+                    <button
+                        type="button"
+                        className="close"
+                        onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
+                    >
                         <SlClose />
                     </button>
                     <div className="cart">
@@ -80,21 +96,21 @@ const Header = () => {
                                 <span className="d-md-none">Корзина</span>
                                 <span className="d-none d-md-block">Товар:</span>
                             </div>
-                            <div className="img"></div>
+                            <div className="img" />
                             <div className="count">Кол-во:</div>
                             <div className="price">Цена:</div>
-                            <div className="btns"></div>
+                            <div className="btns" />
                         </div>
 
                         <CartItem
                             title={'SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК'}
-                            imgUrl={'images/products/SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК.jpg'}
+                            imgUrl={'/images/products/SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК.jpg'}
                             price={1500}
                             count={1}
                         />
                         <CartItem
                             title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                            imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                            imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             price={1100}
                             count={1}
                         />
@@ -113,88 +129,37 @@ const Header = () => {
                 </Offcanvas.Body>
             </Offcanvas>
 
-            <Offcanvas show={shop} onHide={handleCloseShop} placement={'start'}>
+            <Offcanvas
+                show={isShowOffcanvas.shop}
+                onHide={() => setIsShowOffcanvas((prev) => ({...prev, shop: false}))}
+                placement={'start'}
+            >
                 <Offcanvas.Body className="shop-menu">
                     <nav>
                         <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Вода</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Лицо</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>Волосы</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="3">
-                                <Accordion.Header>Тело</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="4">
-                                <Accordion.Header>Гигиена</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="5">
-                                <Accordion.Header>Наборы</Accordion.Header>
-                                <Accordion.Body>
-                                    <ul className="list-unstyled">
-                                        <li className="mb-2">
-                                            <Link to="/category">Вся продукция</Link>
-                                        </li>
-                                        <li className="mb-2">
-                                            <Link to="/">Товар</Link>
-                                        </li>
-                                    </ul>
-                                </Accordion.Body>
-                            </Accordion.Item>
+                            {categories?.items?.length > 0
+                                ? categories.items.map((item, index) => (
+                                      <Accordion.Item key={item?.category?.id} eventKey={index}>
+                                          <Accordion.Header>{item?.category?.title}</Accordion.Header>
+                                          <Accordion.Body>
+                                              <ul className="list-unstyled">
+                                                  <li className="mb-2">
+                                                      <Link to="/category">Вся продукция</Link>
+                                                  </li>
+                                                  {item?.products?.length > 0
+                                                      ? item.products.map((product) => (
+                                                            <li className="mb-2" key={product?.id}>
+                                                                <Link to={`/product/${product?.id}`}>
+                                                                    {product?.title}
+                                                                </Link>
+                                                            </li>
+                                                        ))
+                                                      : null}
+                                              </ul>
+                                          </Accordion.Body>
+                                      </Accordion.Item>
+                                  ))
+                                : null}
                         </Accordion>
                     </nav>
                     <ul className="flags">
@@ -222,7 +187,11 @@ const Header = () => {
                 </Offcanvas.Body>
             </Offcanvas>
 
-            <Offcanvas show={search} onHide={handleCloseSearch} placement={'start'}>
+            <Offcanvas
+                show={isShowOffcanvas.search}
+                onHide={() => setIsShowOffcanvas((prev) => ({...prev, search: false}))}
+                placement={'start'}
+            >
                 <Offcanvas.Body>
                     <form className="search">
                         <input type="email" placeholder="email адрес" />

@@ -1,6 +1,14 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
-const apiRoutes = {}
+const apiRoutes = {
+    // category
+    CATEGORY_ALL: '/category/all',
+    CATEGORY_ONE: '/category/one',
+
+    // product
+    PRODUCT_ONE: '/product/one',
+    PRODUCT_RECOMMENDATIONS: '/product/recommendations',
+}
 
 const apiResponseMessages = {}
 

@@ -6,8 +6,11 @@ import Collapse from 'react-bootstrap/Collapse'
 import Logo from '../components/Logo'
 import Recommendations from '../components/Recommendations'
 import {IoAddOutline, IoRemoveOutline} from 'react-icons/io5'
+import {useParams} from 'react-router-dom'
 
 const Product = () => {
+    let {productId} = useParams()
+    productId = +productId
     const [open, setOpen] = useState(false)
     const [open2, setOpen2] = useState(false)
 

@@ -18,47 +18,47 @@ const Category = () => {
                             <ProductCard
                                 inStock={true}
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                         <Col>
                             <ProductCard
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
-                            />
-                        </Col>
-                        <Col>
-                            <ProductCard
-                                inStock={true}
-                                title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                         <Col>
                             <ProductCard
                                 inStock={true}
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                         <Col>
                             <ProductCard
                                 inStock={true}
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                         <Col>
                             <ProductCard
                                 inStock={true}
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                            />
+                        </Col>
+                        <Col>
+                            <ProductCard
+                                inStock={true}
+                                title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                         <Col>
                             <ProductCard
                                 title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                                imgUrl={'images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
+                                imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
                             />
                         </Col>
                     </Row>
