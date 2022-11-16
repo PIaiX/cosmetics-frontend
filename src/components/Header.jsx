@@ -8,6 +8,7 @@ import {ReactComponent as Logo} from '../assets/images/logo.svg'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
 import {getCategories} from '../services/category'
+import { IoCloseSharp } from "react-icons/io5"
 
 const Header = () => {
     const initialOffcanvas = {
@@ -83,13 +84,15 @@ const Header = () => {
                 placement={'end'}
             >
                 <Offcanvas.Body>
+                    <div className='d-flex align-items-center justify-content-between'>
                     <button
                         type="button"
                         className="close"
                         onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
                     >
-                        <SlClose />
+                        <IoCloseSharp />
                     </button>
+                    </div>
                     <div className="cart">
                         <div className="cart-item">
                             <div className="title">

@@ -518,9 +518,6 @@ header .container .btn-menu {
   }
 }
 .offcanvas-body .close {
-  position: absolute;
-  top: 1em;
-  right: 1em;
   font-size: 1.5em;
   opacity: 0.5;
   transition: var(--transition);
