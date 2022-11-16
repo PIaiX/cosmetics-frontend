@@ -1,9 +1,9 @@
-import {apiRoutes} from '../config/api'
-import {$authApi} from './index'
+import {apiRoutes, BASE_URL} from '../config/api'
+import axios from 'axios'
 
 const getProduct = async (payloads = {}) => {
     try {
-        const response = await $authApi.get(apiRoutes.PRODUCT_ONE, {
+        const response = await axios.get(`${BASE_URL}${apiRoutes.PRODUCT_ONE}`, {
             params: payloads,
         })
 
@@ -15,10 +15,10 @@ const getProduct = async (payloads = {}) => {
     }
 }
 
-const getProductRecommendations = async (payloads = {}) => {
+const getProductRecommendations = async (payload = {}) => {
     try {
-        const response = await $authApi.get(apiRoutes.PRODUCT_RECOMMENDATIONS, {
-            params: payloads,
+        const response = await axios.get(`${BASE_URL}${apiRoutes.PRODUCT_RECOMMENDATIONS}`, {
+            params: payload,
         })
 
         if (response && response.status) {

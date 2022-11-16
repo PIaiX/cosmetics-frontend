@@ -13,9 +13,9 @@ const getCategories = async () => {
     }
 }
 
-const getCategory = async (id = '') => {
+const getCategory = async (payload = {}) => {
     try {
-        const response = await axios.get(`${BASE_URL}${apiRoutes.CATEGORY_ONE}/${id}`)
+        const response = await axios.get(`${BASE_URL}${apiRoutes.CATEGORY_ONE}`, {params: payload})
 
         if (response && response.status === 200) {
             return response.data

@@ -28,10 +28,6 @@ const Header = () => {
             .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
     }, [])
 
-    useEffect(() => {
-        console.log(categories)
-    }, [categories])
-
     return (
         <>
             <header>
@@ -69,7 +65,11 @@ const Header = () => {
                         </button>
                         <button
                             type="button"
-                            // onClick={shop ? handleCloseShop : handleShowShop}
+                            onClick={
+                                isShowOffcanvas.shop
+                                    ? () => setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                    : () => setIsShowOffcanvas({...initialOffcanvas, shop: true})
+                            }
                             className="btn-menu d-md-none ms-4"
                         >
                             {isShowOffcanvas.shop ? <TfiClose /> : <SlMenu />}
@@ -144,7 +144,9 @@ const Header = () => {
                                           <Accordion.Body>
                                               <ul className="list-unstyled">
                                                   <li className="mb-2">
-                                                      <Link to="/category">Вся продукция</Link>
+                                                      <Link to={`/category/${item?.category?.id}`}>
+                                                          Вся продукция
+                                                      </Link>
                                                   </li>
                                                   {item?.products?.length > 0
                                                       ? item.products.map((product) => (
