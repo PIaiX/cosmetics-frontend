@@ -10,7 +10,12 @@ const apiRoutes = {
     PRODUCT_RECOMMENDATIONS: '/product/recommendations',
 }
 
-const apiResponseMessages = {}
+const apiResponseMessages = {
+    // cart
+    CART_CREATE: 'Товар был успешно добавлен в корзину',
+    CART_EDIT: 'Корзина обновлена',
+    CART_DELETE: 'Товар был удален из корзины',
+}
 
 const apiRejectMessages = {
     DEFAULT: 'Что-то пошло не так, повторите попытку позже',

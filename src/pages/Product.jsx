@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState, useTransition} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -9,12 +9,18 @@ import {IoAddOutline, IoRemoveOutline} from 'react-icons/io5'
 import {useParams} from 'react-router-dom'
 import {getProduct} from '../services/product'
 import {getImageURL} from '../helpers/image'
-import {dispatchAlert} from '../helpers/alert'
-import {apiRejectMessages} from '../config/api'
+import {useDispatch, useSelector} from 'react-redux'
+import {cartCreate, cartDelete, cartEdit} from '../store/actions/cart'
 
 const Product = () => {
+    const dispatch = useDispatch()
     let {productId} = useParams()
     productId = +productId
+    const cart = useSelector((state) => state?.cart?.items)
+    const cartItem = useMemo(() => {
+        return cart?.length && cart.find((item) => +item?.id === productId)
+    }, [cart, productId])
+    const [isPending, startTransition] = useTransition()
     const [isShowCollapse, setIsShowCollapse] = useState({
         indicationsForUse: false,
         activeIngredients: false,
@@ -25,11 +31,68 @@ const Product = () => {
         item: null,
     })
 
+    const updateCart = useCallback(
+        (mode = 'plus') => {
+            startTransition(() => {
+                const count = product?.item?.count
+                const isCartCreate = count === 0 && mode === 'plus'
+                const isCartDelete = count === 1 && mode === 'minus'
+
+                if (isCartCreate) {
+                    dispatch(cartCreate({product: product?.item}))
+                } else if (isCartDelete) {
+                    dispatch(cartDelete({productId}))
+                } else {
+                    dispatch(
+                        cartEdit({
+                            productId,
+                            count: mode === 'plus' ? count + 1 : count - 1,
+                        })
+                    )
+                }
+            })
+        },
+        [product, productId]
+    )
+
+    const onSelectProduct = useCallback(() => {
+        if (cartItem) {
+            dispatch(cartDelete({productId}))
+        } else {
+            dispatch(cartCreate({product: product?.item}))
+        }
+    }, [cartItem, product?.item, productId])
+
+    const inputUpdateCart = useCallback(
+        (newCount) => {
+            startTransition(() => {
+                const isCorrectValue = +newCount >= 1
+
+                if (isCorrectValue) {
+                    dispatch(cartEdit({productId, count: +newCount}))
+                } else {
+                    dispatch(cartEdit({productId, count: 1}))
+                }
+            })
+        },
+        [productId]
+    )
+
     useEffect(() => {
-        getProduct({productId})
-            .then((res) => setProduct((prev) => ({...prev, isLoaded: true, item: res?.product})))
-            .catch((error) => setProduct((prev) => ({...prev, isLoaded: true, error})))
-    }, [productId])
+        // redefine product count from redux
+        if (cartItem) {
+            setProduct((prev) => ({...prev, isLoaded: true, item: cartItem}))
+        } else {
+            // redefine product count from api
+            getProduct({productId})
+                .then((res) => res && setProduct((prev) => ({...prev, isLoaded: true, item: res?.product})))
+                .catch((error) => error && setProduct((prev) => ({...prev, isLoaded: true, error})))
+        }
+    }, [cartItem, productId])
+
+    useEffect(() => {
+        console.log('prod', product)
+    }, [product])
 
     return (
         <main className="inner">
@@ -101,40 +164,40 @@ const Product = () => {
                                     </Collapse>
                                 </li>
                             </ul>
-
                             <div className="d-flex justify-content-between align-items-stretch mt-5">
-                                <div className="count-input">
-                                    <button type="button">
-                                        <IoRemoveOutline />
+                                {product?.item?.leftovers > 0 && (
+                                    <div className="count-input">
+                                        <button type="button" onClick={() => updateCart('minus')}>
+                                            <IoRemoveOutline />
+                                        </button>
+                                        <input
+                                            type="number"
+                                            value={product?.item?.count || 0}
+                                            onChange={(e) => inputUpdateCart(e.target.value)}
+                                        />
+                                        <button type="button" onClick={() => updateCart()}>
+                                            <IoAddOutline />
+                                        </button>
+                                    </div>
+                                )}
+                                {product?.item?.leftovers > 0 ? (
+                                    <button
+                                        type="button"
+                                        className={`${cartItem ? 'btn-2' : 'btn-1'} flex-1 ms-5`}
+                                        onClick={onSelectProduct}
+                                    >
+                                        {cartItem
+                                            ? 'В корзине'
+                                            : product?.item?.price
+                                            ? `В корзину - ${product?.item?.price}`
+                                            : 'В корзину'}
                                     </button>
-                                    <input type="number" placeholder="0" />
-                                    <button type="button">
-                                        <IoAddOutline />
+                                ) : (
+                                    <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
+                                        OUT OF STOCK
                                     </button>
-                                </div>
-                                <button type="button" className="btn-1 flex-1 ms-5">
-                                    В корзину {`- ${product?.item?.price}` || ''}
-                                </button>
+                                )}
                             </div>
-
-                            <div className="d-flex justify-content-between align-items-stretch mt-5">
-                                <div className="count-input">
-                                    <button type="button">
-                                        <IoRemoveOutline />
-                                    </button>
-                                    <input type="number" placeholder="0" />
-                                    <button type="button">
-                                        <IoAddOutline />
-                                    </button>
-                                </div>
-                                <button type="button" disabled className="btn-2 flex-1 ms-5">
-                                    В корзине
-                                </button>
-                            </div>
-
-                            <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
-                                OUT OF STOCK
-                            </button>
                         </Col>
                     </Row>
                 </section>
