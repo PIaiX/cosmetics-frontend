@@ -9,6 +9,9 @@
 /.idea
 .vscode
 
+#linters
+.eslintrc
+
 # testing
 /coverage
 
