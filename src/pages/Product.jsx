@@ -78,11 +78,31 @@ const Product = () => {
                                 </li>
                             </ul>
 
-                            <div className="d-flex justify-content-between align-items-center mt-5">
-                                <button type="button" className="btn-1">
+                            <div className="d-flex justify-content-between align-items-stretch mt-5">
+                                <div className='count-input'>
+                                    <button type='button'><IoRemoveOutline/></button>
+                                    <input type='number' placeholder='0' />
+                                    <button type='button'><IoAddOutline/></button>
+                                </div>
+                                <button type="button" className="btn-1 flex-1 ms-5">
                                     В корзину - 3300{' '}
                                 </button>
                             </div>
+
+                            <div className="d-flex justify-content-between align-items-stretch mt-5">
+                                <div className='count-input'>
+                                    <button type='button'><IoRemoveOutline/></button>
+                                    <input type='number' placeholder='0' />
+                                    <button type='button'><IoAddOutline/></button>
+                                </div>
+                                <button type="button" disabled className="btn-2 flex-1 ms-5">
+                                    В корзине
+                                </button>
+                            </div>
+
+                            <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
+                                OUT OF STOCK
+                            </button>
                         </Col>
                     </Row>
                 </section>
