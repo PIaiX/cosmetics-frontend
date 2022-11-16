@@ -12,6 +12,11 @@ import {getImageURL} from '../helpers/image'
 import {dispatchAlert} from '../helpers/alert'
 import {apiRejectMessages} from '../config/api'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper'
+
 const Product = () => {
     let {productId} = useParams()
     productId = +productId
@@ -44,7 +49,22 @@ const Product = () => {
                                 </Col>
                                 <Col xs={12} xl={9}>
                                     {/* todo: need to add swiper */}
-                                    <img src={getImageURL()} alt={product?.item?.title} className="img-fluid" />
+                                    <Swiper
+                                        loop={false}
+                                        modules={[Pagination]}
+                                        pagination={{ clickable: true }}
+                                        className="photo-slider"
+                                    >
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                    </Swiper>
                                 </Col>
                             </Row>
                         </Col>

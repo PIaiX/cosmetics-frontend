@@ -10,6 +10,7 @@ import PublicOffer from '../pages/PublicOffer'
 import Contacts from '../pages/Contacts'
 import Category from '../pages/Category'
 import Product from '../pages/Product'
+import Checkout from '../pages/Checkout'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
             </Route>
             <Route path="about" element={<Product />} />
             <Route path="sales" element={<PointsOfSale />} />
+            <Route path="checkout" element={<Checkout/>} />
             <Route path="payment" element={<Payment />} />
             <Route path="delivery" element={<Delivery />} />
             <Route path="public-offer" element={<PublicOffer />} />
