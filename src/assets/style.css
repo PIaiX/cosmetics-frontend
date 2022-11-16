@@ -25,19 +25,42 @@
   }
 }
 
-a, a:hover, a:focus, a:active {
+a,
+a:hover,
+a:focus,
+a:active {
   color: inherit;
   outline: none;
   text-decoration: none;
   cursor: pointer;
 }
 
-p, label, span, a, form, fieldset, legend, select, div, blockquote, cite, figure, figcaption, table, ul, ol, dl, li {
+p,
+label,
+span,
+a,
+form,
+fieldset,
+legend,
+select,
+div,
+blockquote,
+cite,
+figure,
+figcaption,
+table,
+ul,
+ol,
+dl,
+li {
   line-height: 150%;
   margin-bottom: 0px;
+  letter-spacing: 0.04em;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   border: none;
   border-bottom: 1px solid var(--color-1);
   background-color: transparent;
@@ -50,22 +73,48 @@ input, textarea, select {
   display: block;
   transition: var(--transition);
 }
-input:-moz-placeholder, input::-moz-placeholder, input::-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder, textarea:-moz-placeholder, textarea::-moz-placeholder, textarea::-webkit-input-placeholder, textarea:-ms-input-placeholder, textarea::-ms-input-placeholder, select:-moz-placeholder, select::-moz-placeholder, select::-webkit-input-placeholder, select:-ms-input-placeholder, select::-ms-input-placeholder {
+input:-moz-placeholder, input::-moz-placeholder, input::-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder,
+textarea:-moz-placeholder,
+textarea::-moz-placeholder,
+textarea::-webkit-input-placeholder,
+textarea:-ms-input-placeholder,
+textarea::-ms-input-placeholder,
+select:-moz-placeholder,
+select::-moz-placeholder,
+select::-webkit-input-placeholder,
+select:-ms-input-placeholder,
+select::-ms-input-placeholder {
   color: rgb(var(--color-1-rgb)/50%);
   font-weight: 300;
 }
-input::placeholder, textarea::placeholder, select::placeholder {
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
   color: rgb(var(--color-1-rgb)/50%);
   font-weight: 300;
 }
-input.inverse, textarea.inverse, select.inverse {
+input.inverse,
+textarea.inverse,
+select.inverse {
   border-bottom: 1px solid var(--color-2);
   color: var(--color-2);
 }
-input.inverse:-moz-placeholder, input.inverse::-moz-placeholder, input.inverse::-webkit-input-placeholder, input.inverse:-ms-input-placeholder, input.inverse::-ms-input-placeholder, textarea.inverse:-moz-placeholder, textarea.inverse::-moz-placeholder, textarea.inverse::-webkit-input-placeholder, textarea.inverse:-ms-input-placeholder, textarea.inverse::-ms-input-placeholder, select.inverse:-moz-placeholder, select.inverse::-moz-placeholder, select.inverse::-webkit-input-placeholder, select.inverse:-ms-input-placeholder, select.inverse::-ms-input-placeholder {
+input.inverse:-moz-placeholder, input.inverse::-moz-placeholder, input.inverse::-webkit-input-placeholder, input.inverse:-ms-input-placeholder, input.inverse::-ms-input-placeholder,
+textarea.inverse:-moz-placeholder,
+textarea.inverse::-moz-placeholder,
+textarea.inverse::-webkit-input-placeholder,
+textarea.inverse:-ms-input-placeholder,
+textarea.inverse::-ms-input-placeholder,
+select.inverse:-moz-placeholder,
+select.inverse::-moz-placeholder,
+select.inverse::-webkit-input-placeholder,
+select.inverse:-ms-input-placeholder,
+select.inverse::-ms-input-placeholder {
   color: rgb(var(--color-2-rgb)/50%);
 }
-input.inverse::placeholder, textarea.inverse::placeholder, select.inverse::placeholder {
+input.inverse::placeholder,
+textarea.inverse::placeholder,
+select.inverse::placeholder {
   color: rgb(var(--color-2-rgb)/50%);
 }
 
@@ -94,7 +143,7 @@ button {
   cursor: pointer;
 }
 
-.btn, .btn-1 {
+.btn, .btn-2, .btn-1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,6 +165,59 @@ button {
 }
 .btn-1:disabled {
   opacity: 0.5;
+  pointer-events: none;
+}
+.btn-2 {
+  background: transparent;
+  border: 1px solid rgb(var(--color-1-rgb)/100%);
+  color: rgb(var(--color-1-rgb)/100%);
+}
+.btn-2:hover, .btn-2:focus, .btn-2:active, .btn-2.active {
+  border: 1px solid rgb(var(--color-1-rgb)/85%);
+  color: rgb(var(--color-1-rgb)/85%);
+}
+.btn-2:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.btn-3 {
+  background: transparent;
+  border: none;
+  color: rgb(var(--color-1-rgb)/100%);
+}
+.btn-3:hover, .btn-3:focus, .btn-3:active, .btn-3.active {
+  color: rgb(var(--color-1-rgb)/85%);
+}
+.btn-3:disabled {
+  pointer-events: none;
+}
+
+.count-input {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 110px;
+}
+.count-input input {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0.85em 2em;
+  height: 100%;
+}
+.count-input button {
+  position: absolute;
+  z-index: 2;
+  top: 0px;
+  height: 100%;
+  width: 2em;
+}
+.count-input button:first-child {
+  left: 0px;
+}
+.count-input button:last-child {
+  right: 0px;
 }
 
 form.search {
@@ -254,6 +356,10 @@ h6 {
   font-weight: 900;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 .container {
   max-width: 90%;
 }
@@ -285,7 +391,7 @@ h6 {
   --bs-accordion-btn-active-icon: unset;
   --bs-accordion-btn-focus-border-color: unset;
   --bs-accordion-btn-padding-x: 0px;
-  --bs-accordion-btn-padding-y: .5em;
+  --bs-accordion-btn-padding-y: 0.5em;
   --bs-accordion-btn-focus-box-shadow: unset;
   --bs-accordion-active-color: var(--color-1);
   --bs-accordion-active-bg: var(--color-2);
@@ -309,6 +415,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  letter-spacing: 0.04em;
   font-weight: 400;
   color: var(--color-1);
   background-color: var(--color-2);
@@ -495,7 +602,10 @@ header .container .btn-menu {
     font-weight: 700;
     font-size: 1.3em;
   }
-  .cart-item:first-child .img, .cart-item:first-child .count, .cart-item:first-child .price, .cart-item:first-child .btns {
+  .cart-item:first-child .img,
+.cart-item:first-child .count,
+.cart-item:first-child .price,
+.cart-item:first-child .btns {
     display: none;
   }
 }
@@ -511,7 +621,8 @@ header .container .btn-menu {
     padding-bottom: 1em;
     border-bottom: 1px solid var(--color-1);
   }
-  .cart-item:last-child .img, .cart-item:last-child .btns {
+  .cart-item:last-child .img,
+.cart-item:last-child .btns {
     display: none;
   }
   .cart-item:last-child .count {

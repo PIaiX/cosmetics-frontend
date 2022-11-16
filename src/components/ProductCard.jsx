@@ -7,7 +7,8 @@ const ProductCard = ({product = {}}) => {
         <div className="product-card">
             <figure>
                 <Link to={`/product/${product?.id}`}>
-                    <img src={getImageURL(product?.images)} alt={product?.title} />
+                    {/* todo: need to add swiper */}
+                    <img src={getImageURL()} alt={product?.title} />
                     <figcaption>
                         <h4>{product?.title}</h4>
                         <p className="fs-09 mb-1 mb-sm-2">{product?.miniDescription}</p>

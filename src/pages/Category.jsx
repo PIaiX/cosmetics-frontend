@@ -27,10 +27,6 @@ const Category = () => {
             .catch((error) => setCategory((prev) => ({...prev, isLoaded: true, error})))
     }, [categoryId])
 
-    useEffect(() => {
-        console.log('category', category)
-    }, [category])
-
     return (
         <main className="inner">
             <Container>
