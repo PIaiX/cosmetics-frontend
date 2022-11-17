@@ -8,9 +8,12 @@ import {ReactComponent as Logo} from '../assets/images/logo.svg'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
 import {getCategories} from '../services/category'
-import { IoCloseSharp } from "react-icons/io5"
+import {IoCloseSharp} from 'react-icons/io5'
+import {useSelector} from 'react-redux'
+import Info from './UI/Info'
 
 const Header = () => {
+    const cart = useSelector((state) => state?.cart)
     const initialOffcanvas = {
         shop: false,
         search: false,
@@ -29,31 +32,27 @@ const Header = () => {
             .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
     }, [])
 
-
-    const [header, setHeader] = useState(true)
-    const [st, setST] = useState(0)
-    const handleScroll = (event) => {
-        let currentST = window.pageYOffset;
-        console.log ('currentST:'+currentST)
-        console.log ('st:'+st)
-        if ( st <= currentST ) {
-            setHeader(false)
+    const [isShowHeader, setIsShowHeader] = useState(true)
+    const [scrollTop, setScrollTop] = useState(0)
+    const handleScroll = () => {
+        let currentScrollTop = window.pageYOffset
+        if (scrollTop <= currentScrollTop) {
+            setIsShowHeader(false)
         } else {
-            setHeader(true)
+            setIsShowHeader(true)
         }
-        setST(currentST)
+        setScrollTop(currentScrollTop)
     }
     useEffect(() => {
-        document.addEventListener('scroll', handleScroll, true);
+        document.addEventListener('scroll', handleScroll, true)
         return () => {
-            document.removeEventListener('scroll', handleScroll, true);
+            document.removeEventListener('scroll', handleScroll, true)
         }
     })
 
-
     return (
         <>
-            <header className={(header) ? 'h-show' : 'h-hide'}>
+            <header className={isShowHeader ? 'h-show' : 'h-hide'}>
                 <Container>
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
@@ -84,7 +83,7 @@ const Header = () => {
                             className="btn-cart"
                             onClick={() => setIsShowOffcanvas({...initialOffcanvas, cart: true})}
                         >
-                            <span>25</span>
+                            <span>{cart?.items?.length || 0}</span>
                         </button>
                         <button
                             type="button"
@@ -105,60 +104,61 @@ const Header = () => {
                 onHide={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
                 placement={'end'}
             >
-                <Offcanvas.Body>
-                    <div className='d-flex align-items-center justify-content-between mb-4 mb-md-0'>
-                        <Link to="/" className="d-md-none">
-                            <Logo className="logo" />
-                        </Link>
-                        <button
-                            type="button"
-                            className="close"
-                            onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
-                        >
-                            <IoCloseSharp />
-                        </button>
-                    </div>
-                    <div className="cart">
-                        <div className="cart-item">
-                            <div className="title">
-                                <span className="d-md-none">Корзина</span>
-                                <span className="d-none d-md-block">Товар:</span>
-                            </div>
-                            <div className="img" />
-                            <div className="count">Кол-во:</div>
-                            <div className="price">Цена:</div>
-                            <div className="btns" />
+                {!cart?.error ? (
+                    <Offcanvas.Body>
+                        <div className="d-flex align-items-center justify-content-between mb-4 mb-md-0">
+                            <Link to="/" className="d-md-none">
+                                <Logo className="logo" />
+                            </Link>
+                            <button
+                                type="button"
+                                className="close"
+                                onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
+                            >
+                                <IoCloseSharp />
+                            </button>
                         </div>
+                        {cart?.items?.length > 0 ? (
+                            <>
+                                <div className="cart">
+                                    <div className="cart-item">
+                                        <div className="title">
+                                            <span className="d-md-none">Корзина</span>
+                                            <span className="d-none d-md-block">Товар:</span>
+                                        </div>
+                                        <div className="img" />
+                                        <div className="count">Кол-во:</div>
+                                        <div className="price">Цена:</div>
+                                        <div className="btns" />
+                                    </div>
 
-                        <CartItem
-                            title={'SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК'}
-                            imgUrl={'/images/products/SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК.jpg'}
-                            price={1500}
-                            count={1}
-                        />
-                        <CartItem
-                            title={'EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС'}
-                            imgUrl={'/images/products/EC - КРЕМ ДЛЯ ГЛАЗ ГИНКГО + ИРИС.jpg'}
-                            price={1100}
-                            count={1}
-                        />
+                                    {cart.items.map((item) => (
+                                        <CartItem key={item?.id} item={item} />
+                                    ))}
 
-                        <div className="cart-item">
-                            <div className="title">Вам доступна бесплатная доставка</div>
-                            <div className="img"></div>
-                            <div className="count">Всего:</div>
-                            <div className="price">2500&nbsp;₽</div>
-                            <div className="btns"></div>
-                        </div>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center d-md-none fw-7'>
-                        <div>Всего:</div>
-                        <div>2500&nbsp;₽</div>
-                    </div>
-                    <Link to="/checkout" className="m-w-100 btn-1 ms-auto mt-3 px-5">
-                        Оформить заказ
-                    </Link>
-                </Offcanvas.Body>
+                                    <div className="cart-item">
+                                        <div className="title">Вам доступна бесплатная доставка</div>
+                                        <div className="img" />
+                                        <div className="count">Всего:</div>
+                                        <div className="price">2500&nbsp;₽</div>
+                                        <div className="btns" />
+                                    </div>
+                                </div>
+                                <div className="d-flex justify-content-between align-items-center d-md-none fw-7">
+                                    <div>Всего:</div>
+                                    <div>2500&nbsp;₽</div>
+                                </div>
+                                <Link to="/checkout" className="m-w-100 btn-1 ms-auto mt-3 px-5">
+                                    Оформить заказ
+                                </Link>
+                            </>
+                        ) : (
+                            <Info>Вы не добавили ни одного товара в корзину</Info>
+                        )}
+                    </Offcanvas.Body>
+                ) : (
+                    <Info>Не удалось загрузить корзину</Info>
+                )}
             </Offcanvas>
 
             <Offcanvas
