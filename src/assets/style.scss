@@ -140,7 +140,8 @@ input {
         border: 1px solid var(--color-1);
         padding: 0.5em;
     }
-    &[type="checkbox"], &[type="radio"] {
+    &[type='checkbox'],
+    &[type='radio'] {
         @include no-appearance();
         width: var(--size);
         height: var(--size);
@@ -172,7 +173,9 @@ input::-webkit-inner-spin-button {
 label {
     display: flex;
     align-items: center;
-    span {flex: 1;}
+    span {
+        flex: 1;
+    }
 }
 
 button {
@@ -423,7 +426,9 @@ h6 {
     }
 }
 @media (max-width: 767px) {
-    .m-w-100 {width: 100% !important;}
+    .m-w-100 {
+        width: 100% !important;
+    }
 }
 
 .accordion {
@@ -483,6 +488,9 @@ header {
     }
     &.h-hide {
         top: calc(var(--h-height) * -1);
+        @media (max-width: 991px) {
+            top: 0px;
+        }
     }
     .container {
         height: 100%;
@@ -533,6 +541,7 @@ header {
 }
 
 .offcanvas {
+    border: none !important;
     &.offcanvas-end {
         border: none;
         width: 900px;
@@ -547,6 +556,28 @@ header {
         }
         .offcanvas-body {
             padding: calc(var(--h-height) + 2em) 3em 2em;
+        }
+    }
+    &.search-results {
+        z-index: 1040;
+        &.show {
+            left: 398px;
+        }
+        ul {
+            li {
+                &:not(:first-child) {
+                    margin-top: 1em;
+                }
+                .title {
+                    font-size: 0.9em;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                }
+                .info {
+                    font-size: 0.8em;
+                    font-weight: 300;
+                }
+            }
         }
     }
     &-body {
@@ -796,7 +827,8 @@ figure.full {
         }
         figcaption {
             text-align: center;
-            h4, p {
+            h4,
+            p {
                 word-wrap: break-word;
             }
         }

@@ -496,6 +496,11 @@ header.h-show {
 header.h-hide {
   top: calc(var(--h-height) * -1);
 }
+@media (max-width: 991px) {
+  header.h-hide {
+    top: 0px;
+  }
+}
 header .container {
   height: 100%;
   display: flex;
@@ -557,6 +562,9 @@ header .container .btn-menu {
   font-size: 2.5em;
 }
 
+.offcanvas {
+  border: none !important;
+}
 .offcanvas.offcanvas-end {
   border: none;
   width: 900px;
@@ -574,6 +582,24 @@ header .container .btn-menu {
 }
 .offcanvas.offcanvas-start .offcanvas-body {
   padding: calc(var(--h-height) + 2em) 3em 2em;
+}
+.offcanvas.search-results {
+  z-index: 1040;
+}
+.offcanvas.search-results.show {
+  left: 398px;
+}
+.offcanvas.search-results ul li:not(:first-child) {
+  margin-top: 1em;
+}
+.offcanvas.search-results ul li .title {
+  font-size: 0.9em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.offcanvas.search-results ul li .info {
+  font-size: 0.8em;
+  font-weight: 300;
 }
 .offcanvas-body {
   padding: 2em 3em;
@@ -847,7 +873,8 @@ figure.full figcaption .container {
 .product-card figure figcaption {
   text-align: center;
 }
-.product-card figure figcaption h4, .product-card figure figcaption p {
+.product-card figure figcaption h4,
+.product-card figure figcaption p {
   word-wrap: break-word;
 }
 

@@ -1,16 +1,17 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, {useCallback, useEffect, useState, useRef} from 'react'
+import {useSearchParams, Link, useNavigate} from 'react-router-dom'
+import Accordion from 'react-bootstrap/Accordion'
 import Container from 'react-bootstrap/Container'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import Accordion from 'react-bootstrap/Accordion'
-import {TfiArrowRight, TfiClose} from 'react-icons/tfi'
-import {SlClose, SlMenu} from 'react-icons/sl'
-import {ReactComponent as Logo} from '../assets/images/logo.svg'
-import CartItem from './CartItem'
-import {Link} from 'react-router-dom'
-import {getCategories} from '../services/category'
 import {IoCloseSharp} from 'react-icons/io5'
+import {SlMenu} from 'react-icons/sl'
+import {TfiArrowRight, TfiClose} from 'react-icons/tfi'
 import {useSelector} from 'react-redux'
+import {ReactComponent as Logo} from '../assets/images/logo.svg'
+import {getCategories} from '../services/category'
+import useDebounce from '../hooks/useDebounce'
+import {getSearch} from '../services/search'
+import CartItem from './CartItem'
 import Info from './UI/Info'
 
 const Header = () => {
@@ -27,18 +28,35 @@ const Header = () => {
         error: null,
         items: [],
     })
-    const [isShowHeader, setIsShowHeader] = useState(true)
-    const [scrollTop, setScrollTop] = useState(0)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const searchText = useDebounce(searchParams.get('text') ?? '')
+    const [data, setData] = useState({
+        isLoaded: false,
+        error: null,
+        items: [],
+    })
+    const isShowHeader = useRef()
+    const scrollTop = useRef(0)
+    const inputSearch = useRef()
 
     const handleScroll = () => {
         let currentScrollTop = window.pageYOffset
-        if (scrollTop <= currentScrollTop) {
-            setIsShowHeader(false)
+        if (scrollTop.current <= currentScrollTop) {
+            isShowHeader.current.className = 'h-hide'
         } else {
-            setIsShowHeader(true)
+            isShowHeader.current.className = 'h-show'
         }
-        setScrollTop(currentScrollTop)
+        scrollTop.current = currentScrollTop
     }
+
+    useEffect(() => {
+        if (isShowOffcanvas.search) {
+            setTimeout(() => {
+                inputSearch?.current?.focus()
+            }, 150)
+        }
+    }, [isShowOffcanvas.search])
+
 
     const computeCartSum = useCallback(() => {
         if (cart?.items?.length)
@@ -58,11 +76,29 @@ const Header = () => {
         return () => {
             document.removeEventListener('scroll', handleScroll, true)
         }
-    })
+    }, [])
+
+    const getData = () => {
+        getSearch(searchText)
+            .then(
+                (res) =>
+                    res &&
+                    setData((prev) => ({
+                        ...prev,
+                        isLoaded: true,
+                        items: res?.products?.rows,
+                    }))
+            )
+            .catch((error) => error && setData((prev) => ({...prev, isLoaded: true, error, items: []})))
+    }
+
+    useEffect(() => {
+        getData()
+    }, [searchText])
 
     return (
         <>
-            <header className={isShowHeader ? 'h-show' : 'h-hide'}>
+            <header ref={isShowHeader} className="h-show">
                 <Container>
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
@@ -243,14 +279,57 @@ const Header = () => {
                 show={isShowOffcanvas.search}
                 onHide={() => setIsShowOffcanvas((prev) => ({...prev, search: false}))}
                 placement={'start'}
+                autoFocus={false}
+                enforceFocus={false}
             >
                 <Offcanvas.Body>
                     <form className="search">
-                        <input type="email" placeholder="email адрес" />
-                        <button type="submit">
+                        <input
+                            ref={inputSearch}
+                            type="text"
+                            placeholder="Поиск"
+                            value={searchParams.get('text')}
+                            onChange={(e) => setSearchParams({text: e.target.value})}
+                        />
+                        <button type="button">
                             <TfiArrowRight />
                         </button>
                     </form>
+                </Offcanvas.Body>
+            </Offcanvas>
+            <Offcanvas
+                show={isShowOffcanvas.search && data?.items?.length > 0}
+                className={'search-results'}
+                onHide={() => setIsShowOffcanvas((prev) => ({...prev, search: false}))}
+                placement={'start'}
+                autoFocus={false}
+                enforceFocus={false}
+            >
+                <Offcanvas.Body>
+                    <ul className="list-unstyled">
+                        {!data.isLoaded && searchText.length > 0 ? (
+                            <p>Загрузка...</p>
+                        ) : !data.items || data.items.length == 0 ? (
+                            <p className="d-flex flex-column align-items-center justify-content-center account-info">
+                                {searchText.length > 0 ? 'Ничего не найдено' : 'Начните вводить текст'}
+                            </p>
+                        ) : (
+                            <>
+                                {data?.items?.length > 0 &&
+                                    data.items.map(
+                                        (item) =>
+                                            item && (
+                                                <li key={item.id}>
+                                                    <Link to="/" className="mb-3">
+                                                        <div className="title">{item.title}</div>
+                                                        <div className="info">{item.miniDescription}</div>
+                                                    </Link>
+                                                </li>
+                                            )
+                                    )}
+                            </>
+                        )}
+                    </ul>
                 </Offcanvas.Body>
             </Offcanvas>
         </>
