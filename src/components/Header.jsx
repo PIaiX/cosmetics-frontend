@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Accordion from 'react-bootstrap/Accordion'
@@ -13,6 +14,7 @@ import {useSelector} from 'react-redux'
 import Info from './UI/Info'
 
 const Header = () => {
+    const navigate = useNavigate()
     const cart = useSelector((state) => state?.cart)
     const initialOffcanvas = {
         shop: false,
@@ -25,15 +27,9 @@ const Header = () => {
         error: null,
         items: [],
     })
-
-    useEffect(() => {
-        getCategories()
-            .then((res) => res && setCategories((prev) => ({...prev, isLoaded: true, items: res?.categories})))
-            .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
-    }, [])
-
     const [isShowHeader, setIsShowHeader] = useState(true)
     const [scrollTop, setScrollTop] = useState(0)
+
     const handleScroll = () => {
         let currentScrollTop = window.pageYOffset
         if (scrollTop <= currentScrollTop) {
@@ -43,6 +39,20 @@ const Header = () => {
         }
         setScrollTop(currentScrollTop)
     }
+
+    const computeCartSum = useCallback(() => {
+        if (cart?.items?.length)
+            return cart.items.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue?.price
+            }, 0)
+    }, [cart?.items])
+
+    useEffect(() => {
+        getCategories()
+            .then((res) => res && setCategories((prev) => ({...prev, isLoaded: true, items: res?.categories})))
+            .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
+    }, [])
+
     useEffect(() => {
         document.addEventListener('scroll', handleScroll, true)
         return () => {
@@ -140,17 +150,25 @@ const Header = () => {
                                         <div className="title">Вам доступна бесплатная доставка</div>
                                         <div className="img" />
                                         <div className="count">Всего:</div>
-                                        <div className="price">2500&nbsp;₽</div>
+                                        <div className="price">{computeCartSum()}&nbsp;₽</div>
                                         <div className="btns" />
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center d-md-none fw-7">
                                     <div>Всего:</div>
-                                    <div>2500&nbsp;₽</div>
+                                    <div>{computeCartSum()}&nbsp;₽</div>
                                 </div>
-                                <Link to="/checkout" className="m-w-100 btn-1 ms-auto mt-3 px-5">
+                                <button
+                                    type="button"
+                                    // to="/checkout"
+                                    className="m-w-100 btn-1 ms-auto mt-3 px-5"
+                                    onClick={() => {
+                                        navigate('/checkout')
+                                        setIsShowOffcanvas((prev) => ({...prev, cart: false}))
+                                    }}
+                                >
                                     Оформить заказ
-                                </Link>
+                                </button>
                             </>
                         ) : (
                             <Info>Вы не добавили ни одного товара в корзину</Info>

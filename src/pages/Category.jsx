@@ -33,8 +33,8 @@ const Category = () => {
                 <Logo />
                 {!category?.error ? (
                     <section className="mb-8">
-                        {category?.item?.title && <h1>{category?.item?.title}</h1>}
-                        {category?.products?.length > 0 && (
+                        {category?.products?.length > 0 && category?.item?.title && <h1>{category?.item?.title}</h1>}
+                        {category?.products?.length > 0 ? (
                             <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
                                 {category.products.map((item) => (
                                     <Col key={item?.id}>
@@ -42,13 +42,13 @@ const Category = () => {
                                     </Col>
                                 ))}
                             </Row>
+                        ) : (
+                            <Info>В данной котегории нет товаров</Info>
                         )}
                     </section>
                 ) : (
-                    <Info>Не удалось загрузить продукты по данному запросу</Info>
+                    <Info>Не удалось загрузить товары в данной категории</Info>
                 )}
-
-                <Recommendations />
             </Container>
         </main>
     )

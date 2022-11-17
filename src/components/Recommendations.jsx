@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ProductCard from './ProductCard'
 
-const Recommendations = () => {
+const Recommendations = ({products = [], title = ''}) => {
     return (
         <section className="mb-8">
-            <h2>Посмотрите еще</h2>
+            <h2>{title}</h2>
             <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
                 <Col>
                     <ProductCard

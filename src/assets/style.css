@@ -73,11 +73,17 @@ select {
   display: block;
   transition: var(--transition);
 }
-input::-moz-placeholder, textarea::-moz-placeholder, select::-moz-placeholder {
-  color: rgb(var(--color-1-rgb)/50%);
-  font-weight: 300;
-}
-input:-ms-input-placeholder, textarea:-ms-input-placeholder, select:-ms-input-placeholder {
+input:-moz-placeholder, input::-moz-placeholder, input::-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder,
+textarea:-moz-placeholder,
+textarea::-moz-placeholder,
+textarea::-webkit-input-placeholder,
+textarea:-ms-input-placeholder,
+textarea::-ms-input-placeholder,
+select:-moz-placeholder,
+select::-moz-placeholder,
+select::-webkit-input-placeholder,
+select:-ms-input-placeholder,
+select::-ms-input-placeholder {
   color: rgb(var(--color-1-rgb)/50%);
   font-weight: 300;
 }
@@ -93,10 +99,17 @@ select.inverse {
   border-bottom: 1px solid var(--color-2);
   color: var(--color-2);
 }
-input.inverse::-moz-placeholder, textarea.inverse::-moz-placeholder, select.inverse::-moz-placeholder {
-  color: rgb(var(--color-2-rgb)/50%);
-}
-input.inverse:-ms-input-placeholder, textarea.inverse:-ms-input-placeholder, select.inverse:-ms-input-placeholder {
+input.inverse:-moz-placeholder, input.inverse::-moz-placeholder, input.inverse::-webkit-input-placeholder, input.inverse:-ms-input-placeholder, input.inverse::-ms-input-placeholder,
+textarea.inverse:-moz-placeholder,
+textarea.inverse::-moz-placeholder,
+textarea.inverse::-webkit-input-placeholder,
+textarea.inverse:-ms-input-placeholder,
+textarea.inverse::-ms-input-placeholder,
+select.inverse:-moz-placeholder,
+select.inverse::-moz-placeholder,
+select.inverse::-webkit-input-placeholder,
+select.inverse:-ms-input-placeholder,
+select.inverse::-ms-input-placeholder {
   color: rgb(var(--color-2-rgb)/50%);
 }
 input.inverse::placeholder,
@@ -181,8 +194,6 @@ button {
   padding: 1em 1.5em;
   text-align: center;
   transition: var(--transition);
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   font-size: 1em;
   line-height: 120%;
@@ -706,8 +717,7 @@ header .container .btn-menu {
 .cart-item .img img {
   width: 100%;
   height: 60px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .cart-item .count {
   grid-column: 3/4;
@@ -788,8 +798,7 @@ figure.full {
 figure.full img.main {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   position: relative;
   z-index: 1;
 }
@@ -832,8 +841,7 @@ figure.full figcaption .container {
 .product-card figure img {
   width: 100%;
   height: 20vw;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   margin-bottom: 1em;
 }
 .product-card figure figcaption {
@@ -865,10 +873,8 @@ figure.full figcaption .container {
 .product-page .photo-slider img {
   width: 100%;
   height: 500px;
-  -o-object-fit: contain;
-     object-fit: contain;
-  -o-object-position: center bottom;
-     object-position: center bottom;
+  object-fit: contain;
+  object-position: center bottom;
 }
 .product-page .photo-slider .swiper-pagination {
   bottom: 0px;
@@ -956,12 +962,9 @@ footer.mobile ul li:not(:first-child) {
   display: none;
   align-items: center;
   gap: 10px;
-  -webkit-animation: linear;
-          animation: linear;
-  -webkit-animation-name: run;
-          animation-name: run;
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
+  animation: linear;
+  animation-name: run;
+  animation-duration: 0.2s;
 }
 .action-alert.show {
   display: flex;
@@ -977,14 +980,6 @@ footer.mobile ul li:not(:first-child) {
 .action-alert_danger .action-alert__icon {
   color: #bf3535;
 }
-@-webkit-keyframes run {
-  0% {
-    right: -300px;
-  }
-  100% {
-    right: 2vw;
-  }
-}
 @keyframes run {
   0% {
     right: -300px;
@@ -992,4 +987,20 @@ footer.mobile ul li:not(:first-child) {
   100% {
     right: 2vw;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background-color: #121212;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -7,15 +7,16 @@ import Logo from '../components/Logo'
 import Recommendations from '../components/Recommendations'
 import {IoAddOutline, IoRemoveOutline} from 'react-icons/io5'
 import {useParams} from 'react-router-dom'
-import {getProduct} from '../services/product'
+import {getProduct, getProductRecommendations} from '../services/product'
 import {getImageURL} from '../helpers/image'
 import {useDispatch, useSelector} from 'react-redux'
 import {cartCreate, cartDelete, cartEdit} from '../store/actions/cart'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
+import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { Pagination } from 'swiper'
+import {Pagination} from 'swiper'
+import Loader from '../components/UI/Loader'
 
 const Product = () => {
     const dispatch = useDispatch()
@@ -34,6 +35,11 @@ const Product = () => {
         isLoaded: false,
         error: null,
         item: null,
+    })
+    const [productRecommendations, setProductRecommendations] = useState({
+        isLoaded: false,
+        error: null,
+        items: [],
     })
 
     const updateCart = useCallback(
@@ -96,6 +102,12 @@ const Product = () => {
     }, [cartItem, productId])
 
     useEffect(() => {
+        getProductRecommendations({productId})
+            .then((res) => setProductRecommendations((prev) => ({...prev, isLoaded: true, items: res?.recommends})))
+            .catch((error) => setProductRecommendations((prev) => ({...prev, isLoaded: true, error})))
+    }, [productId])
+
+    useEffect(() => {
         console.log('prod', product)
     }, [product])
 
@@ -115,17 +127,17 @@ const Product = () => {
                                     <Swiper
                                         loop={false}
                                         modules={[Pagination]}
-                                        pagination={{ clickable: true }}
+                                        pagination={{clickable: true}}
                                         className="photo-slider"
                                     >
                                         <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                            <img src={getImageURL()} alt={product?.item?.title} />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                            <img src={getImageURL()} alt={product?.item?.title} />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                            <img src={getImageURL()} alt={product?.item?.title} />
                                         </SwiperSlide>
                                     </Swiper>
                                 </Col>
@@ -222,7 +234,17 @@ const Product = () => {
                     </Row>
                 </section>
 
-                <Recommendations />
+                {!productRecommendations?.error ? (
+                    productRecommendations?.isLoaded ? (
+                        productRecommendations?.items?.length > 0 ? (
+                            <Recommendations products={productRecommendations?.items} title="Посмотрите еще" />
+                        ) : null
+                    ) : (
+                        <div className="d-flex justify-content-center align-items-center">
+                            <Loader />
+                        </div>
+                    )
+                ) : null}
             </Container>
         </main>
     )
