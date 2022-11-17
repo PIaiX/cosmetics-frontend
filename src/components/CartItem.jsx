@@ -26,7 +26,8 @@ const CartItem = (props) => {
             <div className="price">{props.price}&nbsp;₽</div>
             <div className="btns">
                 <button type="button">
-                    <IoCloseOutline />
+                    <IoCloseOutline className='d-none d-md-block' />
+                    <span className='d-md-none'>Удалить</span>
                 </button>
             </div>
         </div>

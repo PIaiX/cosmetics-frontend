@@ -8,6 +8,7 @@ import {ReactComponent as Logo} from '../assets/images/logo.svg'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
 import {getCategories} from '../services/category'
+import { IoCloseSharp } from "react-icons/io5"
 
 const Header = () => {
     const initialOffcanvas = {
@@ -28,9 +29,31 @@ const Header = () => {
             .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
     }, [])
 
+
+    const [header, setHeader] = useState(true)
+    const [st, setST] = useState(0)
+    const handleScroll = (event) => {
+        let currentST = window.pageYOffset;
+        console.log ('currentST:'+currentST)
+        console.log ('st:'+st)
+        if ( st <= currentST ) {
+            setHeader(false)
+        } else {
+            setHeader(true)
+        }
+        setST(currentST)
+    }
+    useEffect(() => {
+        document.addEventListener('scroll', handleScroll, true);
+        return () => {
+            document.removeEventListener('scroll', handleScroll, true);
+        }
+    })
+
+
     return (
         <>
-            <header>
+            <header className={(header) ? 'h-show' : 'h-hide'}>
                 <Container>
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
@@ -83,13 +106,18 @@ const Header = () => {
                 placement={'end'}
             >
                 <Offcanvas.Body>
-                    <button
-                        type="button"
-                        className="close"
-                        onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
-                    >
-                        <SlClose />
-                    </button>
+                    <div className='d-flex align-items-center justify-content-between mb-4 mb-md-0'>
+                        <Link to="/" className="d-md-none">
+                            <Logo className="logo" />
+                        </Link>
+                        <button
+                            type="button"
+                            className="close"
+                            onClick={() => setIsShowOffcanvas((prev) => ({...prev, cart: false}))}
+                        >
+                            <IoCloseSharp />
+                        </button>
+                    </div>
                     <div className="cart">
                         <div className="cart-item">
                             <div className="title">
@@ -123,9 +151,13 @@ const Header = () => {
                             <div className="btns"></div>
                         </div>
                     </div>
-                    <button type="button" className="btn-1 ms-auto mt-3 px-5">
+                    <div className='d-flex justify-content-between align-items-center d-md-none fw-7'>
+                        <div>Всего:</div>
+                        <div>2500&nbsp;₽</div>
+                    </div>
+                    <Link to="/checkout" className="m-w-100 btn-1 ms-auto mt-3 px-5">
                         Оформить заказ
-                    </button>
+                    </Link>
                 </Offcanvas.Body>
             </Offcanvas>
 

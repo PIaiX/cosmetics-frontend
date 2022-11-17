@@ -15,7 +15,7 @@
 }
 @media (max-width: 767px) {
   :root {
-    --h-height: 60px;
+    --h-height: 85px;
     --f-height: 180px;
   }
 }
@@ -73,17 +73,11 @@ select {
   display: block;
   transition: var(--transition);
 }
-input:-moz-placeholder, input::-moz-placeholder, input::-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder,
-textarea:-moz-placeholder,
-textarea::-moz-placeholder,
-textarea::-webkit-input-placeholder,
-textarea:-ms-input-placeholder,
-textarea::-ms-input-placeholder,
-select:-moz-placeholder,
-select::-moz-placeholder,
-select::-webkit-input-placeholder,
-select:-ms-input-placeholder,
-select::-ms-input-placeholder {
+input::-moz-placeholder, textarea::-moz-placeholder, select::-moz-placeholder {
+  color: rgb(var(--color-1-rgb)/50%);
+  font-weight: 300;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder, select:-ms-input-placeholder {
   color: rgb(var(--color-1-rgb)/50%);
   font-weight: 300;
 }
@@ -99,17 +93,10 @@ select.inverse {
   border-bottom: 1px solid var(--color-2);
   color: var(--color-2);
 }
-input.inverse:-moz-placeholder, input.inverse::-moz-placeholder, input.inverse::-webkit-input-placeholder, input.inverse:-ms-input-placeholder, input.inverse::-ms-input-placeholder,
-textarea.inverse:-moz-placeholder,
-textarea.inverse::-moz-placeholder,
-textarea.inverse::-webkit-input-placeholder,
-textarea.inverse:-ms-input-placeholder,
-textarea.inverse::-ms-input-placeholder,
-select.inverse:-moz-placeholder,
-select.inverse::-moz-placeholder,
-select.inverse::-webkit-input-placeholder,
-select.inverse:-ms-input-placeholder,
-select.inverse::-ms-input-placeholder {
+input.inverse::-moz-placeholder, textarea.inverse::-moz-placeholder, select.inverse::-moz-placeholder {
+  color: rgb(var(--color-2-rgb)/50%);
+}
+input.inverse:-ms-input-placeholder, textarea.inverse:-ms-input-placeholder, select.inverse:-ms-input-placeholder {
   color: rgb(var(--color-2-rgb)/50%);
 }
 input.inverse::placeholder,
@@ -118,9 +105,45 @@ select.inverse::placeholder {
   color: rgb(var(--color-2-rgb)/50%);
 }
 
+input {
+  --size: 1.25rem;
+}
+@media (max-width: 575px) {
+  input {
+    --size: 1rem;
+  }
+}
 input[type=number] {
   border: 1px solid var(--color-1);
   padding: 0.5em;
+}
+input[type=checkbox], input[type=radio] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  outline: none;
+  width: var(--size);
+  height: var(--size);
+  padding: 0px !important;
+  border-radius: 0px;
+  border: 1px solid var(--color-1);
+  background-color: #fff;
+  position: relative;
+}
+input[type=checkbox]::before, input[type=radio]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 40%;
+  background-color: transparent;
+  transition: var(--transition);
+  transform: translate(-50%, -50%);
+}
+input[type=checkbox]:checked::before, input[type=radio]:checked::before {
+  background-color: var(--color-1);
 }
 
 input::-webkit-outer-spin-button,
@@ -130,6 +153,14 @@ input::-webkit-inner-spin-button {
   -moz-appearance: none;
   -ms-appearance: none;
   outline: none;
+}
+
+label {
+  display: flex;
+  align-items: center;
+}
+label span {
+  flex: 1;
 }
 
 button {
@@ -150,6 +181,8 @@ button {
   padding: 1em 1.5em;
   text-align: center;
   transition: var(--transition);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   font-size: 1em;
   line-height: 120%;
@@ -382,6 +415,11 @@ h6 {
   }
 }
 
+@media (max-width: 767px) {
+  .m-w-100 {
+    width: 100% !important;
+  }
+}
 .accordion {
   --bs-accordion-color: var(--color-1);
   --bs-accordion-border-color: none;
@@ -439,6 +477,13 @@ header {
   z-index: 1200;
   height: var(--h-height);
   background-color: rgb(var(--color-2-rgb)/85%);
+  transition: top var(--transition);
+}
+header.h-show {
+  top: 0px;
+}
+header.h-hide {
+  top: calc(var(--h-height) * -1);
 }
 header .container {
   height: 100%;
@@ -529,12 +574,19 @@ header .container .btn-menu {
   }
 }
 .offcanvas-body .close {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  font-size: 1.5em;
-  opacity: 0.5;
+  font-size: 2.5em;
+  opacity: 1;
   transition: var(--transition);
+}
+@media (min-width: 768px) {
+  .offcanvas-body .close {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    z-index: 10;
+    font-size: 1.5em;
+    opacity: 0.5;
+  }
 }
 .offcanvas-body .close:hover, .offcanvas-body .close:focus, .offcanvas-body .close:active {
   opacity: 1;
@@ -622,15 +674,10 @@ header .container .btn-menu {
     border-bottom: 1px solid var(--color-1);
   }
   .cart-item:last-child .img,
+.cart-item:last-child .count,
+.cart-item:last-child .price,
 .cart-item:last-child .btns {
     display: none;
-  }
-  .cart-item:last-child .count {
-    grid-column: 1/3;
-    font-weight: 700;
-  }
-  .cart-item:last-child .price {
-    font-weight: 700;
   }
 }
 .cart-item .title {
@@ -639,6 +686,11 @@ header .container .btn-menu {
   display: flex;
   align-items: center;
 }
+@media (max-width: 767px) {
+  .cart-item .title {
+    grid-row: 1/3;
+  }
+}
 .cart-item .img {
   grid-column: 2/3;
   grid-row: 1/2;
@@ -646,10 +698,16 @@ header .container .btn-menu {
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 767px) {
+  .cart-item .img {
+    grid-row: 1/3;
+  }
+}
 .cart-item .img img {
   width: 100%;
   height: 60px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .cart-item .count {
   grid-column: 3/4;
@@ -659,8 +717,8 @@ header .container .btn-menu {
 }
 @media (max-width: 767px) {
   .cart-item .count {
-    grid-column: 2/3;
-    grid-row: 2/3;
+    grid-column: 3/4;
+    grid-row: 1/2;
   }
 }
 .cart-item .price {
@@ -685,8 +743,24 @@ header .container .btn-menu {
 }
 @media (max-width: 767px) {
   .cart-item .btns {
-    grid-column: 3/4;
+    font-size: 1em;
+    grid-column: 1/4;
+    grid-row: 3/4;
+    justify-content: flex-start;
   }
+}
+
+.form-checkout input {
+  padding: 1em 0;
+}
+.form-checkout input[type=number] {
+  border: unset;
+  padding: 1em 0;
+  border-bottom: 1px solid var(--color-1);
+  transition: var(--transition);
+}
+.form-checkout input.error {
+  border-bottom: 1px solid red;
 }
 
 main {
@@ -714,7 +788,8 @@ figure.full {
 figure.full img.main {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: relative;
   z-index: 1;
 }
@@ -757,11 +832,15 @@ figure.full figcaption .container {
 .product-card figure img {
   width: 100%;
   height: 20vw;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   margin-bottom: 1em;
 }
 .product-card figure figcaption {
   text-align: center;
+}
+.product-card figure figcaption h4, .product-card figure figcaption p {
+  word-wrap: break-word;
 }
 
 .product-page .info-list {
@@ -778,6 +857,27 @@ figure.full figcaption .container {
   align-items: center;
   border-bottom: 1px solid var(--color-1);
   padding: 0.5em 0;
+}
+.product-page .photo-slider {
+  position: relative;
+  padding-bottom: 2em;
+}
+.product-page .photo-slider img {
+  width: 100%;
+  height: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center bottom;
+     object-position: center bottom;
+}
+.product-page .photo-slider .swiper-pagination {
+  bottom: 0px;
+}
+.product-page .photo-slider .swiper-pagination-bullet {
+  border-radius: 0px;
+}
+.product-page .photo-slider .swiper-pagination-bullet-active {
+  background-color: #000;
 }
 
 .about-page p {
@@ -856,9 +956,12 @@ footer.mobile ul li:not(:first-child) {
   display: none;
   align-items: center;
   gap: 10px;
-  animation: linear;
-  animation-name: run;
-  animation-duration: 0.2s;
+  -webkit-animation: linear;
+          animation: linear;
+  -webkit-animation-name: run;
+          animation-name: run;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
 }
 .action-alert.show {
   display: flex;
@@ -874,7 +977,7 @@ footer.mobile ul li:not(:first-child) {
 .action-alert_danger .action-alert__icon {
   color: #bf3535;
 }
-@keyframes run {
+@-webkit-keyframes run {
   0% {
     right: -300px;
   }
@@ -882,5 +985,11 @@ footer.mobile ul li:not(:first-child) {
     right: 2vw;
   }
 }
-
-/*# sourceMappingURL=style.css.map */
+@keyframes run {
+  0% {
+    right: -300px;
+  }
+  100% {
+    right: 2vw;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -12,6 +12,11 @@ import {getImageURL} from '../helpers/image'
 import {useDispatch, useSelector} from 'react-redux'
 import {cartCreate, cartDelete, cartEdit} from '../store/actions/cart'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper'
+
 const Product = () => {
     const dispatch = useDispatch()
     let {productId} = useParams()
@@ -107,7 +112,22 @@ const Product = () => {
                                 </Col>
                                 <Col xs={12} xl={9}>
                                     {/* todo: need to add swiper */}
-                                    <img src={getImageURL()} alt={product?.item?.title} className="img-fluid" />
+                                    <Swiper
+                                        loop={false}
+                                        modules={[Pagination]}
+                                        pagination={{ clickable: true }}
+                                        className="photo-slider"
+                                    >
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                        <SwiperSlide>
+                                            <img src={getImageURL()} alt={product?.item?.title}/>
+                                        </SwiperSlide>
+                                    </Swiper>
                                 </Col>
                             </Row>
                         </Col>
