@@ -4,7 +4,7 @@ const apiRoutes = {
     // category
     CATEGORY_ALL: '/category/all',
     CATEGORY_ONE: '/category/one',
-
+    SEARCH_GET: '/search',
     // product
     PRODUCT_ONE: '/product/one',
     PRODUCT_RECOMMENDATIONS: '/product/recommendations',
@@ -24,4 +24,4 @@ const apiRejectMessages = {
 
 const apiErrors = {}
 
-export {BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors}
+export { BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors }
