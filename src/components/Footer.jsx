@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import {TfiArrowRight} from 'react-icons/tfi'
 import {SlSocialInstagram} from 'react-icons/sl'
@@ -7,12 +7,22 @@ import useIsMobile from '../hooks/isMobile'
 import Collapse from 'react-bootstrap/Collapse'
 import {Link} from 'react-router-dom'
 import {FormattedMessage, useIntl} from 'react-intl'
+import {useDispatch, useSelector} from 'react-redux'
+import LOCALES from '../assets/i18n/locales'
+import {setLocale} from '../store/reducers/localeSlice'
 
 const Footer = () => {
     const intl = useIntl()
+    const dispatch = useDispatch()
     const {mobile} = useIsMobile()
+    const locale = useSelector((state) => state?.locale?.value)
     const [open, setOpen] = useState(false)
     const [open2, setOpen2] = useState(false)
+
+    const onChooseLocale = useCallback((locale) => {
+        dispatch(setLocale({value: locale}))
+        setOpen(false)
+    }, [])
 
     return mobile ? (
         <footer className="mobile">
@@ -23,14 +33,18 @@ const Footer = () => {
                     aria-expanded={open}
                     className="w-100 d-flex justify-content-between align-items-center"
                 >
-                    <span>Русский</span>
+                    <span>
+                        {locale === LOCALES.RUSSIAN && 'Русский'}
+                        {(locale === LOCALES.ENGLISH || locale === LOCALES.ENGLAND) && 'English'}
+                        {locale === LOCALES.JAPANESE && '日本語'}
+                    </span>
                     {open ? <IoRemoveOutline /> : <IoAddOutline />}
                 </button>
                 <Collapse in={open}>
-                    <ul className="list-unstyled mt-3">
-                        <li>Русский</li>
-                        <li>English</li>
-                        <li>日本語</li>
+                    <ul className="locales-list list-unstyled mt-3">
+                        <li onClick={() => onChooseLocale(LOCALES.RUSSIAN)}>Русский</li>
+                        <li onClick={() => onChooseLocale(LOCALES.ENGLISH)}>English</li>
+                        <li onClick={() => onChooseLocale(LOCALES.JAPANESE)}>日本語</li>
                     </ul>
                 </Collapse>
             </div>
