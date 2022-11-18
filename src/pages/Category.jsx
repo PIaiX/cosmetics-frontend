@@ -26,6 +26,10 @@ const Category = () => {
             .catch((error) => setCategory((prev) => ({...prev, isLoaded: true, error})))
     }, [categoryId])
 
+    useEffect(() => {
+        console.log('cat', category)
+    }, [category])
+
     return (
         <main className="inner">
             <Container>
@@ -42,11 +46,11 @@ const Category = () => {
                                 ))}
                             </Row>
                         ) : (
-                            <Info>В данной котегории нет товаров</Info>
+                            <Info>В данной категории нет товаров</Info>
                         )}
                     </section>
                 ) : (
-                    <Info>Не удалось загрузить товары в данной категории</Info>
+                    <Info>Не удалось загрузить товары данной категории</Info>
                 )}
             </Container>
         </main>

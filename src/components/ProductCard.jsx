@@ -21,7 +21,7 @@ const ProductCard = ({product = {}}) => {
                     В корзину
                 </button>
             ) : (
-                <button type="button" className="btn fw-7 w-100 mt-2 mt-sm-4">
+                <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
                     OUT OF STOCK
                 </button>
             )}

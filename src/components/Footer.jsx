@@ -6,8 +6,10 @@ import {IoAddOutline, IoRemoveOutline} from 'react-icons/io5'
 import useIsMobile from '../hooks/isMobile'
 import Collapse from 'react-bootstrap/Collapse'
 import {Link} from 'react-router-dom'
+import {FormattedMessage, useIntl} from 'react-intl'
 
 const Footer = () => {
+    const intl = useIntl()
     const {mobile} = useIsMobile()
     const [open, setOpen] = useState(false)
     const [open2, setOpen2] = useState(false)
@@ -39,28 +41,42 @@ const Footer = () => {
                     aria-expanded={open2}
                     className="w-100 d-flex justify-content-between align-items-center"
                 >
-                    <span>Информация:</span>
+                    <span>
+                        <FormattedMessage id="info" />:
+                    </span>
                     {open2 ? <IoRemoveOutline /> : <IoAddOutline />}
                 </button>
                 <Collapse in={open2}>
                     <ul className="list-unstyled mt-3">
                         <li>
-                            <Link to="/about">О Компании</Link>
+                            <Link to="/about">
+                                <FormattedMessage id="about" />
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/sales">Точки продаж</Link>
+                            <Link to="/sales">
+                                <FormattedMessage id="stockist" />
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/payment">Оплата</Link>
+                            <Link to="/payment">
+                                <FormattedMessage id="payment" />
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/delivery">Доставка</Link>
+                            <Link to="/delivery">
+                                <FormattedMessage id="delivery" />
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/public-offer">Публичная оферта</Link>
+                            <Link to="/public-offer">
+                                <FormattedMessage id="termsAndConditions" />
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/contacts">Контакты</Link>
+                            <Link to="/contacts">
+                                <FormattedMessage id="contact" />
+                            </Link>
                         </li>
                     </ul>
                 </Collapse>
@@ -84,9 +100,15 @@ const Footer = () => {
             <Container>
                 <div className="d-flex justify-content-between">
                     <div>
-                        <div className="d-block mb-3">Подписаться на рассылку:</div>
+                        <div className="d-block mb-3">
+                            <FormattedMessage id="signUpForNewsletter" />:
+                        </div>
                         <form className="search">
-                            <input type="email" placeholder="email адрес" className="inverse" />
+                            <input
+                                type="email"
+                                placeholder={intl.formatMessage({id: 'emailAddress'})}
+                                className="inverse"
+                            />
                             <button type="submit">
                                 <TfiArrowRight />
                             </button>
@@ -95,22 +117,34 @@ const Footer = () => {
                     <nav>
                         <ul className="list-unstyled">
                             <li>
-                                <Link to="/about">О Компании</Link>
+                                <Link to="/about">
+                                    <FormattedMessage id="about" />
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/sales">Точки продаж</Link>
+                                <Link to="/sales">
+                                    <FormattedMessage id="stockist" />
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/payment">Оплата</Link>
+                                <Link to="/payment">
+                                    <FormattedMessage id="payment" />
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/delivery">Доставка</Link>
+                                <Link to="/delivery">
+                                    <FormattedMessage id="delivery" />
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/public-offer">Публичная оферта</Link>
+                                <Link to="/public-offer">
+                                    <FormattedMessage id="termsAndConditions" />
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/contacts">Контакты</Link>
+                                <Link to="/contacts">
+                                    <FormattedMessage id="contact" />
+                                </Link>
                             </li>
                         </ul>
                     </nav>
