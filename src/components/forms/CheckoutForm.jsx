@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Link} from 'react-router-dom'
@@ -7,8 +7,11 @@ import {Form} from 'react-bootstrap'
 import PhoneInput from 'react-phone-input-2'
 import CitySelect from '../UI/CitySelect'
 import {FormattedMessage, useIntl} from 'react-intl'
+import {useSelector} from 'react-redux'
 
 const CheckoutForm = ({onSubmit}) => {
+    const initialDeliveryPrice = 500
+    const cart = useSelector((state) => state?.cart)
     const intl = useIntl()
     const {
         register,
@@ -17,6 +20,13 @@ const CheckoutForm = ({onSubmit}) => {
         control,
         getValues,
     } = useForm({mode: 'all', reValidateMode: 'onSubmit'})
+
+    const computedCartSum = useMemo(() => {
+        if (cart?.items?.length)
+            return cart.items.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue?.price
+            }, 0)
+    }, [cart?.items])
 
     return (
         <Form className="form-checkout" onSubmit={handleSubmit(onSubmit)}>
@@ -27,10 +37,10 @@ const CheckoutForm = ({onSubmit}) => {
                 <Col>
                     <Form.Group>
                         <Form.Control
-                            className={errors?.name ? 'error' : ''}
+                            className={errors?.firstName ? 'error' : ''}
                             type="text"
                             placeholder={intl.formatMessage({id: 'name'})}
-                            {...register('name', {
+                            {...register('firstName', {
                                 required: true,
                             })}
                         />
@@ -39,10 +49,10 @@ const CheckoutForm = ({onSubmit}) => {
                 <Col>
                     <Form.Group>
                         <Form.Control
-                            className={errors?.secondName ? 'error' : ''}
+                            className={errors?.lastName ? 'error' : ''}
                             type="text"
                             placeholder={intl.formatMessage({id: 'surname'})}
-                            {...register('secondName', {
+                            {...register('lastName', {
                                 required: true,
                             })}
                         />
@@ -93,21 +103,25 @@ const CheckoutForm = ({onSubmit}) => {
                     <Form.Group>
                         <Form.Control
                             className={errors?.email ? 'error' : ''}
-                            type="email"
+                            type="text"
                             placeholder={intl.formatMessage({id: 'email'})}
                             {...register('email', {
                                 required: true,
+                                pattern:
+                                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             })}
                         />
                     </Form.Group>
                     <Form.Group className="mt-4">
                         <Form.Control
                             className={errors?.confirmEmail ? 'error' : ''}
-                            type="email"
+                            type="text"
                             placeholder={intl.formatMessage({id: 'confirmEmail'})}
                             {...register('confirmEmail', {
                                 required: true,
                                 validate: (value) => value === getValues('email') || 'err',
+                                pattern:
+                                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             })}
                         />
                     </Form.Group>
@@ -208,19 +222,19 @@ const CheckoutForm = ({onSubmit}) => {
                         <span>
                             <FormattedMessage id="sum" />:
                         </span>
-                        <span>4400</span>
+                        <span>{computedCartSum}</span>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-1">
                         <span>
                             <FormattedMessage id="totalIncludingAllTax" />:
                         </span>
-                        <span>500</span>
+                        <span>{initialDeliveryPrice}</span>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <span>
                             <FormattedMessage id="total" />:
                         </span>
-                        <span>4900</span>
+                        <span>{computedCartSum + initialDeliveryPrice}</span>
                     </div>
                 </Col>
                 <Col>
