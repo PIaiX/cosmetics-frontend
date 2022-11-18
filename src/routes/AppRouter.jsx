@@ -11,10 +11,12 @@ import Contacts from '../pages/Contacts'
 import Category from '../pages/Category'
 import Product from '../pages/Product'
 import Checkout from '../pages/Checkout'
+import Error from '../pages/Error'
+import Loader from '../components/UI/Loader'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<AppLayout />}>
+        <Route path="/" element={<AppLayout />} errorElement={<Error />} loader={() => <Loader full />}>
             <Route index element={<Home />} />
             <Route path="category" element={<Category />}>
                 <Route path=":categoryId" element={<Category />} />
