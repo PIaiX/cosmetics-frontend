@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState, useRef} from 'react'
-import {useSearchParams, Link, useNavigate} from 'react-router-dom'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {Link, useNavigate, useSearchParams} from 'react-router-dom'
 import Accordion from 'react-bootstrap/Accordion'
 import Container from 'react-bootstrap/Container'
 import Offcanvas from 'react-bootstrap/Offcanvas'
@@ -56,7 +56,6 @@ const Header = () => {
             }, 150)
         }
     }, [isShowOffcanvas.search])
-
 
     const computeCartSum = useCallback(() => {
         if (cart?.items?.length)

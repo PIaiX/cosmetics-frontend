@@ -1,4 +1,4 @@
-import { apiRoutes, BASE_URL } from '../config/api'
+import {apiRoutes, BASE_URL} from '../config/api'
 import axios from 'axios'
 
 const getCategories = async () => {
@@ -15,7 +15,7 @@ const getCategories = async () => {
 
 const getCategory = async (payload = {}) => {
     try {
-        const response = await axios.get(`${BASE_URL}${apiRoutes.CATEGORY_ONE}`, { params: payload })
+        const response = await axios.get(`${BASE_URL}${apiRoutes.CATEGORY_ONE}`, {params: payload})
 
         if (response && response.status === 200) {
             return response.data
@@ -25,4 +25,4 @@ const getCategory = async (payload = {}) => {
     }
 }
 
-export { getCategory, getCategories }
+export {getCategory, getCategories}
