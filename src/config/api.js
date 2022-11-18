@@ -24,4 +24,4 @@ const apiRejectMessages = {
 
 const apiErrors = {}
 
-export { BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors }
+export {BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors}

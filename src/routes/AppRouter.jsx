@@ -24,7 +24,7 @@ const router = createBrowserRouter(
             </Route>
             <Route path="about" element={<Product />} />
             <Route path="sales" element={<PointsOfSale />} />
-            <Route path="checkout" element={<Checkout/>} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="payment" element={<Payment />} />
             <Route path="delivery" element={<Delivery />} />
             <Route path="public-offer" element={<PublicOffer />} />

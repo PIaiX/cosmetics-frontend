@@ -1,21 +1,27 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useMemo, useRef, useState} from 'react'
+import {Link, useNavigate, useSearchParams} from 'react-router-dom'
 import Accordion from 'react-bootstrap/Accordion'
 import Container from 'react-bootstrap/Container'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import {IoCloseSharp} from 'react-icons/io5'
 import {SlMenu} from 'react-icons/sl'
 import {TfiArrowRight, TfiClose} from 'react-icons/tfi'
-import {useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import {ReactComponent as Logo} from '../assets/images/logo.svg'
 import {getCategories} from '../services/category'
-import CartItem from './CartItem'
-import Info from './UI/Info'
-import {useSearchParams} from 'react-router-dom'
 import useDebounce from '../hooks/useDebounce'
 import {getSearch} from '../services/search'
+import CartItem from './CartItem'
+import Info from './UI/Info'
+import {FormattedMessage, useIntl} from 'react-intl'
+import {setLocale} from '../store/reducers/localeSlice'
+import LOCALES from '../assets/i18n/locales'
 
 const Header = () => {
+    const sumForFreeDelivery = 8000
+    const intl = useIntl()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const cart = useSelector((state) => state?.cart)
     const initialOffcanvas = {
         shop: false,
@@ -35,16 +41,9 @@ const Header = () => {
         error: null,
         items: [],
     })
-
     const isShowHeader = useRef()
     const scrollTop = useRef(0)
     const inputSearch = useRef()
-
-    useEffect(() => {
-        getCategories()
-            .then((res) => res && setCategories((prev) => ({...prev, isLoaded: true, items: res?.categories})))
-            .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
-    }, [])
 
     const handleScroll = () => {
         let currentScrollTop = window.pageYOffset
@@ -63,6 +62,19 @@ const Header = () => {
             }, 150)
         }
     }, [isShowOffcanvas.search])
+
+    const computedCartSum = useMemo(() => {
+        if (cart?.items?.length)
+            return cart.items.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue?.price
+            }, 0)
+    }, [cart?.items])
+
+    useEffect(() => {
+        getCategories()
+            .then((res) => res && setCategories((prev) => ({...prev, isLoaded: true, items: res?.categories})))
+            .catch((error) => error && setCategories((prev) => ({...prev, isLoaded: true, error})))
+    }, [])
 
     useEffect(() => {
         document.addEventListener('scroll', handleScroll, true)
@@ -103,7 +115,7 @@ const Header = () => {
                                     type="button"
                                     onClick={() => setIsShowOffcanvas({...initialOffcanvas, shop: true})}
                                 >
-                                    Магазин
+                                    <FormattedMessage id="shop" />
                                 </button>
                             </li>
                             <li>
@@ -111,7 +123,7 @@ const Header = () => {
                                     type="button"
                                     onClick={() => setIsShowOffcanvas({...initialOffcanvas, search: true})}
                                 >
-                                    Поиск
+                                    <FormattedMessage id="search" />
                                 </button>
                             </li>
                         </ul>
@@ -162,12 +174,20 @@ const Header = () => {
                                 <div className="cart">
                                     <div className="cart-item">
                                         <div className="title">
-                                            <span className="d-md-none">Корзина</span>
-                                            <span className="d-none d-md-block">Товар:</span>
+                                            <span className="d-md-none">
+                                                <FormattedMessage id="cart" />
+                                            </span>
+                                            <span className="d-none d-md-block">
+                                                <FormattedMessage id="item" />:
+                                            </span>
                                         </div>
                                         <div className="img" />
-                                        <div className="count">Кол-во:</div>
-                                        <div className="price">Цена:</div>
+                                        <div className="count">
+                                            <FormattedMessage id="qty" />:
+                                        </div>
+                                        <div className="price">
+                                            <FormattedMessage id="price" />:
+                                        </div>
                                         <div className="btns" />
                                     </div>
 
@@ -176,27 +196,44 @@ const Header = () => {
                                     ))}
 
                                     <div className="cart-item">
-                                        <div className="title">Вам доступна бесплатная доставка</div>
+                                        {computedCartSum > sumForFreeDelivery && (
+                                            <div className="title">
+                                                <FormattedMessage id="freeDelivery" />
+                                            </div>
+                                        )}
                                         <div className="img" />
-                                        <div className="count">Всего:</div>
-                                        <div className="price">2500&nbsp;₽</div>
+                                        <div className="count">{<FormattedMessage id="total" />}:</div>
+                                        <div className="price">{computedCartSum}&nbsp;₽</div>
                                         <div className="btns" />
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center d-md-none fw-7">
-                                    <div>Всего:</div>
-                                    <div>2500&nbsp;₽</div>
+                                    <div>
+                                        <FormattedMessage id="total" />:
+                                    </div>
+                                    <div>{computedCartSum}&nbsp;₽</div>
                                 </div>
-                                <Link to="/checkout" className="m-w-100 btn-1 ms-auto mt-3 px-5">
-                                    Оформить заказ
-                                </Link>
+                                <button
+                                    type="button"
+                                    className="m-w-100 btn-1 ms-auto mt-3 px-5"
+                                    onClick={() => {
+                                        navigate('/checkout')
+                                        setIsShowOffcanvas((prev) => ({...prev, cart: false}))
+                                    }}
+                                >
+                                    <FormattedMessage id="checkout" />
+                                </button>
                             </>
                         ) : (
-                            <Info>Вы не добавили ни одного товара в корзину</Info>
+                            <Info>
+                                <FormattedMessage id="emptyCart" />
+                            </Info>
                         )}
                     </Offcanvas.Body>
                 ) : (
-                    <Info>Не удалось загрузить корзину</Info>
+                    <Info>
+                        <FormattedMessage id="errorCart" />
+                    </Info>
                 )}
             </Offcanvas>
 
@@ -216,7 +253,7 @@ const Header = () => {
                                               <ul className="list-unstyled">
                                                   <li className="mb-2">
                                                       <Link to={`/category/${item?.category?.id}`}>
-                                                          Вся продукция
+                                                          <FormattedMessage id="allProducts" />
                                                       </Link>
                                                   </li>
                                                   {item?.products?.length > 0
@@ -237,22 +274,22 @@ const Header = () => {
                     </nav>
                     <ul className="flags">
                         <li>
-                            <button type="button">
+                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.RUSSIAN}))}>
                                 <img src="/images/flags/flagRussia.jpg" alt="russian" />
                             </button>
                         </li>
                         <li>
-                            <button type="button">
+                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.ENGLISH}))}>
                                 <img src="/images/flags/flagUsa.jpg" alt="usa-english" />
                             </button>
                         </li>
                         <li>
-                            <button type="button">
+                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.ENGLAND}))}>
                                 <img src="/images/flags/flagGbp.jpg" alt="gb-english" />
                             </button>
                         </li>
                         <li>
-                            <button type="button">
+                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.JAPANESE}))}>
                                 <img src="/images/flags/flagJp.jpg" alt="japanese" />
                             </button>
                         </li>
@@ -272,7 +309,7 @@ const Header = () => {
                         <input
                             ref={inputSearch}
                             type="text"
-                            placeholder="Поиск"
+                            placeholder={intl.formatMessage({id: 'search'})}
                             value={searchParams.get('text')}
                             onChange={(e) => setSearchParams({text: e.target.value})}
                         />

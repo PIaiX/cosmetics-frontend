@@ -3,16 +3,18 @@ import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, RE
 import storage from 'redux-persist/lib/storage'
 import alertReducer from '../store/reducers/alertSlice'
 import cartReducer from '../store/reducers/cartSlice'
+import localeReducer from '../store/reducers/localeSlice'
 
 const rootReducer = combineReducers({
     alert: alertReducer,
     cart: cartReducer,
+    locale: localeReducer,
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['cart'],
+    whitelist: ['cart', 'locale'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
