@@ -1144,6 +1144,36 @@ footer {
     background-color: #121212;
 }
 
+@keyframes preload {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.preloader {
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    bottom: 0;
+    background-color: #808080;
+    height: 10px;
+    width: 100%;
+
+    // .preloader__line
+    &__line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        width: 0;
+        height: 100%;
+        animation: preload 1s linear;
+    }
+}
+
 .locale-modal {
     .modal-content {
         max-width: 400px;
@@ -1191,5 +1221,11 @@ footer {
                 }
             }
         }
+    }
+}
+
+.locales-list {
+    li {
+        cursor: pointer;
     }
 }

@@ -45,6 +45,7 @@ const messages = {
         emptyCart: 'You have not added any item to your shopping cart',
         errorCart: 'Failed to load cart',
         pay: 'Make a payment',
+        errorPage: 'Failed to load page, please go back or reload the page',
     },
     [LOCALES.ENGLAND]: {
         shop: 'Shop',
@@ -90,6 +91,7 @@ const messages = {
         emptyCart: 'You have not added any item to your shopping cart',
         errorCart: 'Failed to load cart',
         pay: 'Make a payment',
+        errorPage: 'Failed to load page, please go back or reload the page',
     },
     [LOCALES.RUSSIAN]: {
         shop: 'Магазин',
@@ -135,6 +137,7 @@ const messages = {
         emptyCart: 'Вы не добавили ни одного товара в корзину',
         errorCart: 'Не удалось загрузить корзину',
         pay: 'Оплатить через Wallet One',
+        errorPage: 'Не удалось загрузить страницу, вернитесь назад или перезагрузите страницу',
     },
     [LOCALES.JAPANESE]: {
         shop: 'ストア',
@@ -180,6 +183,7 @@ const messages = {
         emptyCart: 'ショッピングカートに商品を追加していません',
         errorCart: 'カートを読み込めませんでした',
         pay: '支払いをする',
+        errorPage: 'ページを読み込めませんでした。戻るか、ページをリロードしてください',
     },
 }
 

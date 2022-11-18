@@ -17,9 +17,10 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import {Pagination} from 'swiper'
 import Loader from '../components/UI/Loader'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, useIntl} from 'react-intl'
 
 const Product = () => {
+    const intl = useIntl()
     const dispatch = useDispatch()
     let {productId} = useParams()
     productId = +productId
@@ -107,10 +108,6 @@ const Product = () => {
             .then((res) => setProductRecommendations((prev) => ({...prev, isLoaded: true, items: res?.recommends})))
             .catch((error) => setProductRecommendations((prev) => ({...prev, isLoaded: true, error})))
     }, [productId])
-
-    useEffect(() => {
-        console.log('prod', product)
-    }, [product])
 
     return (
         <main className="inner">
@@ -222,7 +219,7 @@ const Product = () => {
                                         {cartItem ? (
                                             <FormattedMessage id="addedToCart" />
                                         ) : product?.item?.price ? (
-                                            `${(<FormattedMessage id="addToCart" />)} - ${product?.item?.price}`
+                                            `${intl.formatMessage({id: 'addToCart'})} - ${product?.item?.price}`
                                         ) : (
                                             <FormattedMessage id="addToCart" />
                                         )}

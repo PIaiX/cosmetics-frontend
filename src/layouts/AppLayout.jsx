@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ActionAlert from '../components/utils/ActionAlert'
 
-export default function AppLayout() {
+const AppLayout = () => {
     return (
         <>
             <ScrollRestoration />
@@ -16,3 +16,5 @@ export default function AppLayout() {
         </>
     )
 }
+
+export default AppLayout

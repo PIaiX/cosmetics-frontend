@@ -11,25 +11,28 @@ import Contacts from '../pages/Contacts'
 import Category from '../pages/Category'
 import Product from '../pages/Product'
 import Checkout from '../pages/Checkout'
+import Error from '../pages/Error'
+import Loader from '../components/UI/Loader'
+import Preloader from '../components/UI/Preloader'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<AppLayout />}>
-            <Route index element={<Home />} />
-            <Route path="category" element={<Category />}>
+        <Route path="/" element={<AppLayout />} errorElement={<Error />} loader={() => <Loader full color="#000" />}>
+            <Route index element={<Home />} loader={() => <Preloader />} />
+            <Route path="category" element={<Category />} loader={() => <Preloader />}>
                 <Route path=":categoryId" element={<Category />} />
             </Route>
-            <Route path="product" element={<Product />}>
+            <Route path="product" element={<Product />} loader={() => <Preloader />}>
                 <Route path=":productId" element={<Product />} />
             </Route>
-            <Route path="about" element={<Product />} />
-            <Route path="sales" element={<PointsOfSale />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="payment" element={<Payment />} />
-            <Route path="delivery" element={<Delivery />} />
-            <Route path="public-offer" element={<PublicOffer />} />
-            <Route path="contacts" element={<Contacts />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="about" element={<Product />} loader={() => <Preloader />} />
+            <Route path="sales" element={<PointsOfSale />} loader={() => <Preloader />} />
+            <Route path="checkout" element={<Checkout />} loader={() => <Preloader />} />
+            <Route path="payment" element={<Payment />} loader={() => <Preloader />} />
+            <Route path="delivery" element={<Delivery />} loader={() => <Preloader />} />
+            <Route path="public-offer" element={<PublicOffer />} loader={() => <Preloader />} />
+            <Route path="contacts" element={<Contacts />} loader={() => <Preloader />} />
+            <Route path="*" element={<NotFound />} loader={() => <Preloader />} />
         </Route>
     )
 )
