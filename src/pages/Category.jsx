@@ -52,7 +52,7 @@ const Category = () => {
             <Container>
                 <Logo />
                 {!category?.error ? (
-                    <section>
+                    <section className="mb-8">
                         <div className="mb-8">
                             {category?.products?.length > 0 && category?.item?.title && (
                                 <h1>{category?.item?.title}</h1>

@@ -119,12 +119,12 @@ select,
     &::-webkit-input-placeholder,
     &:-ms-input-placeholder,
     &::-ms-input-placeholder {
-        color: rgba($color: $color-1, $alpha: .5);
+        color: rgba($color: $color-1, $alpha: 0.5);
         font-weight: 300;
     }
 
     &::placeholder {
-        color: rgba($color: $color-1, $alpha: .5);
+        color: rgba($color: $color-1, $alpha: 0.5);
         font-weight: 300;
     }
 
@@ -137,11 +137,11 @@ select,
         &::-webkit-input-placeholder,
         &:-ms-input-placeholder,
         &::-ms-input-placeholder {
-            color: rgba($color: $color-2, $alpha: .5);
+            color: rgba($color: $color-2, $alpha: 0.5);
         }
 
         &::placeholder {
-            color: rgba($color: $color-2, $alpha: .5);
+            color: rgba($color: $color-2, $alpha: 0.5);
         }
     }
 }
@@ -245,7 +245,7 @@ button {
         &:active,
         &.active {
             color: var(--color-2);
-            background: rgba($color: $color-1, $alpha: .75);
+            background: rgba($color: $color-1, $alpha: 0.75);
         }
 
         &:disabled {
@@ -264,8 +264,8 @@ button {
         &:focus,
         &:active,
         &.active {
-            border: 1px solid rgba($color: $color-1, $alpha: .85);
-            color: rgba($color: $color-1, $alpha: .85);
+            border: 1px solid rgba($color: $color-1, $alpha: 0.85);
+            color: rgba($color: $color-1, $alpha: 0.85);
         }
 
         &:disabled {
@@ -283,7 +283,7 @@ button {
         &:focus,
         &:active,
         &.active {
-            color: rgba($color: $color-1, $alpha: .85);
+            color: rgba($color: $color-1, $alpha: 0.85);
         }
 
         &:disabled {
@@ -574,7 +574,7 @@ header {
     width: 100%;
     z-index: 1200;
     height: var(--h-height);
-    background-color: rgba($color: $color-2, $alpha: .85);
+    background-color: rgba($color: $color-2, $alpha: 0.85);
     transition: top var(--transition);
 
     &.h-show {
@@ -1023,7 +1023,7 @@ figure.full {
         margin-top: 2em;
         color: var(--dark-gray);
         line-height: 24px;
-        font-size: .9em;
+        font-size: 0.9em;
     }
 }
 
@@ -1055,8 +1055,10 @@ footer {
 
                     a {
                         color: $color-2;
-                        &:hover, &:focus, &:active {
-                            opacity: .7;
+                        &:hover,
+                        &:focus,
+                        &:active {
+                            opacity: 0.7;
                         }
                     }
                 }
@@ -1195,7 +1197,7 @@ footer {
         flex-direction: column;
         align-items: start;
         gap: 30px;
-        
+
         @media (max-width: 767px) {
             padding: 2em;
         }
