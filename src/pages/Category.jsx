@@ -5,8 +5,10 @@ import Col from 'react-bootstrap/Col'
 import Logo from '../components/Logo'
 import ProductCard from '../components/ProductCard'
 import {useParams} from 'react-router-dom'
-import {getCategory} from '../services/category'
+import {getCategory, getCategoryRecommendations} from '../services/category'
 import Info from '../components/UI/Info'
+import Recommendations from '../components/Recommendations'
+import Loader from '../components/UI/Loader'
 
 const Category = () => {
     let {categoryId} = useParams()
@@ -16,6 +18,11 @@ const Category = () => {
         error: null,
         item: null,
         products: [],
+    })
+    const [categoryRecommendations, setCategoryRecommendations] = useState({
+        isLoaded: false,
+        error: null,
+        items: [],
     })
 
     useEffect(() => {
@@ -27,27 +34,56 @@ const Category = () => {
     }, [categoryId])
 
     useEffect(() => {
-        console.log('cat', category)
-    }, [category])
+        if (category?.products?.length) {
+            getCategoryRecommendations({categoryId})
+                .then((res) =>
+                    setCategoryRecommendations((prev) => ({...prev, isLoaded: true, items: res?.recommends}))
+                )
+                .catch((error) => setCategoryRecommendations((prev) => ({...prev, isLoaded: true, error})))
+        }
+    }, [categoryId, category?.item])
+
+    useEffect(() => {
+        console.log('categoryRecommendations', categoryRecommendations)
+    }, [categoryRecommendations])
 
     return (
         <main className="inner">
             <Container>
                 <Logo />
                 {!category?.error ? (
-                    <section className="mb-8">
-                        {category?.products?.length > 0 && category?.item?.title && <h1>{category?.item?.title}</h1>}
-                        {category?.products?.length > 0 ? (
-                            <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
-                                {category.products.map((item) => (
-                                    <Col key={item?.id}>
-                                        <ProductCard product={item} />
-                                    </Col>
-                                ))}
-                            </Row>
-                        ) : (
-                            <Info>В данной категории нет товаров</Info>
-                        )}
+                    <section>
+                        <div className="mb-8">
+                            {category?.products?.length > 0 && category?.item?.title && (
+                                <h1>{category?.item?.title}</h1>
+                            )}
+                            {category?.products?.length > 0 ? (
+                                <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
+                                    {category.products.map((item) => (
+                                        <Col key={item?.id}>
+                                            <ProductCard product={item} />
+                                        </Col>
+                                    ))}
+                                </Row>
+                            ) : (
+                                <Info>В данной категории нет товаров</Info>
+                            )}
+                        </div>
+
+                        {!categoryRecommendations?.error ? (
+                            categoryRecommendations?.isLoaded ? (
+                                categoryRecommendations?.items?.length > 0 ? (
+                                    <Recommendations
+                                        products={categoryRecommendations?.items}
+                                        title="Посмотрите еще"
+                                    />
+                                ) : null
+                            ) : (
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <Loader />
+                                </div>
+                            )
+                        ) : null}
                     </section>
                 ) : (
                     <Info>Не удалось загрузить товары данной категории</Info>

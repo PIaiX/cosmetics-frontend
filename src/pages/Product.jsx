@@ -164,8 +164,8 @@ const Product = () => {
                                     <Collapse in={isShowCollapse.indicationsForUse}>
                                         <div>
                                             <p className="p-3">
-                                                Небольшое количество крема нанести на кончики пальцев и легкими
-                                                похлопывающими движениями нанести на область вокруг глаз.
+                                                {product?.item?.indicationsForUse &&
+                                                    product?.item?.indicationsForUse}
                                             </p>
                                         </div>
                                     </Collapse>
@@ -187,8 +187,8 @@ const Product = () => {
                                     <Collapse in={isShowCollapse.activeIngredients}>
                                         <div>
                                             <p className="p-3">
-                                                Ginkgo biloba leaf extract,coffeaarabica(coffee) seed extract ,iris
-                                                pallida(dalmation iris)root oil, centella asiatica extract.
+                                                {product?.item?.activeIngredients &&
+                                                    product?.item?.activeIngredients}
                                             </p>
                                         </div>
                                     </Collapse>
