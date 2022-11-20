@@ -14,8 +14,9 @@ import {getSearch} from '../services/search'
 import CartItem from './CartItem'
 import Info from './UI/Info'
 import {FormattedMessage, useIntl} from 'react-intl'
-import {setLocale} from '../store/reducers/localeSlice'
+import {setCurrency, setLocale} from '../store/reducers/localeSlice'
 import LOCALES from '../assets/i18n/locales'
+import CURRENCY from '../assets/i18n/currency'
 
 const Header = () => {
     const sumForFreeDelivery = 8000
@@ -192,7 +193,13 @@ const Header = () => {
                                     </div>
 
                                     {cart.items.map((item) => (
-                                        <CartItem key={item?.id} item={item} />
+                                        <CartItem
+                                            key={item?.id}
+                                            item={item}
+                                            onClickLink={() =>
+                                                setIsShowOffcanvas((prev) => ({...prev, cart: false}))
+                                            }
+                                        />
                                     ))}
 
                                     <div className="cart-item">
@@ -251,14 +258,28 @@ const Header = () => {
                                           <Accordion.Header>{item?.category?.title}</Accordion.Header>
                                           <Accordion.Body>
                                               <ul className="list-unstyled">
-                                                  <li className="mb-2">
+                                                  <li
+                                                      className="mb-2"
+                                                      onClick={() =>
+                                                          setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                                      }
+                                                  >
                                                       <Link to={`/category/${item?.category?.id}`}>
                                                           <FormattedMessage id="allProducts" />
                                                       </Link>
                                                   </li>
                                                   {item?.products?.length > 0
                                                       ? item.products.map((product) => (
-                                                            <li className="mb-2" key={product?.id}>
+                                                            <li
+                                                                className="mb-2"
+                                                                key={product?.id}
+                                                                onClick={() =>
+                                                                    setIsShowOffcanvas((prev) => ({
+                                                                        ...prev,
+                                                                        shop: false,
+                                                                    }))
+                                                                }
+                                                            >
                                                                 <Link to={`/product/${product?.id}`}>
                                                                     {product?.title}
                                                                 </Link>
@@ -274,22 +295,50 @@ const Header = () => {
                     </nav>
                     <ul className="flags">
                         <li>
-                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.RUSSIAN}))}>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(setLocale({value: LOCALES.RUSSIAN}))
+                                    dispatch(setCurrency({currency: CURRENCY.RUSSIAN}))
+                                    setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                }}
+                            >
                                 <img src="/images/flags/flagRussia.jpg" alt="russian" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.ENGLISH}))}>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(setLocale({value: LOCALES.ENGLISH}))
+                                    dispatch(setCurrency({currency: CURRENCY.ENGLISH}))
+                                    setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                }}
+                            >
                                 <img src="/images/flags/flagUsa.jpg" alt="usa-english" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.ENGLAND}))}>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(setLocale({value: LOCALES.ENGLAND}))
+                                    dispatch(setCurrency({currency: CURRENCY.ENGLAND}))
+                                    setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                }}
+                            >
                                 <img src="/images/flags/flagGbp.jpg" alt="gb-english" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => dispatch(setLocale({value: LOCALES.JAPANESE}))}>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(setLocale({value: LOCALES.JAPANESE}))
+                                    dispatch(setCurrency({currency: CURRENCY.JAPANESE}))
+                                    setIsShowOffcanvas((prev) => ({...prev, shop: false}))
+                                }}
+                            >
                                 <img src="/images/flags/flagJp.jpg" alt="japanese" />
                             </button>
                         </li>

@@ -48,6 +48,7 @@ const messages = {
         errorPage: 'Failed to load page, please go back or reload the page',
         indicationsForUse: 'Indications for use',
         activeIngredients: 'Active ingredients',
+        seeMore: 'See more',
     },
     [LOCALES.ENGLAND]: {
         shop: 'Shop',
@@ -96,6 +97,7 @@ const messages = {
         errorPage: 'Failed to load page, please go back or reload the page',
         indicationsForUse: 'Indications for use',
         activeIngredients: 'Active ingredients',
+        seeMore: 'See more',
     },
     [LOCALES.RUSSIAN]: {
         shop: 'Магазин',
@@ -144,6 +146,7 @@ const messages = {
         errorPage: 'Не удалось загрузить страницу, вернитесь назад или перезагрузите страницу',
         indicationsForUse: 'Показания к применению',
         activeIngredients: 'Активные компоненты',
+        seeMore: 'Посмотрите еще',
     },
     [LOCALES.JAPANESE]: {
         shop: 'ストア',
@@ -192,6 +195,7 @@ const messages = {
         errorPage: 'ページを読み込めませんでした。戻るか、ページをリロードしてください',
         indicationsForUse: '使用上の注意',
         activeIngredients: '有効成分',
+        seeMore: '続きを見る',
     },
 }
 
