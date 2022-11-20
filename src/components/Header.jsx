@@ -84,17 +84,19 @@ const Header = () => {
     }, [])
 
     const getData = () => {
-        getSearch(searchText)
-            .then(
-                (res) =>
-                    res &&
-                    setData((prev) => ({
-                        ...prev,
-                        isLoaded: true,
-                        items: res?.products?.rows,
-                    }))
-            )
-            .catch((error) => error && setData((prev) => ({...prev, isLoaded: true, error, items: []})))
+        if (searchText) {
+            getSearch(searchText)
+                .then(
+                    (res) =>
+                        res &&
+                        setData((prev) => ({
+                            ...prev,
+                            isLoaded: true,
+                            items: res?.products?.rows,
+                        }))
+                )
+                .catch((error) => error && setData((prev) => ({...prev, isLoaded: true, error, items: []})))
+        }
     }
 
     useEffect(() => {

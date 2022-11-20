@@ -8,6 +8,9 @@ const apiRoutes = {
     // product
     PRODUCT_ONE: '/product/one',
     PRODUCT_RECOMMENDATIONS: '/product/recommendations',
+
+    // Checkout
+    ORDER_CREATE: '/order/create',
 }
 
 const apiResponseMessages = {
