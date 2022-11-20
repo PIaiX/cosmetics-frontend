@@ -6,17 +6,19 @@ import './assets/style.css'
 import './assets/fonts/stylesheet.css'
 import {useDispatch, useSelector} from 'react-redux'
 import CustomModal from './components/utils/CustomModal'
-import {setLocale} from './store/reducers/localeSlice'
+import {setCurrency, setLocale} from './store/reducers/localeSlice'
 import messages from './assets/i18n/messages'
 import LOCALES from './assets/i18n/locales'
+import CURRENCY from './assets/i18n/currency'
 
 const App = () => {
     const dispatch = useDispatch()
     const locale = useSelector((state) => state?.locale?.value)
     const [isShowLocaleModal, setIsShowLocaleModal] = useState(false)
 
-    const onChooseLocale = useCallback((locale) => {
+    const onChooseLocale = useCallback((locale, currency) => {
         dispatch(setLocale({value: locale}))
+        dispatch(setCurrency({currency}))
         setIsShowLocaleModal(false)
     }, [])
 
@@ -40,22 +42,25 @@ const App = () => {
                     </div>
                     <ul className="flags">
                         <li>
-                            <button type="button" onClick={() => onChooseLocale(LOCALES.RUSSIAN)}>
+                            <button type="button" onClick={() => onChooseLocale(LOCALES.RUSSIAN, CURRENCY.RUSSIAN)}>
                                 <img src="/images/flags/flagRussia.jpg" alt="russian" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => onChooseLocale(LOCALES.ENGLISH)}>
+                            <button type="button" onClick={() => onChooseLocale(LOCALES.ENGLISH, CURRENCY.ENGLISH)}>
                                 <img src="/images/flags/flagUsa.jpg" alt="usa-english" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => onChooseLocale(LOCALES.ENGLAND)}>
+                            <button type="button" onClick={() => onChooseLocale(LOCALES.ENGLAND, CURRENCY.ENGLAND)}>
                                 <img src="/images/flags/flagGbp.jpg" alt="gb-england" />
                             </button>
                         </li>
                         <li>
-                            <button type="button" onClick={() => onChooseLocale(LOCALES.JAPANESE)}>
+                            <button
+                                type="button"
+                                onClick={() => onChooseLocale(LOCALES.JAPANESE, CURRENCY.JAPANESE)}
+                            >
                                 <img src="/images/flags/flagJp.jpg" alt="japanese" />
                             </button>
                         </li>
