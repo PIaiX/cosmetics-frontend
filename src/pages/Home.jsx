@@ -7,10 +7,16 @@ const Home = () => {
             <Banner
                 link={'/category/product'}
                 main={true}
+                title={'BD 22|11 BOX 2022'}
+                info={'в продаже только 22 ноября 2022'}
+                imgUrl={'images/products/box.jpeg'}
+            />
+            <Banner
+                link={'/category/product'}
+                main={false}
                 title={'НОВИНКА FR ОСВЕЖАЮЩИЙ СПРЕЙ'}
                 imgUrl={'images/products/НОВИНКА FR ОСВЕЖАЮЩИЙ СПРЕЙ.jpg'}
             />
-
             <Banner
                 link={'/category/product'}
                 main={false}
@@ -22,12 +28,6 @@ const Home = () => {
                 main={false}
                 title={'MATEРИАЛ ВОЛОС'}
                 imgUrl={'images/products/SS -СЫВОРОТКА ДЛЯ КОНЧИКОВ ВОЛОС КАМЕЛИЯ + ЖИДКИЙ ШЁЛК.jpg'}
-            />
-            <Banner
-                link={'/category'}
-                main={false}
-                title={'МАТЕРИАЛ КОЖИ'}
-                imgUrl={'images/products/MM - УВЛАЖНЯЮЩИЙ МУСС ФИТО-ПЕПТИДЫ + СО2 ЭКСТРАКТ ГРАНАТА.jpg'}
             />
             <Banner
                 link={'/category'}

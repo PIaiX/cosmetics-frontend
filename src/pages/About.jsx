@@ -12,7 +12,7 @@ const About = () => {
                 <section className="about-page mb-8">
                     <img src="/images/about.jpg" alt="about" className="img-fluid" />
                     <Row className="justify-content-center">
-                        <Col xs={12} lg={8} xl={6}>
+                        <Col xs={12} lg={{span: 6, offset: 2}}>
                             <p>
                                 Наша миссия - создавать продукты, вкладывая душу, любовь, благодарность, чистую
                                 энергию для истинной чистоты и свободы мира.

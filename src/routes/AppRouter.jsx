@@ -2,6 +2,7 @@ import React from 'react'
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import AppLayout from '../layouts/AppLayout'
 import Home from '../pages/Home'
+import About from '../pages/About'
 import NotFound from '../pages/NotFound'
 import PointsOfSale from '../pages/PointsOfSale'
 import Payment from '../pages/Payment'
@@ -25,7 +26,7 @@ const router = createBrowserRouter(
             <Route path="product" element={<Product />} loader={() => <Preloader />}>
                 <Route path=":productId" element={<Product />} />
             </Route>
-            <Route path="about" element={<Product />} loader={() => <Preloader />} />
+            <Route path="about" element={<About />} loader={() => <Preloader />} />
             <Route path="sales" element={<PointsOfSale />} loader={() => <Preloader />} />
             <Route path="checkout" element={<Checkout />} loader={() => <Preloader />} />
             <Route path="payment" element={<Payment />} loader={() => <Preloader />} />
