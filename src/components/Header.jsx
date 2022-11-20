@@ -309,7 +309,7 @@ const Header = () => {
                         <input
                             ref={inputSearch}
                             type="text"
-                            placeholder={intl.formatMessage({id: 'search'})}
+                            // placeholder={intl.formatMessage({id: 'search'})}
                             value={searchParams.get('text')}
                             onChange={(e) => setSearchParams({text: e.target.value})}
                         />

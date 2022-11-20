@@ -13,10 +13,7 @@ const Banner = (props) => {
                         <Container>
                             {props.main === true && <Logo className="logo d-none d-md-block" />}
                             <h2 className="mt-5 mb-2">{props.title}</h2>
-                            {
-                                (props.info) &&
-                                <h2>{props.info}</h2>
-                            }
+                            {props.info && <h2>{props.info}</h2>}
                         </Container>
                     </figcaption>
                 </Link>
