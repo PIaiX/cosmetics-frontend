@@ -18,12 +18,15 @@ import 'swiper/css/pagination'
 import {Pagination} from 'swiper'
 import Loader from '../components/UI/Loader'
 import {FormattedMessage, useIntl} from 'react-intl'
+import {getCategoryRecommendations} from '../services/category'
+import LOCALES from '../assets/i18n/locales'
 
 const Product = () => {
     const intl = useIntl()
     const dispatch = useDispatch()
     let {productId} = useParams()
     productId = +productId
+    const locale = useSelector((state) => state?.locale?.value)
     const cart = useSelector((state) => state?.cart?.items)
     const cartItem = useMemo(() => {
         return cart?.length && cart.find((item) => +item?.id === productId)
@@ -38,7 +41,7 @@ const Product = () => {
         error: null,
         item: null,
     })
-    const [productRecommendations, setProductRecommendations] = useState({
+    const [categoryRecommendations, setCategoryRecommendations] = useState({
         isLoaded: false,
         error: null,
         items: [],
@@ -104,17 +107,25 @@ const Product = () => {
     }, [cartItem, productId])
 
     useEffect(() => {
-        getProductRecommendations({productId})
-            .then((res) => setProductRecommendations((prev) => ({...prev, isLoaded: true, items: res?.recommends})))
-            .catch((error) => setProductRecommendations((prev) => ({...prev, isLoaded: true, error})))
-    }, [productId])
+        if (product?.item?.categoryId) {
+            getCategoryRecommendations({categoryId: +product?.item?.categoryId})
+                .then((res) =>
+                    setCategoryRecommendations((prev) => ({...prev, isLoaded: true, items: res?.recommends}))
+                )
+                .catch((error) => setCategoryRecommendations((prev) => ({...prev, isLoaded: true, error})))
+        }
+    }, [product?.item])
+
+    useEffect(() => {
+        console.log(product)
+    }, [product])
 
     return (
         <main className="inner">
             <Container>
                 <Logo />
                 <section className="product-page mb-8">
-                    <Row>
+                    <Row className="mb-8">
                         <Col md={6}>
                             <Row>
                                 <Col xs={12} xl={3}>
@@ -142,9 +153,24 @@ const Product = () => {
                             </Row>
                         </Col>
                         <Col md={6} xl={5}>
-                            <h1>{product?.item?.title}</h1>
-                            <h6 className="mb-5">{product?.item?.miniDescription}</h6>
-                            <p>{product?.item?.description}</p>
+                            <h1>
+                                {locale === LOCALES.RUSSIAN && product?.item?.title}
+                                {locale === LOCALES.ENGLISH && product?.item?.title_us}
+                                {locale === LOCALES.ENGLAND && product?.item?.title_uk}
+                                {locale === LOCALES.JAPANESE && product?.item?.title_ja}
+                            </h1>
+                            <h6 className="mb-5">
+                                {locale === LOCALES.RUSSIAN && product?.item?.miniDescription}
+                                {locale === LOCALES.ENGLISH && product?.item?.miniDescription_us}
+                                {locale === LOCALES.ENGLAND && product?.item?.miniDescription_uk}
+                                {locale === LOCALES.JAPANESE && product?.item?.miniDescription_ja}
+                            </h6>
+                            <p>
+                                {locale === LOCALES.RUSSIAN && product?.item?.description}
+                                {locale === LOCALES.ENGLISH && product?.item?.description_us}
+                                {locale === LOCALES.ENGLAND && product?.item?.description_uk}
+                                {locale === LOCALES.JAPANESE && product?.item?.description_ja}
+                            </p>
 
                             <ul className="info-list list-unstyled mt-5">
                                 <li>
@@ -158,14 +184,18 @@ const Product = () => {
                                         }
                                         aria-expanded={isShowCollapse.indicationsForUse}
                                     >
-                                        <span>Показания к применению</span>
+                                        <span>
+                                            <FormattedMessage id="indicationsForUse" />
+                                        </span>
                                         {isShowCollapse.indicationsForUse ? <IoRemoveOutline /> : <IoAddOutline />}
                                     </button>
                                     <Collapse in={isShowCollapse.indicationsForUse}>
                                         <div>
                                             <p className="p-3">
-                                                Небольшое количество крема нанести на кончики пальцев и легкими
-                                                похлопывающими движениями нанести на область вокруг глаз.
+                                                {locale === LOCALES.RUSSIAN && product?.item?.indicationsForUse}
+                                                {locale === LOCALES.ENGLISH && product?.item?.indicationsForUse_us}
+                                                {locale === LOCALES.ENGLAND && product?.item?.indicationsForUse_uk}
+                                                {locale === LOCALES.JAPANESE && product?.item?.indicationsForUse_ja}
                                             </p>
                                         </div>
                                     </Collapse>
@@ -181,14 +211,18 @@ const Product = () => {
                                         }
                                         aria-expanded={isShowCollapse.activeIngredients}
                                     >
-                                        <span>Активные компоненты</span>
+                                        <span>
+                                            <FormattedMessage id="activeIngredients" />
+                                        </span>
                                         {isShowCollapse.activeIngredients ? <IoRemoveOutline /> : <IoAddOutline />}
                                     </button>
                                     <Collapse in={isShowCollapse.activeIngredients}>
                                         <div>
                                             <p className="p-3">
-                                                Ginkgo biloba leaf extract,coffeaarabica(coffee) seed extract ,iris
-                                                pallida(dalmation iris)root oil, centella asiatica extract.
+                                                {locale === LOCALES.RUSSIAN && product?.item?.activeIngredients}
+                                                {locale === LOCALES.ENGLISH && product?.item?.activeIngredients_us}
+                                                {locale === LOCALES.ENGLAND && product?.item?.activeIngredients_uk}
+                                                {locale === LOCALES.JAPANESE && product?.item?.activeIngredients_ja}
                                             </p>
                                         </div>
                                     </Collapse>
@@ -232,19 +266,23 @@ const Product = () => {
                             </div>
                         </Col>
                     </Row>
+                    <Row>
+                        {!categoryRecommendations?.error ? (
+                            categoryRecommendations?.isLoaded ? (
+                                categoryRecommendations?.items?.length > 0 ? (
+                                    <Recommendations
+                                        products={categoryRecommendations?.items}
+                                        title="Посмотрите еще"
+                                    />
+                                ) : null
+                            ) : (
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <Loader />
+                                </div>
+                            )
+                        ) : null}
+                    </Row>
                 </section>
-
-                {!productRecommendations?.error ? (
-                    productRecommendations?.isLoaded ? (
-                        productRecommendations?.items?.length > 0 ? (
-                            <Recommendations products={productRecommendations?.items} title="Посмотрите еще" />
-                        ) : null
-                    ) : (
-                        <div className="d-flex justify-content-center align-items-center">
-                            <Loader />
-                        </div>
-                    )
-                ) : null}
             </Container>
         </main>
     )

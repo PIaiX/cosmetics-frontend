@@ -46,6 +46,8 @@ const messages = {
         errorCart: 'Failed to load cart',
         pay: 'Make a payment',
         errorPage: 'Failed to load page, please go back or reload the page',
+        indicationsForUse: 'Indications for use',
+        activeIngredients: 'Active ingredients',
     },
     [LOCALES.ENGLAND]: {
         shop: 'Shop',
@@ -92,6 +94,8 @@ const messages = {
         errorCart: 'Failed to load cart',
         pay: 'Make a payment',
         errorPage: 'Failed to load page, please go back or reload the page',
+        indicationsForUse: 'Indications for use',
+        activeIngredients: 'Active ingredients',
     },
     [LOCALES.RUSSIAN]: {
         shop: 'Магазин',
@@ -138,6 +142,8 @@ const messages = {
         errorCart: 'Не удалось загрузить корзину',
         pay: 'Оплатить через Wallet One',
         errorPage: 'Не удалось загрузить страницу, вернитесь назад или перезагрузите страницу',
+        indicationsForUse: 'Показания к применению',
+        activeIngredients: 'Активные компоненты',
     },
     [LOCALES.JAPANESE]: {
         shop: 'ストア',
@@ -184,6 +190,8 @@ const messages = {
         errorCart: 'カートを読み込めませんでした',
         pay: '支払いをする',
         errorPage: 'ページを読み込めませんでした。戻るか、ページをリロードしてください',
+        indicationsForUse: '使用上の注意',
+        activeIngredients: '有効成分',
     },
 }
 

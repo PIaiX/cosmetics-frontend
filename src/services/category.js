@@ -25,4 +25,18 @@ const getCategory = async (payload = {}) => {
     }
 }
 
-export {getCategory, getCategories}
+const getCategoryRecommendations = async (payload = {}) => {
+    try {
+        const response = await axios.get(`${BASE_URL}${apiRoutes.CATEGORY_RECOMMENDATIONS}`, {
+            params: payload,
+        })
+
+        if (response && response.status) {
+            return response.data
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
+export {getCategory, getCategories, getCategoryRecommendations}

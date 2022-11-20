@@ -4,6 +4,7 @@ const apiRoutes = {
     // category
     CATEGORY_ALL: '/category/all',
     CATEGORY_ONE: '/category/one',
+    CATEGORY_RECOMMENDATIONS: '/category/recommendations',
     SEARCH_GET: '/search',
     // product
     PRODUCT_ONE: '/product/one',
