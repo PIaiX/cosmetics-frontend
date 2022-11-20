@@ -7,6 +7,7 @@
   --color-1-rgb: 17 17 17;
   --color-2: #ffffff;
   --color-2-rgb: 255 255 255;
+  --dark-gray: #505050;
 }
 @media (max-width: 991px) {
   :root {
@@ -96,7 +97,7 @@ select::-ms-input-placeholder,
 .form-select::-webkit-input-placeholder,
 .form-select:-ms-input-placeholder,
 .form-select::-ms-input-placeholder {
-  color: rgb(var(--color-1-rgb)/50%);
+  color: rgba(17, 17, 17, 0.5);
   font-weight: 300;
 }
 input::placeholder,
@@ -104,7 +105,7 @@ textarea::placeholder,
 select::placeholder,
 .form-control::placeholder,
 .form-select::placeholder {
-  color: rgb(var(--color-1-rgb)/50%);
+  color: rgba(17, 17, 17, 0.5);
   font-weight: 300;
 }
 input.inverse,
@@ -136,14 +137,14 @@ select.inverse::-ms-input-placeholder,
 .form-select.inverse::-webkit-input-placeholder,
 .form-select.inverse:-ms-input-placeholder,
 .form-select.inverse::-ms-input-placeholder {
-  color: rgb(var(--color-2-rgb)/50%);
+  color: rgba(255, 255, 255, 0.5);
 }
 input.inverse::placeholder,
 textarea.inverse::placeholder,
 select.inverse::placeholder,
 .form-control.inverse::placeholder,
 .form-select.inverse::placeholder {
-  color: rgb(var(--color-2-rgb)/50%);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 input,
@@ -258,12 +259,12 @@ button {
   font-weight: 400;
 }
 .btn-1 {
-  background: rgb(var(--color-1-rgb)/100%);
+  background: #111111;
   color: var(--color-2);
 }
 .btn-1:hover, .btn-1:focus, .btn-1:active, .btn-1.active {
   color: var(--color-2);
-  background: rgb(var(--color-1-rgb)/75%);
+  background: rgba(17, 17, 17, 0.75);
 }
 .btn-1:disabled {
   opacity: 0.5;
@@ -271,12 +272,12 @@ button {
 }
 .btn-2 {
   background: transparent;
-  border: 1px solid rgb(var(--color-1-rgb)/100%);
-  color: rgb(var(--color-1-rgb)/100%);
+  border: 1px solid #111111;
+  color: #111111;
 }
 .btn-2:hover, .btn-2:focus, .btn-2:active, .btn-2.active {
-  border: 1px solid rgb(var(--color-1-rgb)/85%);
-  color: rgb(var(--color-1-rgb)/85%);
+  border: 1px solid rgba(17, 17, 17, 0.85);
+  color: rgba(17, 17, 17, 0.85);
 }
 .btn-2:disabled {
   opacity: 0.5;
@@ -285,10 +286,10 @@ button {
 .btn-3 {
   background: transparent;
   border: none;
-  color: rgb(var(--color-1-rgb)/100%);
+  color: #111111;
 }
 .btn-3:hover, .btn-3:focus, .btn-3:active, .btn-3.active {
-  color: rgb(var(--color-1-rgb)/85%);
+  color: rgba(17, 17, 17, 0.85);
 }
 .btn-3:disabled {
   pointer-events: none;
@@ -458,6 +459,10 @@ h6 {
   font-weight: 900;
 }
 
+.dark-gray {
+  color: var(--dark-gray);
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -545,7 +550,7 @@ header {
   width: 100%;
   z-index: 1200;
   height: var(--h-height);
-  background-color: rgb(var(--color-2-rgb)/85%);
+  background-color: rgba(255, 255, 255, 0.85);
   transition: top var(--transition);
 }
 header.h-show {
@@ -869,6 +874,7 @@ main {
 main.inner {
   padding-top: calc(var(--h-height) + 1em);
 }
+
 .logo {
   width: 110px;
   height: 80px;
@@ -895,14 +901,14 @@ figure.full img.main {
 figure.full figcaption {
   position: absolute;
   left: 0px;
-  bottom: 0px;
+  bottom: 100px;
   width: 100%;
-  height: 40%;
+  height: auto;
   z-index: 2;
 }
 @media (max-width: 767px) {
   figure.full figcaption {
-    height: 25%;
+    bottom: 10%;
   }
 }
 figure.full figcaption .container {
@@ -979,6 +985,9 @@ figure.full figcaption .container {
 
 .about-page p {
   margin-top: 2em;
+  color: var(--dark-gray);
+  line-height: 24px;
+  font-size: 0.9em;
 }
 
 footer.desktop {
@@ -1003,21 +1012,10 @@ footer.desktop nav ul li:not(:first-child) {
   margin-left: 1.5em;
 }
 footer.desktop nav ul li a {
-  position: relative;
-  cursor: pointer;
+  color: #ffffff;
 }
-footer.desktop nav ul li a::before {
-  content: "";
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  height: 1px;
-  background-color: currentColor;
-  width: 0px;
-  transition: var(--transition);
-}
-footer.desktop nav ul li a:hover::before, footer.desktop nav ul li a:focus::before, footer.desktop nav ul li a:active::before {
-  width: 100%;
+footer.desktop nav ul li a:hover, footer.desktop nav ul li a:focus, footer.desktop nav ul li a:active {
+  opacity: 0.7;
 }
 footer.mobile {
   display: flex;
@@ -1032,7 +1030,7 @@ footer.mobile > div {
 }
 @media (max-width: 575px) {
   footer.mobile > div {
-    padding: 1em 5%;
+    padding: 1.5em 5%;
   }
 }
 footer.mobile ul li:not(:first-child) {
@@ -1043,7 +1041,7 @@ footer.mobile ul li:not(:first-child) {
   position: fixed;
   right: 2vw;
   top: 12vh;
-  background-color: rgb(var(--color-1-rgb)/100%);
+  background-color: #111111;
   color: var(--color-2);
   max-width: 300px;
   padding: 15px;
@@ -1130,7 +1128,11 @@ footer.mobile ul li:not(:first-child) {
   flex-direction: column;
   align-items: start;
   gap: 30px;
-  padding: 40px;
+}
+@media (max-width: 767px) {
+  .locale-modal .modal-body {
+    padding: 2em;
+  }
 }
 .locale-modal .text {
   font-size: 14px;
@@ -1145,18 +1147,12 @@ footer.mobile ul li:not(:first-child) {
   padding-left: 0px;
   display: flex;
   align-items: center;
-  margin-top: 1.5em;
-}
-@media (max-width: 767px) {
-  .locale-modal .flags {
-    display: none;
-  }
 }
 .locale-modal .flags li:not(:first-child) {
   margin-left: 1.5em;
 }
 .locale-modal .flags li button {
-  width: 2.5em;
+  width: 4em;
 }
 .locale-modal .flags li button img {
   width: 100%;
