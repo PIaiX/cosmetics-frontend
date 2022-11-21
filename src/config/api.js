@@ -1,6 +1,15 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const apiRoutes = {
+    // auth
+    AUTH_REGISTRATION: '/auth/registration',
+    AUTH_ACTIVATE: '/auth/activate',
+    AUTH_LOGIN: '/auth/login',
+    AUTH_CHECK: '/auth/check',
+    AUTH_REFRESH: '/auth/refresh',
+    AUTH_LOGOUT: '/auth/logout',
+    AUTH_RECOVERY: '/auth/recovery',
+
     // category
     CATEGORY_ALL: '/category/all',
     CATEGORY_ONE: '/category/one',
@@ -16,6 +25,10 @@ const apiRoutes = {
 }
 
 const apiResponseMessages = {
+    // auth
+    REGISTRATION: 'Вы успешно зарегистрировались и активировали свой аккаунт',
+    RECOVERY: 'Ваш пароль был успешно обновлен',
+
     // cart
     CART_CREATE: 'Товар был успешно добавлен в корзину',
     CART_EDIT: 'Корзина обновлена',

@@ -10,10 +10,13 @@ import {setCurrency, setLocale} from './store/reducers/localeSlice'
 import messages from './assets/i18n/messages'
 import LOCALES from './assets/i18n/locales'
 import CURRENCY from './assets/i18n/currency'
+import {checkAuth} from './store/actions/auth'
+import {setLoadingRefresh} from './store/reducers/authSlice'
 
 const App = () => {
     const dispatch = useDispatch()
     const locale = useSelector((state) => state?.locale?.value)
+    const isLoadingRefresh = useSelector((state) => state?.auth?.isLoadingRefresh)
     const [isShowLocaleModal, setIsShowLocaleModal] = useState(false)
 
     const onChooseLocale = useCallback((locale, currency) => {
@@ -25,6 +28,15 @@ const App = () => {
     useEffect(() => {
         if (!locale) setIsShowLocaleModal(true)
     }, [locale])
+
+    // initial auth check
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            dispatch(checkAuth())
+        } else {
+            dispatch(setLoadingRefresh(false))
+        }
+    }, [])
 
     return (
         <IntlProvider locale={locale} messages={messages[locale]} defaultLocale={LOCALES.ENGLISH}>
