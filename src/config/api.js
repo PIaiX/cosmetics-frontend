@@ -21,6 +21,9 @@ const apiResponseMessages = {
     CART_EDIT: 'Корзина обновлена',
     CART_DELETE: 'Товар был удален из корзины',
 
+    // Checkout
+    ORDER_CREATE: '/order/create',
+
     // promo
     PROMO_APPLY: 'Промокод активирован',
 }
@@ -35,4 +38,4 @@ const apiErrors = {
     PROMO_NOT_FOUND: 'PROMO_NOT_FOUND',
 }
 
-export {BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors}
+export { BASE_URL, apiRoutes, apiResponseMessages, apiRejectMessages, apiErrors }
