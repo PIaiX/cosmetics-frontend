@@ -102,7 +102,7 @@ const messages = {
     [LOCALES.RUSSIAN]: {
         shop: 'Магазин',
         search: 'Поиск',
-        about: 'О компании',
+        about: 'О Компании',
         stockist: 'Точки продаж',
         payment: 'Оплата',
         delivery: 'Доставка',
