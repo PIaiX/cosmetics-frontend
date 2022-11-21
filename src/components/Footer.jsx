@@ -9,7 +9,8 @@ import {Link} from 'react-router-dom'
 import {FormattedMessage, useIntl} from 'react-intl'
 import {useDispatch, useSelector} from 'react-redux'
 import LOCALES from '../assets/i18n/locales'
-import {setLocale} from '../store/reducers/localeSlice'
+import {setCurrency, setLocale} from '../store/reducers/localeSlice'
+import CURRENCY from '../assets/i18n/currency'
 
 const Footer = () => {
     const intl = useIntl()
@@ -19,8 +20,9 @@ const Footer = () => {
     const [open, setOpen] = useState(false)
     const [open2, setOpen2] = useState(false)
 
-    const onChooseLocale = useCallback((locale) => {
+    const onChooseLocale = useCallback((locale, currency) => {
         dispatch(setLocale({value: locale}))
+        dispatch(setCurrency({currency}))
         setOpen(false)
     }, [])
 
@@ -42,9 +44,9 @@ const Footer = () => {
                 </button>
                 <Collapse in={open}>
                     <ul className="locales-list list-unstyled mt-3">
-                        <li onClick={() => onChooseLocale(LOCALES.RUSSIAN)}>Русский</li>
-                        <li onClick={() => onChooseLocale(LOCALES.ENGLISH)}>English</li>
-                        <li onClick={() => onChooseLocale(LOCALES.JAPANESE)}>日本語</li>
+                        <li onClick={() => onChooseLocale(LOCALES.RUSSIAN, CURRENCY.RUSSIAN)}>Русский</li>
+                        <li onClick={() => onChooseLocale(LOCALES.ENGLISH, CURRENCY.ENGLISH)}>English</li>
+                        <li onClick={() => onChooseLocale(LOCALES.JAPANESE, CURRENCY.JAPANESE)}>日本語</li>
                     </ul>
                 </Collapse>
             </div>

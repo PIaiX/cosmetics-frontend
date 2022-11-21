@@ -1,12 +1,15 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import {Link} from 'react-router-dom'
 import {getImageURL} from '../helpers/image'
 import {FormattedMessage} from 'react-intl'
 import {useDispatch, useSelector} from 'react-redux'
 import {cartCreate, cartDelete} from '../store/actions/cart'
+import LOCALES from '../assets/i18n/locales'
 
 const ProductCard = ({product = {}}) => {
     const dispatch = useDispatch()
+    const locale = useSelector((state) => state?.locale?.value)
+    const currency = useSelector((state) => state?.locale?.currency)
     const cart = useSelector((state) => state?.cart?.items)
     const productId = +product?.id
     const cartItem = useMemo(() => {
@@ -25,12 +28,31 @@ const ProductCard = ({product = {}}) => {
         <div className="product-card">
             <figure>
                 <Link to={`/product/${product?.id}`}>
-                    {/* todo: need to add swiper */}
-                    <img src={getImageURL()} alt={product?.title} />
+                    <img
+                        src={getImageURL(
+                            Array.isArray(product?.images) && product?.images?.length && product?.images[0]?.media
+                        )}
+                        alt={product?.title}
+                    />
                     <figcaption>
-                        <h4>{product?.title}</h4>
-                        <p className="fs-09 mb-1 mb-sm-2">{product?.miniDescription}</p>
-                        <p>{product?.price}</p>
+                        <h4>
+                            {locale === LOCALES.RUSSIAN && product?.title}
+                            {locale === LOCALES.ENGLISH && product?.title_us}
+                            {locale === LOCALES.ENGLAND && product?.title_uk}
+                            {locale === LOCALES.JAPANESE && product?.title_ja}
+                        </h4>
+                        <p className="fs-09 mb-1 mb-sm-2">
+                            {locale === LOCALES.RUSSIAN && product?.miniDescription}
+                            {locale === LOCALES.ENGLISH && product?.miniDescription_us}
+                            {locale === LOCALES.ENGLAND && product?.miniDescription_uk}
+                            {locale === LOCALES.JAPANESE && product?.miniDescription_ja}
+                        </p>
+                        <p>
+                            {locale === LOCALES.RUSSIAN && `${product?.price} ${currency}`}
+                            {locale === LOCALES.ENGLISH && `${product?.price_us} ${currency}`}
+                            {locale === LOCALES.ENGLAND && `${product?.price_uk} ${currency}`}
+                            {locale === LOCALES.JAPANESE && `${product?.price_ja} ${currency}`}
+                        </p>
                     </figcaption>
                 </Link>
             </figure>

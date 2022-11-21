@@ -7,11 +7,10 @@ import Logo from '../components/Logo'
 import Recommendations from '../components/Recommendations'
 import {IoAddOutline, IoRemoveOutline} from 'react-icons/io5'
 import {useParams} from 'react-router-dom'
-import {getProduct, getProductRecommendations} from '../services/product'
+import {getProduct} from '../services/product'
 import {getImageURL} from '../helpers/image'
 import {useDispatch, useSelector} from 'react-redux'
 import {cartCreate, cartDelete, cartEdit} from '../store/actions/cart'
-
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -20,6 +19,7 @@ import Loader from '../components/UI/Loader'
 import {FormattedMessage, useIntl} from 'react-intl'
 import {getCategoryRecommendations} from '../services/category'
 import LOCALES from '../assets/i18n/locales'
+import ReactPlayer from 'react-player'
 
 const Product = () => {
     const intl = useIntl()
@@ -27,6 +27,7 @@ const Product = () => {
     let {productId} = useParams()
     productId = +productId
     const locale = useSelector((state) => state?.locale?.value)
+    const currency = useSelector((state) => state?.locale?.currency)
     const cart = useSelector((state) => state?.cart?.items)
     const cartItem = useMemo(() => {
         return cart?.length && cart.find((item) => +item?.id === productId)
@@ -116,10 +117,6 @@ const Product = () => {
         }
     }, [product?.item])
 
-    useEffect(() => {
-        console.log(product)
-    }, [product])
-
     return (
         <main className="inner">
             <Container>
@@ -139,15 +136,29 @@ const Product = () => {
                                         pagination={{clickable: true}}
                                         className="photo-slider"
                                     >
-                                        <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title} />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title} />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <img src={getImageURL()} alt={product?.item?.title} />
-                                        </SwiperSlide>
+                                        {Array.isArray(product?.item?.images) && product?.item?.images?.length ? (
+                                            product.item.images.map((item, index) =>
+                                                item?.type === 'video' ? (
+                                                    <SwiperSlide className="video-slide" key={index}>
+                                                        <ReactPlayer
+                                                            url={getImageURL(item?.media)}
+                                                            className="react-player"
+                                                            width="100%"
+                                                            height="220px"
+                                                            controls={true}
+                                                        />
+                                                    </SwiperSlide>
+                                                ) : (
+                                                    <SwiperSlide key={index}>
+                                                        <img src={getImageURL(item?.media)} alt="photo" />
+                                                    </SwiperSlide>
+                                                )
+                                            )
+                                        ) : (
+                                            <SwiperSlide>
+                                                <img src={getImageURL()} alt="no-photo" />
+                                            </SwiperSlide>
+                                        )}
                                     </Swiper>
                                 </Col>
                             </Row>
@@ -250,13 +261,27 @@ const Product = () => {
                                         className={`${cartItem ? 'btn-2' : 'btn-1'} flex-1 ms-5`}
                                         onClick={onSelectProduct}
                                     >
-                                        {cartItem ? (
-                                            <FormattedMessage id="addedToCart" />
-                                        ) : product?.item?.price ? (
-                                            `${intl.formatMessage({id: 'addToCart'})} - ${product?.item?.price}`
-                                        ) : (
-                                            <FormattedMessage id="addToCart" />
-                                        )}
+                                        {!cartItem &&
+                                            product?.item?.price > 0 &&
+                                            `${intl.formatMessage({id: 'addToCart'})} - `}
+                                        {!cartItem &&
+                                            product?.item?.price > 0 &&
+                                            locale === LOCALES.RUSSIAN &&
+                                            product?.item?.price}
+                                        {!cartItem &&
+                                            product?.item?.price_us > 0 &&
+                                            locale === LOCALES.ENGLISH &&
+                                            product?.item?.price_us}
+                                        {!cartItem &&
+                                            product?.item?.price_uk > 0 &&
+                                            locale === LOCALES.ENGLAND &&
+                                            product?.item?.price_uk}
+                                        {!cartItem &&
+                                            product?.item?.price_ja > 0 &&
+                                            locale === LOCALES.JAPANESE &&
+                                            product?.item?.price_ja}
+                                        {!cartItem && product?.item?.price > 0 && ` ${currency}`}
+                                        {!!cartItem && <FormattedMessage id="addedToCart" />}
                                     </button>
                                 ) : (
                                     <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
@@ -272,7 +297,7 @@ const Product = () => {
                                 categoryRecommendations?.items?.length > 0 ? (
                                     <Recommendations
                                         products={categoryRecommendations?.items}
-                                        title="Посмотрите еще"
+                                        title={intl.formatMessage({id: 'seeMore'})}
                                     />
                                 ) : null
                             ) : (

@@ -2,11 +2,14 @@ import React, {useCallback, useTransition} from 'react'
 import {Link} from 'react-router-dom'
 import {IoCloseOutline} from 'react-icons/io5'
 import {getImageURL} from '../helpers/image'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {cartDelete, cartEdit} from '../store/actions/cart'
+import LOCALES from '../assets/i18n/locales'
 
-const CartItem = ({item = {}}) => {
+const CartItem = ({item = {}, onClickLink}) => {
     const dispatch = useDispatch()
+    const locale = useSelector((state) => state?.locale?.value)
+    const currency = useSelector((state) => state?.locale?.currency)
     const [isPending, startTransition] = useTransition()
 
     const inputUpdateCart = useCallback(
@@ -25,13 +28,23 @@ const CartItem = ({item = {}}) => {
     )
 
     return (
-        <div className="cart-item">
+        <div className="cart-item" onClick={() => onClickLink()}>
             <div className="title">
-                <Link to="/">{item?.title}</Link>
+                <Link to={`/product/${item?.id}`}>
+                    {locale === LOCALES.RUSSIAN && item?.title}
+                    {locale === LOCALES.ENGLISH && item?.title_us}
+                    {locale === LOCALES.ENGLAND && item?.title_uk}
+                    {locale === LOCALES.JAPANESE && item?.title_ja}
+                </Link>
             </div>
-            <div className="img">
-                <Link to="/">
-                    <img src={getImageURL()} alt={item?.title} />
+            <div className="img" onClick={() => onClickLink()}>
+                <Link to={`/product/${item?.id}`}>
+                    <img
+                        src={getImageURL(
+                            Array.isArray(item?.images) && item?.images?.length && item?.images[0]?.media
+                        )}
+                        alt={item?.title}
+                    />
                 </Link>
             </div>
             <div className="count">
