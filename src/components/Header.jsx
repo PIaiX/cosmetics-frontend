@@ -124,7 +124,7 @@ const Header = () => {
     return (
         <>
             <header ref={isShowHeader} className="h-show">
-                <Container>
+                <Container className='gx-0'>
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
                     </Link>
@@ -132,6 +132,7 @@ const Header = () => {
                         <ul className="list-unstyled">
                             <li>
                                 <button
+                                    className='active'
                                     type="button"
                                     onClick={() => setIsShowOffcanvas({...initialOffcanvas, shop: true})}
                                 >
@@ -241,7 +242,7 @@ const Header = () => {
                                 </div>
                                 <button
                                     type="button"
-                                    className="m-w-100 btn-1 ms-auto mt-3 px-5"
+                                    className="m-w-100 btn-1 fs-09 ms-auto mt-3 px-5"
                                     onClick={() => {
                                         navigate('/checkout')
                                         setIsShowOffcanvas((prev) => ({...prev, cart: false}))
