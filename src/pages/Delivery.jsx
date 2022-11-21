@@ -17,7 +17,7 @@ const Delivery = () => {
                             <p className="dark-gray">
                                 <strong>ПО&nbsp;ВОПРОСАМ ДОСТАВКИ &nbsp;</strong>,{' '}
                                 <strong>
-                                    <a href="https://t.me/borninarmenia" target="_blank">
+                                    <a href="https://t.me/borninarmenia" target="_blank" rel="noreferrer">
                                         TELEGRAM
                                     </a>
                                     &nbsp;<a href="https://t.me/borninarmenia">https://t.me/borninarmenia</a>
@@ -40,7 +40,7 @@ const Delivery = () => {
                                 <br />
                                 Стоимость и сроки доставки можно уточнить самостоятельно, написав нам в&nbsp;
                                 <strong>
-                                    <a href="https://t.me/borninarmenia" target="_blank">
+                                    <a href="https://t.me/borninarmenia" target="_blank" rel="noreferrer">
                                         TELEGRAM
                                     </a>
                                     &nbsp;<a href="https://t.me/borninarmenia">https://t.me/borninarmenia</a>

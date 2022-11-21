@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {Link} from 'react-router-dom'
 import {getImageURL} from '../helpers/image'
 import {FormattedMessage} from 'react-intl'
@@ -35,7 +35,7 @@ const ProductCard = ({product = {}}) => {
                         alt={product?.title}
                     />
                     <figcaption>
-                        <h4 className='fs-09'>
+                        <h4 className="fs-09">
                             {locale === LOCALES.RUSSIAN && product?.title}
                             {locale === LOCALES.ENGLISH && product?.title_us}
                             {locale === LOCALES.ENGLAND && product?.title_uk}
@@ -47,7 +47,7 @@ const ProductCard = ({product = {}}) => {
                             {locale === LOCALES.ENGLAND && product?.miniDescription_uk}
                             {locale === LOCALES.JAPANESE && product?.miniDescription_ja}
                         </p>
-                        <p className='fs-09'>
+                        <p className="fs-09">
                             {locale === LOCALES.RUSSIAN && `${product?.price} ${currency}`}
                             {locale === LOCALES.ENGLISH && `${product?.price_us} ${currency}`}
                             {locale === LOCALES.ENGLAND && `${product?.price_uk} ${currency}`}

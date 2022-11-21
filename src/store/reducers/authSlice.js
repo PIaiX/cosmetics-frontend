@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {refreshAuth, login, logout, checkAuth} from '../actions/auth'
+import {checkAuth, login, logout, refreshAuth} from '../actions/auth'
 
 const initialState = {
     isLoadingRefresh: true,
