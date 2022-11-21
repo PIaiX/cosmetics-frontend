@@ -20,6 +20,7 @@ import {FormattedMessage, useIntl} from 'react-intl'
 import {getCategoryRecommendations} from '../services/category'
 import LOCALES from '../assets/i18n/locales'
 import ReactPlayer from 'react-player'
+import Info from '../components/UI/Info'
 
 const Product = () => {
     const intl = useIntl()
@@ -121,193 +122,220 @@ const Product = () => {
         <main className="inner">
             <Container>
                 <Logo />
-                <section className="product-page mb-8">
-                    <Row className="mb-8">
-                        <Col md={6}>
-                            <Row>
-                                <Col xs={12} xl={3}>
-                                    <h2>{product?.item?.category}</h2>
-                                </Col>
-                                <Col xs={12} xl={9}>
-                                    {/* todo: need to add swiper */}
-                                    <Swiper
-                                        loop={false}
-                                        modules={[Pagination]}
-                                        pagination={{clickable: true}}
-                                        className="photo-slider"
-                                    >
-                                        {Array.isArray(product?.item?.images) && product?.item?.images?.length ? (
-                                            product.item.images.map((item, index) =>
-                                                item?.type === 'video' ? (
-                                                    <SwiperSlide className="video-slide" key={index}>
-                                                        <ReactPlayer
-                                                            url={getImageURL(item?.media)}
-                                                            className="react-player"
-                                                            width="100%"
-                                                            height="220px"
-                                                            controls={true}
-                                                        />
-                                                    </SwiperSlide>
+                {!product?.error ? (
+                    product?.isLoaded ? (
+                        <section className="product-page mb-8">
+                            <Row className="mb-8">
+                                <Col md={6}>
+                                    <Row>
+                                        <Col xs={12} xl={3}>
+                                            <h2>{product?.item?.category}</h2>
+                                        </Col>
+                                        <Col xs={12} xl={9}>
+                                            {/* todo: need to add swiper */}
+                                            <Swiper
+                                                loop={false}
+                                                modules={[Pagination]}
+                                                pagination={{clickable: true}}
+                                                className="photo-slider"
+                                            >
+                                                {Array.isArray(product?.item?.images) &&
+                                                product?.item?.images?.length ? (
+                                                    product.item.images.map((item, index) =>
+                                                        item?.type === 'video' ? (
+                                                            <SwiperSlide className="video-slide" key={index}>
+                                                                <ReactPlayer
+                                                                    url={getImageURL(item?.media)}
+                                                                    className="react-player"
+                                                                    width="100%"
+                                                                    height="220px"
+                                                                    controls={true}
+                                                                />
+                                                            </SwiperSlide>
+                                                        ) : (
+                                                            <SwiperSlide key={index}>
+                                                                <img src={getImageURL(item?.media)} alt="photo" />
+                                                            </SwiperSlide>
+                                                        )
+                                                    )
                                                 ) : (
-                                                    <SwiperSlide key={index}>
-                                                        <img src={getImageURL(item?.media)} alt="photo" />
+                                                    <SwiperSlide>
+                                                        <img src={getImageURL()} alt="no-photo" />
                                                     </SwiperSlide>
-                                                )
-                                            )
-                                        ) : (
-                                            <SwiperSlide>
-                                                <img src={getImageURL()} alt="no-photo" />
-                                            </SwiperSlide>
+                                                )}
+                                            </Swiper>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col md={6} xl={5}>
+                                    <h1>
+                                        {locale === LOCALES.RUSSIAN && product?.item?.title}
+                                        {locale === LOCALES.ENGLISH && product?.item?.title_us}
+                                        {locale === LOCALES.ENGLAND && product?.item?.title_uk}
+                                        {locale === LOCALES.JAPANESE && product?.item?.title_ja}
+                                    </h1>
+                                    <h6 className="mb-5">
+                                        {locale === LOCALES.RUSSIAN && product?.item?.miniDescription}
+                                        {locale === LOCALES.ENGLISH && product?.item?.miniDescription_us}
+                                        {locale === LOCALES.ENGLAND && product?.item?.miniDescription_uk}
+                                        {locale === LOCALES.JAPANESE && product?.item?.miniDescription_ja}
+                                    </h6>
+                                    <p>
+                                        {locale === LOCALES.RUSSIAN && product?.item?.description}
+                                        {locale === LOCALES.ENGLISH && product?.item?.description_us}
+                                        {locale === LOCALES.ENGLAND && product?.item?.description_uk}
+                                        {locale === LOCALES.JAPANESE && product?.item?.description_ja}
+                                    </p>
+
+                                    <ul className="info-list list-unstyled mt-5">
+                                        <li>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setIsShowCollapse((prev) => ({
+                                                        ...prev,
+                                                        indicationsForUse: !prev.indicationsForUse,
+                                                    }))
+                                                }
+                                                aria-expanded={isShowCollapse.indicationsForUse}
+                                            >
+                                                <span>
+                                                    <FormattedMessage id="indicationsForUse" />
+                                                </span>
+                                                {isShowCollapse.indicationsForUse ? (
+                                                    <IoRemoveOutline />
+                                                ) : (
+                                                    <IoAddOutline />
+                                                )}
+                                            </button>
+                                            <Collapse in={isShowCollapse.indicationsForUse}>
+                                                <div>
+                                                    <p className="p-3">
+                                                        {locale === LOCALES.RUSSIAN &&
+                                                            product?.item?.indicationsForUse}
+                                                        {locale === LOCALES.ENGLISH &&
+                                                            product?.item?.indicationsForUse_us}
+                                                        {locale === LOCALES.ENGLAND &&
+                                                            product?.item?.indicationsForUse_uk}
+                                                        {locale === LOCALES.JAPANESE &&
+                                                            product?.item?.indicationsForUse_ja}
+                                                    </p>
+                                                </div>
+                                            </Collapse>
+                                        </li>
+                                        <li>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setIsShowCollapse((prev) => ({
+                                                        ...prev,
+                                                        activeIngredients: !prev.activeIngredients,
+                                                    }))
+                                                }
+                                                aria-expanded={isShowCollapse.activeIngredients}
+                                            >
+                                                <span>
+                                                    <FormattedMessage id="activeIngredients" />
+                                                </span>
+                                                {isShowCollapse.activeIngredients ? (
+                                                    <IoRemoveOutline />
+                                                ) : (
+                                                    <IoAddOutline />
+                                                )}
+                                            </button>
+                                            <Collapse in={isShowCollapse.activeIngredients}>
+                                                <div>
+                                                    <p className="p-3">
+                                                        {locale === LOCALES.RUSSIAN &&
+                                                            product?.item?.activeIngredients}
+                                                        {locale === LOCALES.ENGLISH &&
+                                                            product?.item?.activeIngredients_us}
+                                                        {locale === LOCALES.ENGLAND &&
+                                                            product?.item?.activeIngredients_uk}
+                                                        {locale === LOCALES.JAPANESE &&
+                                                            product?.item?.activeIngredients_ja}
+                                                    </p>
+                                                </div>
+                                            </Collapse>
+                                        </li>
+                                    </ul>
+                                    <div className="d-flex justify-content-between align-items-stretch mt-5">
+                                        {product?.item?.leftovers > 0 && (
+                                            <div className="count-input">
+                                                <button type="button" onClick={() => updateCart('minus')}>
+                                                    <IoRemoveOutline />
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    value={product?.item?.count || 0}
+                                                    onChange={(e) => inputUpdateCart(e.target.value)}
+                                                />
+                                                <button type="button" onClick={() => updateCart()}>
+                                                    <IoAddOutline />
+                                                </button>
+                                            </div>
                                         )}
-                                    </Swiper>
+                                        {product?.item?.leftovers > 0 ? (
+                                            <button
+                                                type="button"
+                                                className={`${cartItem ? 'btn-2' : 'btn-1'} flex-1 ms-5`}
+                                                onClick={onSelectProduct}
+                                            >
+                                                {!cartItem &&
+                                                    product?.item?.price > 0 &&
+                                                    `${intl.formatMessage({id: 'addToCart'})} - `}
+                                                {!cartItem &&
+                                                    product?.item?.price > 0 &&
+                                                    locale === LOCALES.RUSSIAN &&
+                                                    product?.item?.price}
+                                                {!cartItem &&
+                                                    product?.item?.price_us > 0 &&
+                                                    locale === LOCALES.ENGLISH &&
+                                                    product?.item?.price_us}
+                                                {!cartItem &&
+                                                    product?.item?.price_uk > 0 &&
+                                                    locale === LOCALES.ENGLAND &&
+                                                    product?.item?.price_uk}
+                                                {!cartItem &&
+                                                    product?.item?.price_ja > 0 &&
+                                                    locale === LOCALES.JAPANESE &&
+                                                    product?.item?.price_ja}
+                                                {!cartItem && product?.item?.price > 0 && ` ${currency}`}
+                                                {!!cartItem && <FormattedMessage id="addedToCart" />}
+                                            </button>
+                                        ) : (
+                                            <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
+                                                OUT OF STOCK
+                                            </button>
+                                        )}
+                                    </div>
                                 </Col>
                             </Row>
-                        </Col>
-                        <Col md={6} xl={5}>
-                            <h1>
-                                {locale === LOCALES.RUSSIAN && product?.item?.title}
-                                {locale === LOCALES.ENGLISH && product?.item?.title_us}
-                                {locale === LOCALES.ENGLAND && product?.item?.title_uk}
-                                {locale === LOCALES.JAPANESE && product?.item?.title_ja}
-                            </h1>
-                            <h6 className="mb-5">
-                                {locale === LOCALES.RUSSIAN && product?.item?.miniDescription}
-                                {locale === LOCALES.ENGLISH && product?.item?.miniDescription_us}
-                                {locale === LOCALES.ENGLAND && product?.item?.miniDescription_uk}
-                                {locale === LOCALES.JAPANESE && product?.item?.miniDescription_ja}
-                            </h6>
-                            <p>
-                                {locale === LOCALES.RUSSIAN && product?.item?.description}
-                                {locale === LOCALES.ENGLISH && product?.item?.description_us}
-                                {locale === LOCALES.ENGLAND && product?.item?.description_uk}
-                                {locale === LOCALES.JAPANESE && product?.item?.description_ja}
-                            </p>
-
-                            <ul className="info-list list-unstyled mt-5">
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() =>
-                                            setIsShowCollapse((prev) => ({
-                                                ...prev,
-                                                indicationsForUse: !prev.indicationsForUse,
-                                            }))
-                                        }
-                                        aria-expanded={isShowCollapse.indicationsForUse}
-                                    >
-                                        <span>
-                                            <FormattedMessage id="indicationsForUse" />
-                                        </span>
-                                        {isShowCollapse.indicationsForUse ? <IoRemoveOutline /> : <IoAddOutline />}
-                                    </button>
-                                    <Collapse in={isShowCollapse.indicationsForUse}>
-                                        <div>
-                                            <p className="p-3">
-                                                {locale === LOCALES.RUSSIAN && product?.item?.indicationsForUse}
-                                                {locale === LOCALES.ENGLISH && product?.item?.indicationsForUse_us}
-                                                {locale === LOCALES.ENGLAND && product?.item?.indicationsForUse_uk}
-                                                {locale === LOCALES.JAPANESE && product?.item?.indicationsForUse_ja}
-                                            </p>
+                            <Row>
+                                {!categoryRecommendations?.error ? (
+                                    categoryRecommendations?.isLoaded ? (
+                                        categoryRecommendations?.items?.length > 0 ? (
+                                            <Recommendations
+                                                products={categoryRecommendations?.items}
+                                                title={intl.formatMessage({id: 'seeMore'})}
+                                            />
+                                        ) : null
+                                    ) : (
+                                        <div className="d-flex justify-content-center align-items-center">
+                                            <Loader />
                                         </div>
-                                    </Collapse>
-                                </li>
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() =>
-                                            setIsShowCollapse((prev) => ({
-                                                ...prev,
-                                                activeIngredients: !prev.activeIngredients,
-                                            }))
-                                        }
-                                        aria-expanded={isShowCollapse.activeIngredients}
-                                    >
-                                        <span>
-                                            <FormattedMessage id="activeIngredients" />
-                                        </span>
-                                        {isShowCollapse.activeIngredients ? <IoRemoveOutline /> : <IoAddOutline />}
-                                    </button>
-                                    <Collapse in={isShowCollapse.activeIngredients}>
-                                        <div>
-                                            <p className="p-3">
-                                                {locale === LOCALES.RUSSIAN && product?.item?.activeIngredients}
-                                                {locale === LOCALES.ENGLISH && product?.item?.activeIngredients_us}
-                                                {locale === LOCALES.ENGLAND && product?.item?.activeIngredients_uk}
-                                                {locale === LOCALES.JAPANESE && product?.item?.activeIngredients_ja}
-                                            </p>
-                                        </div>
-                                    </Collapse>
-                                </li>
-                            </ul>
-                            <div className="d-flex justify-content-between align-items-stretch mt-5">
-                                {product?.item?.leftovers > 0 && (
-                                    <div className="count-input">
-                                        <button type="button" onClick={() => updateCart('minus')}>
-                                            <IoRemoveOutline />
-                                        </button>
-                                        <input
-                                            type="number"
-                                            value={product?.item?.count || 0}
-                                            onChange={(e) => inputUpdateCart(e.target.value)}
-                                        />
-                                        <button type="button" onClick={() => updateCart()}>
-                                            <IoAddOutline />
-                                        </button>
-                                    </div>
-                                )}
-                                {product?.item?.leftovers > 0 ? (
-                                    <button
-                                        type="button"
-                                        className={`${cartItem ? 'btn-2' : 'btn-1'} flex-1 ms-5`}
-                                        onClick={onSelectProduct}
-                                    >
-                                        {!cartItem &&
-                                            product?.item?.price > 0 &&
-                                            `${intl.formatMessage({id: 'addToCart'})} - `}
-                                        {!cartItem &&
-                                            product?.item?.price > 0 &&
-                                            locale === LOCALES.RUSSIAN &&
-                                            product?.item?.price}
-                                        {!cartItem &&
-                                            product?.item?.price_us > 0 &&
-                                            locale === LOCALES.ENGLISH &&
-                                            product?.item?.price_us}
-                                        {!cartItem &&
-                                            product?.item?.price_uk > 0 &&
-                                            locale === LOCALES.ENGLAND &&
-                                            product?.item?.price_uk}
-                                        {!cartItem &&
-                                            product?.item?.price_ja > 0 &&
-                                            locale === LOCALES.JAPANESE &&
-                                            product?.item?.price_ja}
-                                        {!cartItem && product?.item?.price > 0 && ` ${currency}`}
-                                        {!!cartItem && <FormattedMessage id="addedToCart" />}
-                                    </button>
-                                ) : (
-                                    <button type="button" disabled className="btn-3 fw-7 w-100 mt-2 mt-sm-4">
-                                        OUT OF STOCK
-                                    </button>
-                                )}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        {!categoryRecommendations?.error ? (
-                            categoryRecommendations?.isLoaded ? (
-                                categoryRecommendations?.items?.length > 0 ? (
-                                    <Recommendations
-                                        products={categoryRecommendations?.items}
-                                        title={intl.formatMessage({id: 'seeMore'})}
-                                    />
-                                ) : null
-                            ) : (
-                                <div className="d-flex justify-content-center align-items-center">
-                                    <Loader />
-                                </div>
-                            )
-                        ) : null}
-                    </Row>
-                </section>
+                                    )
+                                ) : null}
+                            </Row>
+                        </section>
+                    ) : (
+                        <div className="p-5 d-flex justify-content-center align-items-center">
+                            <Loader color="#000" />
+                        </div>
+                    )
+                ) : (
+                    <Info>Не удалось загрузить данный товар</Info>
+                )}
             </Container>
         </main>
     )
