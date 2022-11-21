@@ -35,19 +35,19 @@ const ProductCard = ({product = {}}) => {
                         alt={product?.title}
                     />
                     <figcaption>
-                        <h4>
+                        <h4 className='fs-09'>
                             {locale === LOCALES.RUSSIAN && product?.title}
                             {locale === LOCALES.ENGLISH && product?.title_us}
                             {locale === LOCALES.ENGLAND && product?.title_uk}
                             {locale === LOCALES.JAPANESE && product?.title_ja}
                         </h4>
-                        <p className="fs-09 mb-1 mb-sm-2">
+                        <p className="fs-08 mb-1 mb-sm-2">
                             {locale === LOCALES.RUSSIAN && product?.miniDescription}
                             {locale === LOCALES.ENGLISH && product?.miniDescription_us}
                             {locale === LOCALES.ENGLAND && product?.miniDescription_uk}
                             {locale === LOCALES.JAPANESE && product?.miniDescription_ja}
                         </p>
-                        <p>
+                        <p className='fs-09'>
                             {locale === LOCALES.RUSSIAN && `${product?.price} ${currency}`}
                             {locale === LOCALES.ENGLISH && `${product?.price_us} ${currency}`}
                             {locale === LOCALES.ENGLAND && `${product?.price_uk} ${currency}`}
