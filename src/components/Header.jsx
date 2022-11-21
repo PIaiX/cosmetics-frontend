@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {Link, useNavigate, useSearchParams} from 'react-router-dom'
 import Accordion from 'react-bootstrap/Accordion'
 import Container from 'react-bootstrap/Container'
@@ -24,6 +24,8 @@ const Header = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const cart = useSelector((state) => state?.cart)
+    const locale = useSelector((state) => state?.locale?.value)
+    const currency = useSelector((state) => state?.locale?.currency)
     const initialOffcanvas = {
         shop: false,
         search: false,
@@ -64,10 +66,27 @@ const Header = () => {
         }
     }, [isShowOffcanvas.search])
 
+    const defineLocaleSum = useCallback(
+        (item = {}) => {
+            if (item?.count) {
+                if (locale === LOCALES.RUSSIAN) return item?.price * item?.count
+                if (locale === LOCALES.ENGLISH) return item?.price_us * item?.count
+                if (locale === LOCALES.ENGLAND) return item?.price_uk * item?.count
+                if (locale === LOCALES.JAPANESE) return item?.price_ja * item?.count
+            } else {
+                if (locale === LOCALES.RUSSIAN) return item?.price
+                if (locale === LOCALES.ENGLISH) return item?.price_us
+                if (locale === LOCALES.ENGLAND) return item?.price_uk
+                if (locale === LOCALES.JAPANESE) return item?.price_ja
+            }
+        },
+        [locale]
+    )
+
     const computedCartSum = useMemo(() => {
         if (cart?.items?.length)
-            return cart.items.reduce((accumulator, currentValue) => {
-                return accumulator + currentValue?.price
+            return cart.items.reduce((acc, item) => {
+                return acc + defineLocaleSum(item)
             }, 0)
     }, [cart?.items])
 
@@ -107,7 +126,7 @@ const Header = () => {
     return (
         <>
             <header ref={isShowHeader} className="h-show">
-                <Container>
+                <Container className="gx-0">
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
                     </Link>
@@ -115,6 +134,7 @@ const Header = () => {
                         <ul className="list-unstyled">
                             <li>
                                 <button
+                                    className="active"
                                     type="button"
                                     onClick={() => setIsShowOffcanvas({...initialOffcanvas, shop: true})}
                                 >
@@ -224,7 +244,7 @@ const Header = () => {
                                 </div>
                                 <button
                                     type="button"
-                                    className="m-w-100 btn-1 ms-auto mt-3 px-5"
+                                    className="m-w-100 btn-1 fs-09 ms-auto mt-3 px-5"
                                     onClick={() => {
                                         navigate('/checkout')
                                         setIsShowOffcanvas((prev) => ({...prev, cart: false}))

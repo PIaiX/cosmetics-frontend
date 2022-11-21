@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Link} from 'react-router-dom'
@@ -8,10 +8,17 @@ import PhoneInput from 'react-phone-input-2'
 import CitySelect from '../UI/CitySelect'
 import {FormattedMessage, useIntl} from 'react-intl'
 import {useSelector} from 'react-redux'
+import useDebounce from '../../hooks/useDebounce'
+import {getPromoDiscount} from '../../services/promo'
+import {dispatchAlert, dispatchApiErrorAlert} from '../../helpers/alert'
+import {apiResponseMessages} from '../../config/api'
+import LOCALES from '../../assets/i18n/locales'
 
 const CheckoutForm = ({onSubmit}) => {
     const initialDeliveryPrice = 500
     const cart = useSelector((state) => state?.cart)
+    const locale = useSelector((state) => state?.locale?.value)
+    const currency = useSelector((state) => state?.locale?.currency)
     const intl = useIntl()
     const {
         register,
@@ -19,13 +26,82 @@ const CheckoutForm = ({onSubmit}) => {
         handleSubmit,
         control,
         getValues,
+        watch,
+        setValue,
     } = useForm({mode: 'all', reValidateMode: 'onSubmit'})
+    const debouncedApplyCodeInput = useDebounce(watch('applyCode'))
+    const [cartSum, setCartSum] = useState(0)
 
-    const computedCartSum = useMemo(() => {
-        if (cart?.items?.length)
-            return cart.items.reduce((accumulator, currentValue) => {
-                return accumulator + currentValue?.price
-            }, 0)
+    const defineLocaleDiscount = useCallback(
+        (item = {}, data = {}) => {
+            if (data?.procent) {
+                if (locale === LOCALES.RUSSIAN)
+                    return (item?.price - (item.price * +data?.procent) / 100) * item?.count
+                if (locale === LOCALES.ENGLISH)
+                    return (item?.price_us - (item.price_us * +data?.procent) / 100) * item?.count
+                if (locale === LOCALES.ENGLAND)
+                    return (item?.price_uk - (item.price_uk * +data?.procent) / 100) * item?.count
+                if (locale === LOCALES.JAPANESE)
+                    return (item?.price_ja - (item.price_ja * +data?.procent) / 100) * item?.count
+            } else {
+                if (locale === LOCALES.RUSSIAN) return item?.price * item?.count
+                if (locale === LOCALES.ENGLISH) return item?.price_us * item?.count
+                if (locale === LOCALES.ENGLAND) return item?.price_uk * item?.count
+                if (locale === LOCALES.JAPANESE) return item?.price_ja * item?.count
+            }
+        },
+        [locale]
+    )
+
+    const computeCartSum = useCallback(
+        (data = {}) => {
+            const cartItems = cart?.items
+
+            if (data?.procent) {
+                const discountSum =
+                    cartItems?.length &&
+                    cartItems.reduce((acc, item) => {
+                        if (item?.categoryId === data?.categoryId) {
+                            return acc + defineLocaleDiscount(item, data)
+                        } else if (item?.productId === data?.productId) {
+                            return acc + defineLocaleDiscount(item, data)
+                        } else return acc + defineLocaleDiscount(item, data)
+                    }, 0)
+
+                setCartSum(discountSum)
+            } else {
+                const sum =
+                    cartItems?.length &&
+                    cartItems.reduce((acc, item) => {
+                        return acc + defineLocaleDiscount(item)
+                    }, 0)
+
+                setCartSum(sum)
+            }
+        },
+        [cart?.items, defineLocaleDiscount]
+    )
+
+    useEffect(() => {
+        if (debouncedApplyCodeInput) {
+            getPromoDiscount({promo: debouncedApplyCodeInput})
+                .then((res) => {
+                    if (res?.type === 'SUCCESS') {
+                        computeCartSum(res?.promo)
+                        dispatchAlert('success', apiResponseMessages.PROMO_APPLY)
+                    }
+                })
+                .catch((error) => {
+                    if (error) {
+                        dispatchApiErrorAlert(error)
+                    }
+                })
+        } else setCartSum(0)
+    }, [computeCartSum, debouncedApplyCodeInput])
+
+    useEffect(() => {
+        // define initial sum
+        cart?.items?.length && computeCartSum()
     }, [cart?.items])
 
     return (
@@ -155,10 +231,10 @@ const CheckoutForm = ({onSubmit}) => {
                 <Col xs={12} md={4}>
                     <Form.Group>
                         <Form.Control
-                            className={errors?.house ? 'error' : ''}
+                            className={errors?.home ? 'error' : ''}
                             type="text"
-                            placeholder={intl.formatMessage({id: 'house'})}
-                            {...register('house', {
+                            placeholder={intl.formatMessage({id: 'home'})}
+                            {...register('home', {
                                 required: true,
                             })}
                         />
@@ -177,10 +253,10 @@ const CheckoutForm = ({onSubmit}) => {
                 <Col xs={12} md={4}>
                     <Form.Group>
                         <Form.Control
-                            className={errors?.flat ? 'error' : ''}
+                            className={errors?.apartment ? 'error' : ''}
                             type="text"
-                            placeholder={intl.formatMessage({id: 'flat'})}
-                            {...register('flat', {
+                            placeholder={intl.formatMessage({id: 'apartment'})}
+                            {...register('apartment', {
                                 required: true,
                             })}
                         />
@@ -211,7 +287,8 @@ const CheckoutForm = ({onSubmit}) => {
                             className={errors?.applyCode ? 'error' : ''}
                             type="text"
                             placeholder={intl.formatMessage({id: 'applyCode'})}
-                            {...register('applyCode')}
+                            onChange={(e) => setValue('applyCode', e.target.value)}
+                            value={watch('applyCode') || ''}
                         />
                     </Form.Group>
                 </Col>
@@ -222,7 +299,7 @@ const CheckoutForm = ({onSubmit}) => {
                         <span>
                             <FormattedMessage id="sum" />:
                         </span>
-                        <span>{computedCartSum}</span>
+                        <span>{cartSum}</span>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-1">
                         <span>
@@ -234,7 +311,7 @@ const CheckoutForm = ({onSubmit}) => {
                         <span>
                             <FormattedMessage id="total" />:
                         </span>
-                        <span>{computedCartSum + initialDeliveryPrice}</span>
+                        <span>{cartSum + initialDeliveryPrice}</span>
                     </div>
                 </Col>
                 <Col>

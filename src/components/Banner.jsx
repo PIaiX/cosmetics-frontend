@@ -10,10 +10,10 @@ const Banner = (props) => {
                 <Link to={props.link}>
                     <img src={props.imgUrl} alt={props.title} className="main" />
                     <figcaption>
-                        <Container>
+                        <Container className="gx-0">
                             {props.main === true && <Logo className="logo d-none d-md-block" />}
-                            <h2 className="mt-5 mb-2">{props.title}</h2>
-                            {props.info && <h2>{props.info}</h2>}
+                            <h2 className="mb-0">{props.title}</h2>
+                            {props.info && <h2 className="mb-0">{props.info}</h2>}
                         </Container>
                     </figcaption>
                 </Link>

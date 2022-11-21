@@ -28,8 +28,8 @@ const CartItem = ({item = {}, onClickLink}) => {
     )
 
     return (
-        <div className="cart-item" onClick={() => onClickLink()}>
-            <div className="title">
+        <div className="cart-item">
+            <div className="title" onClick={() => onClickLink()}>
                 <Link to={`/product/${item?.id}`}>
                     {locale === LOCALES.RUSSIAN && item?.title}
                     {locale === LOCALES.ENGLISH && item?.title_us}

@@ -52,39 +52,45 @@ const Category = () => {
             <Container>
                 <Logo />
                 {!category?.error ? (
-                    <section className="mb-8">
-                        <div className="mb-8">
-                            {category?.products?.length > 0 && category?.item?.title && (
-                                <h1>{category?.item?.title}</h1>
-                            )}
-                            {category?.products?.length > 0 ? (
-                                <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
-                                    {category.products.map((item) => (
-                                        <Col key={item?.id}>
-                                            <ProductCard product={item} />
-                                        </Col>
-                                    ))}
-                                </Row>
-                            ) : (
-                                <Info>В данной категории нет товаров</Info>
-                            )}
-                        </div>
+                    category?.isLoaded ? (
+                        <section className="mb-8">
+                            <div className="mb-8">
+                                {category?.products?.length > 0 && category?.item?.title && (
+                                    <h1>{category?.item?.title}</h1>
+                                )}
+                                {category?.products?.length > 0 ? (
+                                    <Row xs={1} sm={2} md={3} xl={4} className="gy-5 gx-4 g-xxl-5">
+                                        {category.products.map((item) => (
+                                            <Col key={item?.id}>
+                                                <ProductCard product={item} />
+                                            </Col>
+                                        ))}
+                                    </Row>
+                                ) : (
+                                    <Info>В данной категории нет товаров</Info>
+                                )}
+                            </div>
 
-                        {!categoryRecommendations?.error ? (
-                            categoryRecommendations?.isLoaded ? (
-                                categoryRecommendations?.items?.length > 0 ? (
-                                    <Recommendations
-                                        products={categoryRecommendations?.items}
-                                        title="Посмотрите еще"
-                                    />
-                                ) : null
-                            ) : (
-                                <div className="d-flex justify-content-center align-items-center">
-                                    <Loader />
-                                </div>
-                            )
-                        ) : null}
-                    </section>
+                            {!categoryRecommendations?.error ? (
+                                categoryRecommendations?.isLoaded ? (
+                                    categoryRecommendations?.items?.length > 0 ? (
+                                        <Recommendations
+                                            products={categoryRecommendations?.items}
+                                            title="Посмотрите еще"
+                                        />
+                                    ) : null
+                                ) : (
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <Loader />
+                                    </div>
+                                )
+                            ) : null}
+                        </section>
+                    ) : (
+                        <div className="p-5 d-flex justify-content-center align-items-center">
+                            <Loader color="#000" />
+                        </div>
+                    )
                 ) : (
                     <Info>Не удалось загрузить товары данной категории</Info>
                 )}

@@ -7,7 +7,7 @@ $color-2: #ffffff;
 
 :root {
     --h-height: 90px;
-    --f-height: 250px;
+    --f-height: 252px;
     --transition: 300ms ease;
     --color-1: #111111;
     --color-1-rgb: 17 17 17;
@@ -48,7 +48,7 @@ $color-2: #ffffff;
     &::before {
         content: '';
         position: absolute;
-        bottom: 0px;
+        bottom: -1px;
         left: 0px;
         height: 1px;
         background-color: currentColor;
@@ -57,7 +57,8 @@ $color-2: #ffffff;
     }
     &:hover,
     &:focus,
-    &:active {
+    &:active,
+    &.active {
         &::before {
             width: 100%;
         }
@@ -223,6 +224,7 @@ button {
     outline: none;
     color: inherit;
     cursor: pointer;
+    letter-spacing: 0.04em;
 }
 
 .btn {
@@ -238,6 +240,7 @@ button {
     &-1 {
         @extend .btn;
         background: rgba($color: $color-1, $alpha: 1);
+        border: 1px solid rgba($color: $color-1, $alpha: 1);
         color: var(--color-2);
 
         &:hover,
@@ -246,6 +249,7 @@ button {
         &.active {
             color: var(--color-2);
             background: rgba($color: $color-1, $alpha: 0.75);
+            border: 1px solid rgba($color: $color-1, $alpha: 0.75);
         }
 
         &:disabled {
@@ -324,10 +328,12 @@ button {
 
 form.search {
     position: relative;
+    width: 220px;
 
     input {
         position: relative;
         z-index: 1;
+        padding: 0.75em 0;
     }
 
     button {
@@ -352,28 +358,29 @@ form.search {
 
 h1 {
     font-size: 1.8em;
-    font-weight: 500;
+    font-weight: bold;
     text-align: left;
     margin-bottom: 1em;
 }
 
 h2 {
-    font-size: 1.5em;
-    font-weight: 500;
+    font-size: 1.375em;
+    font-weight: bold;
     text-align: left;
+    line-height: 163%;
     margin-bottom: 1em;
 }
 
 h3 {
     font-size: 1.25em;
-    font-weight: 500;
+    font-weight: bold;
     text-align: left;
     margin-bottom: 1em;
 }
 
 h4 {
     font-size: 1em;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 0.5em;
@@ -381,7 +388,7 @@ h4 {
 
 h5 {
     font-size: 1em;
-    font-weight: 500;
+    font-weight: bold;
     font-style: italic;
     text-align: left;
     margin-bottom: 0.25em;
@@ -574,7 +581,8 @@ header {
     width: 100%;
     z-index: 1200;
     height: var(--h-height);
-    background-color: rgba($color: $color-2, $alpha: 0.85);
+    padding-top: 20px;
+    // background-color: rgba($color: $color-2, $alpha: 0.85);
     transition: top var(--transition);
 
     &.h-show {
@@ -600,11 +608,13 @@ header {
 
                 li {
                     &:not(:first-child) {
-                        margin-left: 2em;
+                        margin-left: 40px;
                     }
 
                     button {
                         @include link();
+                        font-size: 0.9em;
+                        line-height: 150%;
                     }
                 }
             }
@@ -613,10 +623,12 @@ header {
         .btn-cart {
             display: block;
             position: relative;
-            width: 2em;
-            height: 2em;
-            background: url(images/bag-icon.png) no-repeat center;
+            width: 30px;
+            height: 40px;
+            background: url(images/bag.png) no-repeat center;
             background-size: contain;
+            margin-bottom: 8px;
+            margin-right: -5px;
             @media (max-width: 767px) {
                 width: 2.5em;
                 height: 2.5em;
@@ -625,11 +637,10 @@ header {
             span {
                 position: absolute;
                 z-index: 1;
-                bottom: 5%;
+                bottom: 7px;
                 left: 0%;
                 width: 100%;
-                font-size: 0.75em;
-                font-weight: 500;
+                font-size: 12px;
                 @media (max-width: 767px) {
                     font-size: 0.9em;
                 }
@@ -645,22 +656,33 @@ header {
 .offcanvas {
     border: none !important;
 
+    &-backdrop.show {
+        opacity: 0.8;
+    }
+
     &.offcanvas-end {
         border: none;
-        width: 900px;
+        width: 930px;
         z-index: 1200;
         @media (max-width: 991px) {
             width: 750px;
         }
+
+        .offcanvas-body {
+            padding: 50px 10%;
+        }
     }
 
     &.offcanvas-start {
+        width: 446px;
+
         @media (max-width: 767px) {
             width: 100%;
         }
 
         .offcanvas-body {
             padding: calc(var(--h-height) + 2em) 3em 2em;
+            padding-left: calc((100vw - 17px) / 20);
         }
     }
 
@@ -753,6 +775,7 @@ header {
 }
 
 .cart {
+    font-size: 0.9em;
     &-item {
         display: grid;
         grid-template-columns: auto 60px 100px 80px 50px;
@@ -773,7 +796,7 @@ header {
         }
 
         &:first-child {
-            padding: 1.5em 0px;
+            padding: 0px 0px 1.5em;
             @media (max-width: 767px) {
                 padding: 1em 0px;
                 .title {
@@ -898,8 +921,8 @@ main {
 }
 
 .logo {
-    width: 110px;
-    height: 80px;
+    width: 104px;
+    height: 72px;
     @media (max-width: 767px) {
         width: 80px;
         height: 60px;
@@ -922,7 +945,7 @@ figure.full {
     figcaption {
         position: absolute;
         left: 0px;
-        bottom: 100px;
+        bottom: 125px;
         width: 100%;
         height: auto;
         z-index: 2;
@@ -935,6 +958,10 @@ figure.full {
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        .logo {
+            margin-bottom: 86px;
         }
     }
 }
@@ -1016,6 +1043,10 @@ figure.full {
             }
         }
     }
+
+    p {
+        white-space: pre-wrap;
+    }
 }
 
 .about-page {
@@ -1029,7 +1060,7 @@ figure.full {
 
 footer {
     &.desktop {
-        padding: 2em 0;
+        padding: 37px 0 30px;
         height: var(--f-height);
         background-color: var(--color-1);
         color: var(--color-2);
@@ -1050,7 +1081,7 @@ footer {
 
                 li {
                     &:not(:first-child) {
-                        margin-left: 1.5em;
+                        margin-left: 29px;
                     }
 
                     a {

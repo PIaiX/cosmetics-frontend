@@ -113,7 +113,7 @@ const Footer = () => {
         </footer>
     ) : (
         <footer className="desktop">
-            <Container>
+            <Container className="gx-0">
                 <div className="d-flex justify-content-between">
                     <div>
                         <div className="d-block mb-3">
