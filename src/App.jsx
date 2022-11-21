@@ -12,6 +12,7 @@ import LOCALES from './assets/i18n/locales'
 import CURRENCY from './assets/i18n/currency'
 import {checkAuth} from './store/actions/auth'
 import {setLoadingRefresh} from './store/reducers/authSlice'
+import Loader from './components/UI/Loader'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const App = () => {
         }
     }, [])
 
-    return (
+    return !isLoadingRefresh ? (
         <IntlProvider locale={locale} messages={messages[locale]} defaultLocale={LOCALES.ENGLISH}>
             <AppRouter />
 
@@ -80,6 +81,8 @@ const App = () => {
                 </>
             </CustomModal>
         </IntlProvider>
+    ) : (
+        <Loader full />
     )
 }
 

@@ -7,18 +7,16 @@ import AdminMenu from '../components/AdminMenu'
 
 const AdminLayout = () => {
     return (
-        <main className="admin">
+        <main className="inner">
             <Container>
-                <section className="pt-sm-5 pt-0 pb-5">
-                    <Row>
-                        <Col xs={12} md={4}>
-                            <AdminMenu />
-                        </Col>
-                        <Col xs={12} md={8}>
-                            <Outlet />
-                        </Col>
-                    </Row>
-                </section>
+                <Row>
+                    <Col xs={12} md={3}>
+                        <AdminMenu />
+                    </Col>
+                    <Col xs={12} md={8}>
+                        <Outlet />
+                    </Col>
+                </Row>
             </Container>
         </main>
     )

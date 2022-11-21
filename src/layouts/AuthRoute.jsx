@@ -5,9 +5,9 @@ import {useSelector} from 'react-redux'
 const AuthRoute = ({admin, children}) => {
     const auth = useSelector((state) => state?.auth)
     if (admin) {
-        return auth.isAuth && auth.user.role == 'admin' ? children : <Navigate to="/" />
+        return auth.isAuth && auth.user.role == 'admin' ? children : <Navigate to="/admin/login" />
     } else {
-        return auth.isAuth ? children : <Navigate to="/" />
+        return auth.isAuth ? children : <Navigate to="/admin/login" />
     }
 }
 

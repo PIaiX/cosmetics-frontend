@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loader = ({full = false, size = 60, color = '#fff', speed = '0.6s'}) => {
+const Loader = ({full = false, size = 60, color = '#000', speed = '0.6s'}) => {
     const Icon = () => {
         return (
             <svg

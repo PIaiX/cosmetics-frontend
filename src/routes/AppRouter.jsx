@@ -17,6 +17,7 @@ import Error from '../pages/Error'
 import Loader from '../components/UI/Loader'
 import Preloader from '../components/UI/Preloader'
 import AdminRounter from './AdminRouter'
+import Login from '../pages/admin/Login'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
             <Route path="delivery" element={<Delivery />} loader={() => <Preloader />} />
             <Route path="public-offer" element={<PublicOffer />} loader={() => <Preloader />} />
             <Route path="contacts" element={<Contacts />} loader={() => <Preloader />} />
+            <Route path="admin/login" element={<Login />} loader={() => <Preloader />} />
             <Route
                 path="admin/*"
                 element={
@@ -42,7 +44,9 @@ const router = createBrowserRouter(
                         <AdminRounter />
                     </AuthRoute>
                 }
+                loader={() => <Preloader />}
             />
+
             <Route path="*" element={<NotFound />} loader={() => <Preloader />} />
         </Route>
     )
