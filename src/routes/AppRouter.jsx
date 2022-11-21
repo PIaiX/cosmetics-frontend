@@ -1,6 +1,7 @@
 import React from 'react'
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import AppLayout from '../layouts/AppLayout'
+import AuthRoute from '../layouts/AuthRoute'
 import Home from '../pages/Home'
 import About from '../pages/About'
 import NotFound from '../pages/NotFound'
@@ -15,6 +16,7 @@ import Checkout from '../pages/Checkout'
 import Error from '../pages/Error'
 import Loader from '../components/UI/Loader'
 import Preloader from '../components/UI/Preloader'
+import AdminRounter from './AdminRouter'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +35,14 @@ const router = createBrowserRouter(
             <Route path="delivery" element={<Delivery />} loader={() => <Preloader />} />
             <Route path="public-offer" element={<PublicOffer />} loader={() => <Preloader />} />
             <Route path="contacts" element={<Contacts />} loader={() => <Preloader />} />
+            <Route
+                path="admin/*"
+                element={
+                    <AuthRoute admin>
+                        <AdminRounter />
+                    </AuthRoute>
+                }
+            />
             <Route path="*" element={<NotFound />} loader={() => <Preloader />} />
         </Route>
     )
