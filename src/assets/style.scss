@@ -613,7 +613,7 @@ header {
 
                     button {
                         @include link();
-                        font-size: .9em;
+                        font-size: 0.9em;
                         line-height: 150%;
                     }
                 }
@@ -657,7 +657,7 @@ header {
     border: none !important;
 
     &-backdrop.show {
-        opacity: .8;
+        opacity: 0.8;
     }
 
     &.offcanvas-end {
@@ -682,7 +682,7 @@ header {
 
         .offcanvas-body {
             padding: calc(var(--h-height) + 2em) 3em 2em;
-            padding-left: calc((100vw - 17px)/20);
+            padding-left: calc((100vw - 17px) / 20);
         }
     }
 
@@ -775,7 +775,7 @@ header {
 }
 
 .cart {
-    font-size: .9em;
+    font-size: 0.9em;
     &-item {
         display: grid;
         grid-template-columns: auto 60px 100px 80px 50px;
@@ -1044,7 +1044,9 @@ figure.full {
         }
     }
 
-    p {white-space: pre-wrap;}
+    p {
+        white-space: pre-wrap;
+    }
 }
 
 .about-page {

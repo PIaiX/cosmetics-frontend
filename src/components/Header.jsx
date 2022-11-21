@@ -124,7 +124,7 @@ const Header = () => {
     return (
         <>
             <header ref={isShowHeader} className="h-show">
-                <Container className='gx-0'>
+                <Container className="gx-0">
                     <Link to="/" className="d-md-none">
                         <Logo className="logo" />
                     </Link>
@@ -132,7 +132,7 @@ const Header = () => {
                         <ul className="list-unstyled">
                             <li>
                                 <button
-                                    className='active'
+                                    className="active"
                                     type="button"
                                     onClick={() => setIsShowOffcanvas({...initialOffcanvas, shop: true})}
                                 >
