@@ -43,10 +43,6 @@ const Category = () => {
         }
     }, [categoryId, category?.item])
 
-    useEffect(() => {
-        console.log('categoryRecommendations', categoryRecommendations)
-    }, [categoryRecommendations])
-
     return (
         <main className="inner">
             <Container>

@@ -7,7 +7,7 @@ import Logo from '../components/Logo'
 const Payment = () => {
     return (
         <main className="inner">
-            <Container className='pb-4'>
+            <Container className="pb-4">
                 <Logo />
                 <section className="about-page mb-8">
                     <h1>Оплата</h1>

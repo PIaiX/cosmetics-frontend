@@ -14,7 +14,7 @@ const PointsOfSale = () => {
                     <img src="/images/where.png" alt="where to buy" className="img-fluid d-block mx-auto my-5" />
                     <Row className="justify-content-center fs-09 dark-gray">
                         <Col xs={12} lg={{span: 6, offset: 2}}>
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Erevan, Armenia</div>
                                 <div className="fw-7 mb-4">Sirun Ankyun</div>
                                 <div className="fw-7 mb-4">Location:</div>
@@ -25,7 +25,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Paris, France</div>
                                 <div className="fw-7 mb-4">My Green Brands</div>
                                 <div className="fw-7 mb-4">Location:</div>
@@ -36,7 +36,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Prague,Czech Respublic</div>
                                 <div className="fw-7 mb-4">Naqed</div>
                                 <div className="fw-7 mb-4">Location:</div>
@@ -52,7 +52,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Москва,Россия</div>
                                 <div className="fw-7 mb-4">Veter Shop</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -65,7 +65,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">11.00-20.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fw-7 mb-4">Бутик Aizel</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
                                 <div className="mb-4">Столешников переулок, д. 10/3</div>
@@ -73,7 +73,7 @@ const PointsOfSale = () => {
                                 <div>Пн-Сб с 11 до 22, Вс с 12 до 22</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fw-7 mb-4">Золотое Яблоко</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
                                 <div className="mb-4">ТЦ МЕТРОПОЛИС, Ленинградское шоссе, 16Ас4</div>
@@ -81,7 +81,7 @@ const PointsOfSale = () => {
                                 <div>10.00-23.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fw-7 mb-4">Магазины Leform</div>
                                 <div className="fw-7 mb-4">Адреса:</div>
                                 <div className="mb-4">
@@ -97,13 +97,13 @@ const PointsOfSale = () => {
                                 <div>c 11:00 до 22:00</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fw-7 mb-4">Студия йоги Funny Studio</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
                                 <div className="mb-4">Ермолаевсrий переулок, 4</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">МО, Бузаево</div>
                                 <div className="fw-7 mb-4">Магазин Амбар</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -114,7 +114,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">МО, Сколково</div>
                                 <div className="fw-7 mb-4">Магазин Сезоны</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -127,7 +127,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">8.00-23.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Санкт-Петербург</div>
                                 <div className="fw-7 mb-4">Gleam</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -140,7 +140,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">12.00-19.00</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fw-7 mb-4">MORE BEAUTY</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
                                 <div className="mb-4">Дальневосточный пр.12 к.2</div>
@@ -152,7 +152,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">10.00-22.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Самара</div>
                                 <div className="fw-7 mb-4">Цветочный дом GardenN</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -165,7 +165,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">11.00-20.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Сочи</div>
                                 <div className="fw-7 mb-4">Paeonia</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -178,7 +178,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">10.00-22.00</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Минск, Беларусь</div>
                                 <div className="fw-7 mb-4">Пряная Луна</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -195,7 +195,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Стокгольм, Швеция</div>
                                 <div className="fw-7 mb-4">Фаблаб</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -206,7 +206,7 @@ const PointsOfSale = () => {
                                 </div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Вильнюс, Литва</div>
                                 <div className="fw-7 mb-4">Молекула</div>
                                 <div className="fw-7 mb-4">Адрес:</div>
@@ -219,7 +219,7 @@ const PointsOfSale = () => {
                                 <div className="mb-4">10.00-19.00, ежедневно</div>
                             </div>
 
-                            <div className='mb-5'>
+                            <div className="mb-5">
                                 <div className="fst-italic mb-4">Лондон, Великобритания</div>
                                 <div className="fw-7 mb-4">Oxygen Boutique</div>
                                 <div className="fw-7 mb-4">Адрес:</div>

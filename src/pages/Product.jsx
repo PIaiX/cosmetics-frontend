@@ -118,6 +118,10 @@ const Product = () => {
         }
     }, [product?.item])
 
+    useEffect(() => {
+        console.log(product)
+    }, [product])
+
     return (
         <main className="inner">
             <Container>
