@@ -11,7 +11,7 @@ const Delivery = () => {
                 <Logo />
                 <section className="about-page mb-8">
                     <h1>Доставка</h1>
-                    <img src="/images/delivery.jpg" alt="delivery" className="img-fluid mb-5" />
+                    <img src="/images/delivery.jpg" alt="delivery" className="img-fluid d-block mx-auto my-5" />
                     <Row className="justify-content-center">
                         <Col xs={12} lg={{span: 6, offset: 2}}>
                             <p className="dark-gray">
