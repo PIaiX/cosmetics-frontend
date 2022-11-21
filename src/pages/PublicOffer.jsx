@@ -11,8 +11,8 @@ const PublicOffer = () => {
                 <Logo />
                 <section className="about-page mb-8">
                     <h1>Публичная оферта</h1>
-                    <Row className="justify-content-center">
-                        <Col xs={12} lg={8} xl={6}>
+                    <Row className="justify-content-center fs-09 dark-gray">
+                        <Col xs={12} lg={{span: 6, offset: 2}}>
                             <p>
                                 1. ТЕРМИНЫ И ОПРЕДЕЛЕНИЯ&nbsp;
                                 <br />

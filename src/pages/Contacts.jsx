@@ -11,15 +11,19 @@ const Contacts = () => {
                 <Logo />
                 <section className="mb-8">
                     <h1>Контакты</h1>
-                    <img src="/images/about.jpg" alt="about" className="img-fluid mb-4" />
-                    <Row className="justify-content-center">
-                        <Col xs={12} lg={8} xl={6} xxl={4}>
-                            <h3>ПО ВОПРОСАМ СОТРУДНИЧЕСТВА:</h3>
-                            <p className="mb-3">
-                                <a href="mailto:HELLO@2211COSMETICS.COM​">HELLO@2211COSMETICS.COM​</a>
+                    <img src="/images/about.jpg" alt="about" className="img-fluid my-5" />
+                    <Row className="justify-content-center fs-09 dark-gray">
+                        <Col xs={12} lg={{span: 6, offset: 2}}>
+                            <p className="blockTitle">Контакты:</p>
+                            <p>
+                                <strong>НАШ ТЕЛЕГРАМ-КАНАЛ:</strong>
+                                <br /> <a href="https://t.me/borninarmenia2211">https://t.me/borninarmenia2211</a>
+                                <br /> <strong>ПО ВОПРОСАМ СОТРУДНИЧЕСТВА:</strong>
+                                <br />
+                                HELLO<a href="mailto:INFO@2211COSMETICS.COM">@2211COSMETICS.COM</a>&ZeroWidthSpace;
                             </p>
                             <p>
-                                <a href="https://t.me/borninarmenia">TELEGRAM https://t.me/borninarmenia</a>
+                                TELEGRAM&nbsp;<a href="https://t.me/borninarmenia">https://t.me/borninarmenia</a>
                             </p>
                         </Col>
                     </Row>

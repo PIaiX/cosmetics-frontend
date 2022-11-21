@@ -11,13 +11,13 @@ const Delivery = () => {
                 <Logo />
                 <section className="about-page mb-8">
                     <h1>Доставка</h1>
-                    <img src="/images/delivery.jpg" alt="delivery" className="img-fluid mb-5" />
+                    <img src="/images/delivery.jpg" alt="delivery" className="img-fluid d-block mx-auto my-5" />
                     <Row className="justify-content-center">
                         <Col xs={12} lg={{span: 6, offset: 2}}>
                             <p className="dark-gray">
                                 <strong>ПО&nbsp;ВОПРОСАМ ДОСТАВКИ &nbsp;</strong>,{' '}
                                 <strong>
-                                    <a href="https://t.me/borninarmenia" target="_blank">
+                                    <a href="https://t.me/borninarmenia" target="_blank" rel="noreferrer">
                                         TELEGRAM
                                     </a>
                                     &nbsp;<a href="https://t.me/borninarmenia">https://t.me/borninarmenia</a>
@@ -40,7 +40,7 @@ const Delivery = () => {
                                 <br />
                                 Стоимость и сроки доставки можно уточнить самостоятельно, написав нам в&nbsp;
                                 <strong>
-                                    <a href="https://t.me/borninarmenia" target="_blank">
+                                    <a href="https://t.me/borninarmenia" target="_blank" rel="noreferrer">
                                         TELEGRAM
                                     </a>
                                     &nbsp;<a href="https://t.me/borninarmenia">https://t.me/borninarmenia</a>

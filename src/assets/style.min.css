@@ -337,7 +337,7 @@ form.search button:focus svg {
     stroke-width: 1px;
 }
 h1 {
-    font-size: 1.8em;
+    font-size: 1.375em;
     font-weight: bold;
     text-align: left;
     margin-bottom: 1em;
@@ -588,8 +588,9 @@ header .container .btn-cart {
 }
 @media (max-width: 767px) {
     header .container .btn-cart {
-        width: 2.5em;
-        height: 2.5em;
+        width: 35px;
+        margin-bottom: 0px;
+        margin-right: 0px;
     }
 }
 header .container .btn-cart span {
@@ -602,7 +603,8 @@ header .container .btn-cart span {
 }
 @media (max-width: 767px) {
     header .container .btn-cart span {
-        font-size: 0.9em;
+        bottom: 5px;
+        font-size: 14px;
     }
 }
 header .container .btn-menu {
@@ -867,7 +869,7 @@ main {
     min-height: calc(100vh - var(--f-height));
 }
 main.inner {
-    padding-top: calc(var(--h-height) + 1em);
+    padding-top: calc(var(--h-height) + 40px);
 }
 .logo {
     width: 104px;
@@ -937,6 +939,21 @@ figure.full figcaption .logo {
     object-fit: contain;
     margin-bottom: 1em;
 }
+@media (max-width: 1199px) {
+    .product-card figure img {
+        height: 25vw;
+    }
+}
+@media (max-width: 767px) {
+    .product-card figure img {
+        height: 35vw;
+    }
+}
+@media (max-width: 575px) {
+    .product-card figure img {
+        height: 160px;
+    }
+}
 .product-card figure figcaption {
     text-align: center;
 }
@@ -958,6 +975,7 @@ figure.full figcaption .logo {
     align-items: center;
     border-bottom: 1px solid var(--color-1);
     padding: 0.5em 0;
+    font-size: 0.9em;
 }
 .product-page .photo-slider {
     position: relative;
@@ -982,12 +1000,17 @@ figure.full figcaption .logo {
 }
 .product-page p {
     white-space: pre-wrap;
+    font-size: 0.9em;
 }
 .about-page p {
     margin-top: 2em;
     color: var(--dark-gray);
     line-height: 24px;
     font-size: 0.9em;
+}
+.about-page .payment {
+    max-width: 400px;
+    width: 100%;
 }
 footer.desktop {
     padding: 37px 0 30px;
