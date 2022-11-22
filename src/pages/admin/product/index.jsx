@@ -10,7 +10,7 @@ import {IoTrashOutline} from 'react-icons/io5'
 import Button from '../../../components/UI/Button'
 import {customPrice} from '../../../helpers/product'
 import {Image} from 'react-bootstrap'
-import {getImageURL} from '../../../helpers/image'
+import {getImagesURL} from '../../../helpers/image'
 
 const AdminProducts = () => {
     const [products, setProducts] = useState({
@@ -32,7 +32,7 @@ const AdminProducts = () => {
             selector: 'images',
             width: '80px',
             center: true,
-            cell: (row) => <Image rounded className="product-micro-img" src={getImageURL(row.images)} />,
+            cell: (row) => <Image rounded className="product-micro-img" src={getImagesURL(row.images)} />,
         },
         {
             name: 'Название',
@@ -43,7 +43,7 @@ const AdminProducts = () => {
             name: 'Категория',
             selector: 'categoryId',
             width: '170px',
-            cell: (row) => row?.category?.title,
+            cell: (row) => row?.category,
         },
         {
             name: 'Цена',
@@ -135,7 +135,7 @@ const AdminProducts = () => {
             </Info>
         )
     }
-    console.log(products.pagination)
+
     return (
         <section className="products">
             <div className="d-flex flex-row justify-content-between align-items-center mb-4">

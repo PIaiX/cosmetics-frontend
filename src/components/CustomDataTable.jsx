@@ -5,13 +5,13 @@ createTheme(
     'solarized',
     {
         text: {
-            primary: '#fff',
+            primary: '#000',
         },
         background: {
-            default: '#181818',
+            default: '#fff',
         },
         divider: {
-            default: '#222222',
+            default: '#eee',
         },
     },
     'dark'
