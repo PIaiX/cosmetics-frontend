@@ -10,6 +10,7 @@ $radius-sm: 0.6em;
 $radius-xs: 0.4em;
 
 :root {
+    --scroll-bg: 0 0 0;
     --h-height: 90px;
     --f-height: 252px;
     --transition: 300ms ease;
@@ -1342,7 +1343,6 @@ footer {
                     }
 
                     &.active {
-                        color: $main-color;
                         background-color: #f9f9f9;
                         border-color: transparent;
                         border-bottom: 1px solid #eee;
@@ -1353,7 +1353,7 @@ footer {
                             left: -2.5px;
                             bottom: 0;
                             width: 5px;
-                            background-color: $main-color;
+                            background-color: #000;
                         }
                     }
 
@@ -1403,12 +1403,15 @@ footer {
     overflow: hidden;
     border-top-left-radius: $radius;
     border-top-right-radius: $radius;
+    margin-bottom: 40px;
     nav {
         border-bottom-left-radius: $radius;
         border-bottom-right-radius: $radius;
+        color: #000;
         svg {
             top: 25%;
             bottom: 0;
+            fill: #999;
         }
     }
     div {
@@ -1449,4 +1452,7 @@ footer {
     width: 35px;
     height: 35px;
     object-fit: cover;
+}
+.profile {
+    margin-bottom: 40px;
 }

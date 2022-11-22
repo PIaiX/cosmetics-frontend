@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 :root {
+  --scroll-bg: 0 0 0;
   --h-height: 90px;
   --f-height: 252px;
   --transition: 300ms ease;
@@ -1263,7 +1264,6 @@ footer.mobile ul li:not(:first-child) {
 }
 .account-nav ul li a.active,
 .account-nav ul li button.active {
-  color: #ff5252;
   background-color: #f9f9f9;
   border-color: transparent;
   border-bottom: 1px solid #eee;
@@ -1276,7 +1276,7 @@ footer.mobile ul li:not(:first-child) {
   left: -2.5px;
   bottom: 0;
   width: 5px;
-  background-color: #ff5252;
+  background-color: #000;
 }
 .account-nav ul li a svg,
 .account-nav ul li button svg {
@@ -1318,14 +1318,17 @@ footer.mobile ul li:not(:first-child) {
   overflow: hidden;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
+  margin-bottom: 40px;
 }
 .custom-table nav {
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em;
+  color: #000;
 }
 .custom-table nav svg {
   top: 25%;
   bottom: 0;
+  fill: #999;
 }
 .custom-table div {
   scrollbar-color: rgba(var(--scroll-bg)/0.75) transparent;
@@ -1366,4 +1369,8 @@ footer.mobile ul li:not(:first-child) {
   height: 35px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.profile {
+  margin-bottom: 40px;
 }/*# sourceMappingURL=style.css.map */
